@@ -23,11 +23,13 @@ export default function Index() {
         <div className="relative w-full max-w-sm mx-auto mb-8">
           <div className="rounded-[35px] h-12 shadow-md relative flex items-center justify-between px-4" style={{ backgroundColor: '#FFF6F6' }}>
             {/* Telegram Icon */}
-            <img
-              src="/telegram.png"
-              alt="Telegram"
-              className="w-7 h-7 opacity-80 flex-shrink-0 object-contain"
-            />
+            <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram">
+              <img
+                src="/telegram.png"
+                alt="Telegram"
+                className="w-7 h-7 opacity-80 flex-shrink-0 object-contain cursor-pointer hover:opacity-100 transition-opacity"
+              />
+            </a>
             
             {/* Center Logo */}
             <div className="flex items-center flex-1 justify-center">
@@ -68,7 +70,7 @@ export default function Index() {
                 }}
               ></div>
               <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/c227e8a25ca9e40aa5c5cd4a46be6991df62518f?width=858"
+                src="/me.png"
                 alt="Преподаватель английского языка"
                 className="w-full max-w-3xl h-auto rounded-lg shadow-lg relative z-10"
               />
@@ -180,19 +182,23 @@ export default function Index() {
             
             <div className="flex flex-col space-y-3 mt-6">
               <div className="flex items-center">
-                <img
-                  src="/instagram.png"
-                  alt="Instagram"
-                  className="w-6 h-6 mr-3 object-contain"
-                />
+                <a href="https://instagram.com/marat_english" target="_blank" rel="noopener noreferrer" title="Instagram">
+                  <img
+                    src="/instagram.png"
+                    alt="Instagram"
+                    className="w-6 h-6 mr-3 object-contain cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </a>
                 <span className="font-anonymous text-sm text-brand-gray">@marat_english</span>
               </div>
               <div className="flex items-center">
-                <img
-                  src="/telegram.png"
-                  alt="Telegram"
-                  className="w-6 h-6 mr-3 object-contain"
-                />
+                <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram">
+                  <img
+                    src="/telegram.png"
+                    alt="Telegram"
+                    className="w-6 h-6 mr-3 object-contain cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </a>
                 <span className="font-anonymous text-sm text-brand-gray">@maratenglish</span>
               </div>
             </div>
@@ -442,34 +448,34 @@ export default function Index() {
           {/* Contact Methods */}
           <div className="grid md:grid-cols-2 gap-6 max-w-lg mx-auto mb-8">
             {/* WhatsApp */}
-            <div className="flex flex-col items-center">
+            <a href="https://wa.me/79172676373" target="_blank" rel="noopener noreferrer" title="WhatsApp" className="flex flex-col items-center">
               <div className="w-8 h-8 mb-2">
                 <img
                   src="/whatsapp.png"
                   alt="WhatsApp"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain cursor-pointer hover:opacity-80 transition-opacity"
                 />
               </div>
               <span className="font-arsenal text-sm text-black text-center">
                 Написать в WhatsApp
               </span>
-            </div>
+            </a>
 
             {/* Telegram */}
-            <div className="flex flex-col items-center">
+            <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram" className="flex flex-col items-center">
               <div className="w-8 h-8 mb-2 relative">
                 <div className="w-full h-full rounded-full bg-[#EBE4E2] flex items-center justify-center">
                   <img
                     src="/telegram.png"
                     alt="Telegram"
-                    className="w-6 h-6 object-contain"
+                    className="w-6 h-6 object-contain cursor-pointer hover:opacity-80 transition-opacity"
                   />
                 </div>
               </div>
               <span className="font-arsenal text-sm text-black text-center">
                 Написать<br />в Telegram
               </span>
-            </div>
+            </a>
           </div>
         </div>
 
@@ -477,27 +483,29 @@ export default function Index() {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-6">
             {/* Instagram */}
-            <div className="flex items-center">
+            <a href="https://instagram.com/marat_english" target="_blank" rel="noopener noreferrer" title="Instagram" className="flex items-center">
               <img
                 src="/instagram.png"
                 alt="Instagram"
-                className="w-9 h-9 mr-2 object-contain"
+                className="w-9 h-9 mr-2 object-contain cursor-pointer hover:opacity-80 transition-opacity"
               />
               <span className="font-arsenal text-base text-black">
                 Страничка нельзяграмм
               </span>
-            </div>
+            </a>
           </div>
 
           <div className="flex items-center justify-center mt-4">
-            <img
-              src="/telegram.png"
-              alt="Telegram"
-              className="w-10 h-10 mr-2 object-contain"
-            />
-            <span className="font-arsenal text-base text-black">
-              Telegram-канал
-            </span>
+            <a href="https://t.me/maratenglish" target="_blank" rel="noopener noreferrer" title="Telegram Channel" className="flex items-center">
+              <img
+                src="/telegram.png"
+                alt="Telegram"
+                className="w-10 h-10 mr-2 object-contain cursor-pointer hover:opacity-80 transition-opacity"
+              />
+              <span className="font-arsenal text-base text-black">
+                Telegram-канал
+              </span>
+            </a>
           </div>
         </div>
 

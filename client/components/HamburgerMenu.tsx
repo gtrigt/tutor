@@ -73,7 +73,7 @@ export const HamburgerMenu = () => {
         {/* Social icons */}
         <div className="menu-social-right">
           <div className="social-icons-right">
-            <a href="https://t.me/gtrigt" className="social-icon-right" target="_blank" rel="noopener noreferrer" title="Telegram">
+            <a href="https://t.me/m/VX8q96qONjYy" className="social-icon-right" target="_blank" rel="noopener noreferrer" title="Telegram">
               <img
                 src="/telegram.png"
                 alt="Telegram"
