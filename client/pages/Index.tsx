@@ -34,7 +34,7 @@ export default function Index() {
             {/* Center Logo */}
             <div className="flex items-center flex-1 justify-center">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F2e709557d70d4204afc24524089c36c4%2Feea77c2980ab4c80a29406bf4abec5da?format=webp&width=800"
+                src="/logo.png"
                 alt="MF Logo"
                 className="w-auto h-[46px]"
                 style={{ transform: 'translateY(3px) translateX(-3px)' }}
@@ -65,20 +65,25 @@ export default function Index() {
                   minHeight: '260px',
                   left: '50%',
                   top: '48px',
-                  transform: 'translateX(-50%) translateY(20px)',
+                  transform: 'translateX(-50%) translateY(40px)',
                   paddingLeft: '55px',
                 }}
               ></div>
               <img
                 src="/me.png"
                 alt="Преподаватель английского языка"
-                className="w-full max-w-3xl h-auto rounded-lg shadow-lg relative z-10"
+                className="w-full max-w-md h-auto rounded-lg shadow-lg relative z-10"
+                style={{
+                  maxWidth: '280px',
+                  height: 'auto',
+                  objectFit: 'cover'
+                }}
               />
             </div>
           </div>
 
           {/* Scrolling text banner */}
-          <div className="bg-brand-primary h-10 md:h-12 flex items-center overflow-hidden mb-8 -mx-4" style={{ marginTop: '-30px', zIndex: 30, position: 'relative' }}>
+          <div className="bg-brand-primary h-10 md:h-12 flex items-center overflow-hidden mb-8 -mx-4" style={{ marginTop: '-10px', zIndex: 30, position: 'relative' }}>
             <div className="animate-marquee whitespace-nowrap">
               <span className="font-arsenal text-2xl md:text-4xl text-brand-accent">
                 НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ |
@@ -110,7 +115,7 @@ export default function Index() {
           {/* Language Learning */}
           <div className="relative group">
             <img 
-              src="https://api.builder.io/api/v1/image/assets/TEMP/1b758f1a7d12f1a0eef34d228ba74c1509c02d87?width=486" 
+              src="/english.png" 
               alt="Изучение языка" 
               className="w-full h-56 object-cover rounded-lg"
             />
@@ -123,7 +128,7 @@ export default function Index() {
           {/* Olympic Preparation */}
           <div className="relative group">
             <img 
-              src="https://api.builder.io/api/v1/image/assets/TEMP/615285697e210f1d0dd09aaa19c9df9261ac946d?width=490" 
+              src="/Mark.png" 
               alt="Олимпиадная подготовка" 
               className="w-full h-56 object-cover rounded-lg"
             />
@@ -139,7 +144,7 @@ export default function Index() {
           {/* OGE/EGE Preparation */}
           <div className="relative group">
             <img 
-              src="https://api.builder.io/api/v1/image/assets/TEMP/47ab5f1071962cc1e845240948304a2cd001fee3?width=486" 
+              src="/EGE.png" 
               alt="Подготовка к ОГЭ/ЕГЭ" 
               className="w-full h-56 object-cover rounded-lg"
             />
