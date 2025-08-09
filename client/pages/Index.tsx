@@ -184,7 +184,7 @@ export default function Index() {
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
                   <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
-                    <Button className="course-cta-button font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                    <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
                       ✅ ГАРАНТИРОВАННОЕ МЕСТО!
                     </Button>
                   </a>
@@ -261,7 +261,7 @@ export default function Index() {
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
                   <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
-                    <Button className="course-cta-button font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                    <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
                       🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
                     </Button>
                   </a>
@@ -336,7 +336,7 @@ export default function Index() {
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
                   <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
-                    <Button className="course-cta-button font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                    <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
                       🎯 УСПЕХ ГАРАНТИРОВАН!
                     </Button>
                   </a>

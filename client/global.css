@@ -394,39 +394,17 @@ html, body, #root {
 
 /* Стили для градиентных кнопок и элементов */
 .course-cta-button {
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, #C4A698 0%, #A99F9B 100%);
+  box-shadow: 0 4px 15px rgba(164, 151, 139, 0.3);
   border: none;
   transition: all 0.3s ease;
   will-change: transform, background-color, box-shadow;
-  position: relative;
-  overflow: hidden;
-  color: white !important;
-}
-
-.course-cta-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.course-cta-button:hover::before {
-  left: 100%;
 }
 
 .course-cta-button:hover {
-  background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
-  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
-  transform: translateY(-2px) scale(1.08);
-}
-
-.course-cta-button:active {
-  transform: translateY(0) scale(1.02);
+  background: linear-gradient(135deg, #D5B5A7 0%, #B8AEAA 100%);
+  box-shadow: 0 6px 20px rgba(164, 151, 139, 0.4);
+  transform: translateY(-1px) scale(1.05);
 }
 
 /* Анимации появления секций при скролле */
