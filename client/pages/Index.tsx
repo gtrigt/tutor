@@ -185,7 +185,7 @@ export default function Index() {
                   </div>
                   <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
                     <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
-                      ✅ ГАРАНТИРОВАННОЕ МЕСТО!
+                      🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
                     </Button>
                   </a>
                   <p className="font-arsenal text-sm text-black opacity-50 mt-3">
@@ -337,7 +337,7 @@ export default function Index() {
                   </div>
                   <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
                     <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
-                      🎯 УСПЕХ ГАРАНТИРОВАН!
+                      🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
                     </Button>
                   </a>
                   <p className="font-arsenal text-sm text-black opacity-50 mt-3">
