@@ -60,8 +60,8 @@ export default function Index() {
         {/* Main hero content */}
         <div className="relative">
           {/* Desktop Layout (>690px) */}
-          <div className="hidden min-[690px]:flex min-[690px]:items-center min-[690px]:justify-between min-[690px]:gap-8 lg:gap-12 xl:gap-16 mb-8 lg:mb-12">
-            {/* Left side - Photo with background */}
+          <div className="hidden min-[690px]:flex min-[690px]:items-center min-[690px]:justify-center min-[690px]:gap-6 lg:gap-8 xl:gap-12 mb-8 lg:mb-12 px-4 lg:px-8">
+            {/* Left side - Photo with background (главный элемент) */}
             <div className="relative flex-shrink-0">
               {/* Background rectangle */}
               <div
@@ -69,8 +69,8 @@ export default function Index() {
                 style={{
                   background: 'linear-gradient(180deg, #9C4F4B 0%, rgba(5, 5, 5, 0.62) 100%)',
                   boxShadow: '9px 5px 4px 0 rgba(0, 0, 0, 0.25) inset',
-                  width: 'clamp(280px, 25vw, 350px)',
-                  height: 'clamp(260px, 23vw, 330px)',
+                  width: 'clamp(320px, 28vw, 400px)',
+                  height: 'clamp(300px, 26vw, 380px)',
                   left: '50%',
                   top: '48px',
                   transform: 'translateX(-50%) translateY(40px)',
@@ -82,20 +82,24 @@ export default function Index() {
                 alt="Преподаватель английского языка"
                 className="w-full h-auto rounded-lg shadow-lg relative z-10"
                 style={{
-                  width: 'clamp(280px, 25vw, 350px)',
+                  width: 'clamp(320px, 28vw, 400px)',
                   height: 'auto',
                   objectFit: 'cover'
                 }}
               />
             </div>
 
-            {/* Right side - Timer and CTA */}
-            <div className="flex-1 text-center max-w-lg">
-              <Timer />
-              <div className="font-arsenal text-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold text-black opacity-50 mt-2 mb-6">
+            {/* Vertical divider line */}
+            <div className="hidden min-[690px]:block h-64 lg:h-72 xl:h-80 w-px bg-gradient-to-b from-transparent via-brand-secondary to-transparent opacity-60 flex-shrink-0"></div>
+
+            {/* Right side - Timer and CTA (вторичный элемент) */}
+            <div className="flex-1 text-center max-w-sm lg:max-w-md">
+              {/* Compact Timer для desktop */}
+              <Timer compact={true} />
+              <div className="font-arsenal text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-black opacity-50 mt-2 mb-6">
                 БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
               </div>
-              <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-xl lg:text-2xl font-bold px-8 lg:px-12 py-3 lg:py-4 rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+              <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-lg lg:text-xl font-bold px-6 lg:px-8 py-3 lg:py-4 rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
                 УСПЕЙ ЗАПИСАТЬСЯ
               </Button>
             </div>

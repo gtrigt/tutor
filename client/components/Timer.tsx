@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-export const Timer = () => {
+interface TimerProps {
+  compact?: boolean;
+}
+
+export const Timer: React.FC<TimerProps> = ({ compact = false }) => {
   const [time, setTime] = useState({ hours: 0, minutes: 23, seconds: 48 });
 
   useEffect(() => {
@@ -65,7 +69,11 @@ export const Timer = () => {
   const formatTime = (num: number) => num.toString().padStart(2, '0');
 
   return (
-    <div className="font-arsenal text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-bold text-brand-primary max-md:font-black">
+    <div className={`font-arsenal font-bold text-brand-primary ${
+      compact 
+        ? "text-4xl md:text-5xl lg:text-6xl xl:text-7xl" 
+        : "text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] max-md:font-black"
+    }`}>
       {formatTime(time.hours)}:{formatTime(time.minutes)}:{formatTime(time.seconds)}
     </div>
   );
