@@ -183,9 +183,11 @@ export default function Index() {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
-                  <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
-                    Записаться на урок
-                  </Button>
+                  <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+                    <Button className="course-cta-button font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                      ✅ ГАРАНТИРОВАННОЕ МЕСТО!
+                    </Button>
+                  </a>
                   <p className="font-arsenal text-sm text-black opacity-50 mt-3">
                     Первый урок — бесплатно
                   </p>
@@ -258,9 +260,11 @@ export default function Index() {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
-                  <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
-                    Записаться на подготовку
-                  </Button>
+                  <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+                    <Button className="course-cta-button font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                      🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
+                    </Button>
+                  </a>
                   <p className="font-arsenal text-sm text-black opacity-50 mt-3">
                     Первое занятие — бесплатно
                   </p>
@@ -331,9 +335,11 @@ export default function Index() {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
-                  <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
-                    Записаться на подготовку
-                  </Button>
+                  <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+                    <Button className="course-cta-button font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                      🎯 УСПЕХ ГАРАНТИРОВАН!
+                    </Button>
+                  </a>
                   <p className="font-arsenal text-sm text-black opacity-50 mt-3">
                     Первое занятие — бесплатно
                   </p>
