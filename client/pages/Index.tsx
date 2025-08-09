@@ -148,7 +148,7 @@ export default function Index() {
           {/* Scrolling text banner */}
           <div className="bg-brand-primary h-10 md:h-12 lg:h-14 xl:h-16 flex items-center overflow-hidden mb-8 lg:mb-12 -mx-4" style={{ marginTop: '-10px', zIndex: 30, position: 'relative' }}>
             <div className="animate-marquee whitespace-nowrap">
-              <span className="font-arsenal text-2xl md:text-4xl lg:text-5xl xl:text-6xl text-brand-accent">
+              <span className="font-arsenal text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-brand-accent">
                 НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ |
               </span>
             </div>
