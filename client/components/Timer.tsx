@@ -25,16 +25,16 @@ export const Timer: React.FC<TimerProps> = ({ compact = false }) => {
         
         setTime({ hours, minutes, seconds });
       } else {
-        // Если время истекло, начать новый 24-часовой цикл
-        const newEndTime = Date.now() + (24 * 60 * 60 * 1000);
+        // Если время истекло, начать новый 25-минутный цикл
+        const newEndTime = Date.now() + (25 * 60 * 1000);
         localStorage.setItem('timerEndTime', newEndTime.toString());
-        setTime({ hours: 23, minutes: 59, seconds: 59 });
+        setTime({ hours: 0, minutes: 24, seconds: 59 });
       }
     } else {
-      // Если сохранённого времени нет, начать новый 24-часовой цикл
-      const newEndTime = Date.now() + (24 * 60 * 60 * 1000);
+      // Если сохранённого времени нет, начать новый 25-минутный цикл
+      const newEndTime = Date.now() + (25 * 60 * 1000);
       localStorage.setItem('timerEndTime', newEndTime.toString());
-      setTime({ hours: 23, minutes: 59, seconds: 59 });
+      setTime({ hours: 0, minutes: 24, seconds: 59 });
     }
 
     const timer = setInterval(() => {
@@ -51,11 +51,11 @@ export const Timer: React.FC<TimerProps> = ({ compact = false }) => {
           minutes = 59;
           seconds = 59;
         } else {
-          // Таймер достиг 0, начать новый 24-часовой цикл
-          const newEndTime = Date.now() + (24 * 60 * 60 * 1000);
+          // Таймер достиг 0, начать новый 25-минутный цикл
+          const newEndTime = Date.now() + (25 * 60 * 1000);
           localStorage.setItem('timerEndTime', newEndTime.toString());
-          hours = 23;
-          minutes = 59;
+          hours = 0;
+          minutes = 24;
           seconds = 59;
         }
         

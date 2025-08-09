@@ -407,6 +407,21 @@ html, body, #root {
   transform: translateY(-1px) scale(1.05);
 }
 
+/* Стили для кнопки срочности */
+.urgency-button {
+  animation: pulse-urgency 2s infinite;
+  will-change: transform, box-shadow;
+}
+
+@keyframes pulse-urgency {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+}
+
 /* Анимации появления секций при скролле */
 .animate-fade-in-up {
   opacity: 0;

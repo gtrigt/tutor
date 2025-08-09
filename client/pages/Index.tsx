@@ -99,9 +99,14 @@ export default function Index() {
               <div className="font-arsenal text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-black opacity-50 mt-2 mb-6">
                 БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
               </div>
-              <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-lg lg:text-xl font-bold px-6 lg:px-8 py-3 lg:py-4 rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-                УСПЕЙ ЗАПИСАТЬСЯ
-              </Button>
+              <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+                <Button className="urgency-button bg-gradient-to-r from-red-500 to-red-600 text-white font-arsenal text-lg lg:text-xl font-bold px-6 lg:px-8 py-3 lg:py-4 rounded-3xl shadow-lg hover:shadow-2xl hover:scale-110 hover:from-red-600 hover:to-red-700 transition-all duration-300 border-2 border-red-400 hover:border-red-300 relative overflow-hidden">
+                  <span className="relative z-10 flex items-center gap-2">
+                    ⚡ УСПЕЙ ЗАПИСАТЬСЯ ⚡
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                </Button>
+              </a>
             </div>
           </div>
 
