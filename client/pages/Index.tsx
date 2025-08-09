@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { 
   TelegramIcon, 
   MonitorIcon, 
@@ -13,8 +14,16 @@ import {
 import { HamburgerMenu } from '@/components/HamburgerMenu';
 import { Timer } from '@/components/Timer';
 import { CoursesCarousel } from '@/components/CoursesCarousel';
+import ReviewsCarousel from '@/components/ReviewsCarousel';
+import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 
 export default function Index() {
+  const aboutSection = useIntersectionObserver({ threshold: 0.1 });
+  const advantagesSection = useIntersectionObserver({ threshold: 0.1 });
+  const coursesSection = useIntersectionObserver({ threshold: 0.1 });
+  const reviewsSection = useIntersectionObserver({ threshold: 0.1 });
+  const contactsSection = useIntersectionObserver({ threshold: 0.1 });
+
   return (
     <div className="min-h-screen w-full" style={{ backgroundColor: '#EBE4E2' }}>
       {/* Hero Section */}
@@ -99,9 +108,9 @@ export default function Index() {
       {/* Timer Section - Centered */}
       <div className="text-center px-4 mb-12">
         <Timer />
-        <div className="font-arsenal text-lg md:text-3xl font-bold text-black opacity-50 mt-2">
-          БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
-        </div>
+          <div className="font-arsenal text-lg md:text-3xl font-bold text-black opacity-50 mt-2">
+            БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
+          </div>
       </div>
 
       {/* Services Section */}
@@ -113,115 +122,401 @@ export default function Index() {
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {/* Language Learning */}
-          <div className="relative group">
-            <img 
-              src="/english.png" 
-              alt="Изучение языка" 
-              className="w-full h-56 object-cover rounded-lg"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg"></div>
-            <div className="absolute bottom-4 left-4">
-              <h3 className="font-arsenal text-lg font-bold text-white">Изучение языка</h3>
-            </div>
-          </div>
+          <Dialog>
+            <DialogTrigger asChild>
+              <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
+                <img 
+                  src="/english.png" 
+                  alt="Изучение языка" 
+                  className="w-full h-56 object-cover rounded-lg"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg group-hover:from-black/90 transition-all duration-300"></div>
+                <div className="absolute bottom-4 left-4">
+                  <h3 className="font-arsenal text-lg font-bold text-white">Изучение языка</h3>
+                  <p className="font-arsenal text-sm text-white opacity-70 mt-1">Индивидуальные онлайн-уроки</p>
+                </div>
+              </div>
+            </DialogTrigger>
+            <DialogContent className="course-modal max-w-2xl max-h-[90vh] overflow-y-auto border-0" style={{ backgroundColor: '#FFF6F6' }}>
+              <DialogHeader className="text-center pb-6">
+                <DialogTitle className="font-arsenal text-3xl font-bold text-black mb-2">
+                  Изучение английского языка
+                </DialogTitle>
+                <p className="font-arsenal text-lg text-black opacity-70">Индивидуальные онлайн-уроки</p>
+              </DialogHeader>
+              
+              <div className="space-y-6">
+                <div className="text-center">
+                  <p className="font-arsenal text-lg text-black leading-relaxed">
+                    Персональные занятия онлайн для изучения английского языка с нуля или для улучшения имеющихся навыков. 
+                    Гибкий график, индивидуальная программа и современные методики обучения.
+                  </p>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+                    <h4 className="font-arsenal text-xl font-bold text-black mb-3">Что включено:</h4>
+                    <ul className="space-y-2">
+                      <li className="font-anonymous text-black">✓ Персональная программа обучения</li>
+                      <li className="font-anonymous text-black">✓ Гибкий график занятий</li>
+                      <li className="font-anonymous text-black">✓ Современные учебные материалы</li>
+                      <li className="font-anonymous text-black">✓ Домашние задания с проверкой</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+                    <h4 className="font-arsenal text-xl font-bold text-black mb-3">Формат:</h4>
+                    <ul className="space-y-2">
+                      <li className="font-anonymous text-black">📹 Онлайн-уроки</li>
+                      <li className="font-anonymous text-black">⏰ 60 минут за урок</li>
+                      <li className="font-anonymous text-black">📅 Удобное расписание</li>
+                      <li className="font-anonymous text-black">🎯 Индивидуальный подход</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="text-center pt-6">
+                  <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/20 shadow-lg">
+                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость урока</p>
+                    <div className="font-anonymous text-4xl font-bold text-black mb-3">
+                      3.000 руб
+                    </div>
+                    <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
+                  </div>
+                  <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                    Записаться на урок
+                  </Button>
+                  <p className="font-arsenal text-sm text-black opacity-50 mt-3">
+                    Первый урок — бесплатно
+                  </p>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
 
           {/* Olympic Preparation */}
-          <div className="relative group">
-            <img 
-              src="/Mark.png" 
-              alt="Олимпиадная подготовка" 
-              className="w-full h-56 object-cover rounded-lg"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg"></div>
-            <div className="absolute bottom-4 left-4">
-              <h3 className="font-arsenal text-lg font-bold text-white">Олимпиадная подготовка</h3>
-              <p className="font-arsenal text-sm font-bold text-white opacity-70 mt-1">
-                бесплатное пробное занятие
-              </p>
-            </div>
-          </div>
+          <Dialog>
+            <DialogTrigger asChild>
+              <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
+                <img 
+                  src="/Mark.png" 
+                  alt="Олимпиадная подготовка" 
+                  className="w-full h-56 object-cover rounded-lg"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg group-hover:from-black/90 transition-all duration-300"></div>
+                <div className="absolute bottom-4 left-4">
+                  <h3 className="font-arsenal text-lg font-bold text-white">Олимпиадная подготовка</h3>
+                  <p className="font-arsenal text-sm font-bold text-white opacity-70 mt-1">
+                    Индивидуальные онлайн-уроки
+                  </p>
+                </div>
+              </div>
+            </DialogTrigger>
+            <DialogContent className="course-modal max-w-2xl max-h-[90vh] overflow-y-auto border-0" style={{ backgroundColor: '#F3F1E2' }}>
+              <DialogHeader className="text-center pb-6">
+                <DialogTitle className="font-arsenal text-3xl font-bold text-black mb-2">
+                  Олимпиадная подготовка
+                </DialogTitle>
+                <p className="font-arsenal text-lg text-black opacity-70">Индивидуальные онлайн-уроки</p>
+              </DialogHeader>
+              
+              <div className="space-y-6">
+                <div className="text-center">
+                  <p className="font-arsenal text-lg text-black leading-relaxed">
+                    Специализированная подготовка к олимпиадам по английскому языку всех уровней. 
+                    Эксклюзивные материалы, олимпиадные задания и стратегии победы. Занятия проводятся по 90 минут для максимального погружения в материал.
+                  </p>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+                    <h4 className="font-arsenal text-xl font-bold text-black mb-3">Что включено:</h4>
+                    <ul className="space-y-2">
+                      <li className="font-anonymous text-black">🏆 Олимпиадные задания прошлых лет</li>
+                      <li className="font-anonymous text-black">🎯 Стратегии решения сложных задач</li>
+                      <li className="font-anonymous text-black">📚 Авторские материалы</li>
+                      <li className="font-anonymous text-black">🧠 Развитие критического мышления</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+                    <h4 className="font-arsenal text-xl font-bold text-black mb-3">Результаты:</h4>
+                    <ul className="space-y-2">
+                      <li className="font-anonymous text-black">⭐ Призёрские места</li>
+                      <li className="font-anonymous text-black">🎖️ Льготы при поступлении</li>
+                      <li className="font-anonymous text-black">🏅 Опыт участия в олимпиадах</li>
+                      <li className="font-anonymous text-black">📈 Повышение уровня языка</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="text-center pt-6">
+                  <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/20 shadow-lg">
+                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость урока</p>
+                    <div className="font-anonymous text-4xl font-bold text-black mb-3">
+                      3.000 руб
+                    </div>
+                    <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
+                  </div>
+                  <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                    Записаться на подготовку
+                  </Button>
+                  <p className="font-arsenal text-sm text-black opacity-50 mt-3">
+                    Первое занятие — бесплатно
+                  </p>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
 
           {/* OGE/EGE Preparation */}
-          <div className="relative group">
-            <img 
-              src="/EGE.png" 
-              alt="Подготовка к ОГЭ/ЕГЭ" 
-              className="w-full h-56 object-cover rounded-lg"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg"></div>
-            <div className="absolute bottom-4 left-4">
-              <h3 className="font-arsenal text-lg font-bold text-white">Подготовка к ОГЭ/ЕГЭ</h3>
-            </div>
-          </div>
+          <Dialog>
+            <DialogTrigger asChild>
+              <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
+                <img 
+                  src="/EGE.png" 
+                  alt="Подготовка к ОГЭ/ЕГЭ" 
+                  className="w-full h-56 object-cover rounded-lg"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg group-hover:from-black/90 transition-all duration-300"></div>
+                <div className="absolute bottom-4 left-4">
+                  <h3 className="font-arsenal text-lg font-bold text-white">Подготовка к ОГЭ/ЕГЭ</h3>
+                  <p className="font-arsenal text-sm text-white opacity-70 mt-1">Индивидуальные онлайн-уроки</p>
+                </div>
+              </div>
+            </DialogTrigger>
+            <DialogContent className="course-modal max-w-2xl max-h-[90vh] overflow-y-auto border-0" style={{ backgroundColor: '#FFF3E3' }}>
+              <DialogHeader className="text-center pb-6">
+                <DialogTitle className="font-arsenal text-3xl font-bold text-black mb-2">
+                  Подготовка к ОГЭ/ЕГЭ
+                </DialogTitle>
+                <p className="font-arsenal text-lg text-black opacity-70">Индивидуальные онлайн-уроки</p>
+              </DialogHeader>
+              
+              <div className="space-y-6">
+                <div className="text-center">
+                  <p className="font-arsenal text-lg text-black leading-relaxed">
+                    Целенаправленная подготовка к государственным экзаменам по английскому языку. 
+                    Системный подход, разбор всех заданий и гарантированный высокий результат.
+                  </p>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+                    <h4 className="font-arsenal text-xl font-bold text-black mb-3">Что включено:</h4>
+                    <ul className="space-y-2">
+                      <li className="font-anonymous text-black">📝 Разбор всех типов заданий</li>
+                      <li className="font-anonymous text-black">🎯 Стратегии выполнения</li>
+                      <li className="font-anonymous text-black">📊 Регулярные пробные экзамены</li>
+                      <li className="font-anonymous text-black">📚 Актуальные материалы ФИПИ</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+                    <h4 className="font-arsenal text-xl font-bold text-black mb-3">Результаты учеников:</h4>
+                    <ul className="space-y-2">
+                      <li className="font-anonymous text-black">🏆 Средний балл: 85+</li>
+                      <li className="font-anonymous text-black">📈 100% сдают на 4 и 5</li>
+                      <li className="font-anonymous text-black">🎓 Поступление в топ-вузы</li>
+                      <li className="font-anonymous text-black">✅ Гарантия результата</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="text-center pt-6">
+                  <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/20 shadow-lg">
+                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость урока</p>
+                    <div className="font-anonymous text-4xl font-bold text-black mb-3">
+                      3.000 руб
+                    </div>
+                    <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
+                  </div>
+                  <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                    Записаться на подготовку
+                  </Button>
+                  <p className="font-arsenal text-sm text-black opacity-50 mt-3">
+                    Первое занятие — бесплатно
+                  </p>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
         {/* CTA Button */}
         <div className="text-center">
-          <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-2xl font-bold px-12 py-4 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300">
+          <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-2xl font-bold px-12 py-4 rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
             ОСТАВИТЬ ЗАЯВКУ
           </Button>
           <p className="font-arsenal text-sm font-bold text-black opacity-50 mt-4 max-w-md mx-auto">
-            Сделай правильный выбор. Помоги своему ребенку стать лучшим
+            Сделай правильный выбор. Помоги своему ребёнку стать лучшим.
           </p>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="px-4 py-12 max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h2 className="font-arsenal text-3xl font-bold text-black mb-2">ОБО МНЕ</h2>
-          <div className="w-32 h-1 bg-brand-secondary"></div>
+      <section 
+        id="about" 
+        ref={aboutSection.ref}
+        className={`px-4 py-16 max-w-6xl mx-auto animate-fade-in-up ${aboutSection.isIntersecting ? 'is-visible' : ''}`}
+      >
+        <div className="text-center mb-12">
+          <h2 className="font-arsenal text-4xl font-bold text-black mb-4">ОБО МНЕ</h2>
+          <div className="w-32 h-1 bg-brand-secondary mx-auto mb-6"></div>
+          <p className="font-arsenal text-xl text-brand-secondary font-bold">Ваш проводник в мир английского языка</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="order-2 md:order-1">
-            <div className="font-anonymous text-xs font-bold text-brand-gray leading-4 space-y-3">
-              <p>&gt;Подготовил более 60 учеников к Олимпиадам, ЕГЭ</p>
-              <p>&gt;Победитель этапов Всероссийской Олимпиады по</p>
-              <p className="text-xs font-bold">английскому языку (97/100)</p>
-              <p>&gt;Член Олимпиадной Сборной по английскому языку</p>
-              <p>&gt;Кембриджское образование</p>
-              <p>&gt;Обучение в США (2020-2023)</p>
-              <p>&gt;Обучение в UK (2024)</p>
+        {/* Hero Achievement Stats */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {/* Achievement Card 1 */}
+          <div className="bg-white/40 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-white/20 text-center transform hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-brand-secondary/60 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <span className="text-white font-arsenal text-lg font-bold">200+</span>
             </div>
-            
-            <div className="flex flex-col space-y-3 mt-6">
-              <div className="flex items-center">
-                <a href="https://instagram.com/marat_english" target="_blank" rel="noopener noreferrer" title="Instagram">
-                  <img
-                    src="/instagram.png"
-                    alt="Instagram"
-                    className="w-6 h-6 mr-3 object-contain cursor-pointer hover:opacity-80 transition-opacity"
-                  />
-                </a>
-                <span className="font-anonymous text-sm text-brand-gray">@marat_english</span>
+            <h3 className="font-arsenal text-2xl font-bold text-black mb-2">УЧЕНИКОВ</h3>
+            <p className="font-anonymous text-sm text-black opacity-70">Подготовлено к олимпиадам и ЕГЭ с отличными результатами</p>
+          </div>
+
+          {/* Achievement Card 2 */}
+          <div className="bg-white/40 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-white/20 text-center transform hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-brand-secondary/70 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <span className="text-white font-arsenal text-2xl font-bold">🏆</span>
+            </div>
+            <h3 className="font-arsenal text-2xl font-bold text-black mb-2">ПОБЕДИТЕЛЬ</h3>
+            <p className="font-anonymous text-sm text-black opacity-70">Всероссийской олимпиады по английскому языку</p>
+          </div>
+
+          {/* Achievement Card 3 */}
+          <div className="bg-white/40 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-white/20 text-center transform hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-brand-secondary/80 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <span className="text-white font-arsenal text-lg font-bold">🎓</span>
+            </div>
+            <h3 className="font-arsenal text-2xl font-bold text-black mb-2">ЧЛЕН СБОРНОЙ</h3>
+            <p className="font-anonymous text-sm text-black opacity-70">Олимпиадная сборная по английскому языку</p>
+          </div>
+        </div>
+
+        {/* Education & Experience Timeline */}
+        <div className="mb-16">
+          <h3 className="font-arsenal text-3xl font-bold text-black text-center mb-10">ОБРАЗОВАНИЕ И ОПЫТ</h3>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* International Education */}
+            <div className="space-y-6">
+              <div className="bg-white/30 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 bg-brand-secondary/80 rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-white font-arsenal text-xl font-bold">🇺🇸</span>
+                  </div>
+                  <div>
+                    <h4 className="font-arsenal text-xl font-bold text-black">ОБУЧЕНИЕ В США</h4>
+                    <p className="font-anonymous text-sm text-black opacity-70">2020–2023</p>
+                  </div>
+                </div>
+                <p className="font-anonymous text-sm text-black opacity-80 leading-relaxed">
+                  Три года изучения в американских университетах. Глубокое погружение в языковую среду и культуру.
+                </p>
               </div>
-              <div className="flex items-center">
-                <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram">
-                  <img
-                    src="/telegram.png"
-                    alt="Telegram"
-                    className="w-6 h-6 mr-3 object-contain cursor-pointer hover:opacity-80 transition-opacity"
-                  />
-                </a>
-                <span className="font-anonymous text-sm text-brand-gray">@maratenglish</span>
+
+              <div className="bg-white/30 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 bg-brand-secondary/70 rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-white font-arsenal text-xl font-bold">🇬🇧</span>
+                  </div>
+                  <div>
+                    <h4 className="font-arsenal text-xl font-bold text-black">ОБУЧЕНИЕ В UK</h4>
+                    <p className="font-anonymous text-sm text-black opacity-70">2024</p>
+                  </div>
+                </div>
+                <p className="font-anonymous text-sm text-black opacity-80 leading-relaxed">
+                  Стажировка в Великобритании. Изучение британских методик преподавания английского языка.
+                </p>
+              </div>
+            </div>
+
+            {/* Qualifications */}
+            <div className="space-y-6">
+              <div className="bg-white/30 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 bg-brand-secondary/60 rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-white font-arsenal text-lg font-bold">📚</span>
+                  </div>
+                  <div>
+                    <h4 className="font-arsenal text-xl font-bold text-black">КЕМБРИДЖСКОЕ ОБРАЗОВАНИЕ</h4>
+                    <p className="font-anonymous text-sm text-black opacity-70">Сертифицированный преподаватель</p>
+                  </div>
+                </div>
+                <p className="font-anonymous text-sm text-black opacity-80 leading-relaxed">
+                  Международные стандарты качества образования. Современные методики преподавания.
+                </p>
+              </div>
+
+              <div className="bg-white/30 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 bg-brand-secondary/90 rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-white font-arsenal text-lg font-bold">⭐</span>
+                  </div>
+                  <div>
+                    <h4 className="font-arsenal text-xl font-bold text-black">ОЛИМПИАДНЫЙ ОПЫТ</h4>
+                    <p className="font-anonymous text-sm text-black opacity-70">Эксперт высокого уровня</p>
+                  </div>
+                </div>
+                <p className="font-anonymous text-sm text-black opacity-80 leading-relaxed">
+                  Многолетний опыт участия и подготовки к олимпиадам всех уровней — от школьных до международных.
+                </p>
               </div>
             </div>
           </div>
-          
-          <div className="order-1 md:order-2">
-            {/* Content removed as requested */}
+        </div>
+
+        {/* Social Media & Contact */}
+        <div className="text-center mb-12">
+          <h3 className="font-arsenal text-2xl font-bold text-black mb-6">СЛЕДИТЕ ЗА ОБНОВЛЕНИЯМИ</h3>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 max-w-2xl mx-auto">
+            <a href="https://instagram.com/marat_english" target="_blank" rel="noopener noreferrer" 
+               className="flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-2xl p-3 sm:p-4 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center sm:justify-start">
+              <img src="/instagram.png" alt="Instagram" className="w-6 h-6 sm:w-8 sm:h-8 object-contain flex-shrink-0" />
+              <span className="font-arsenal text-base sm:text-lg font-bold text-black truncate">@marat_english</span>
+            </a>
+            
+            <a href="https://t.me/maratenglish" target="_blank" rel="noopener noreferrer"
+               className="flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-2xl p-3 sm:p-4 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center sm:justify-start">
+              <img src="/telegram.png" alt="Telegram" className="w-6 h-6 sm:w-8 sm:h-8 object-contain flex-shrink-0" />
+              <span className="font-arsenal text-base sm:text-lg font-bold text-black truncate">@maratenglish</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center">
+          <div className="bg-gradient-to-r from-brand-secondary to-[#C4A698] rounded-3xl p-8 shadow-xl max-w-2xl mx-auto">
+            <h3 className="font-arsenal text-3xl font-bold text-black mb-4">
+              ГОТОВ ИЗМЕНИТЬ СВОЮ ЖИЗНЬ?
+            </h3>
+            <p className="font-arsenal text-lg text-black opacity-80 mb-6">
+              Присоединяйся к 200+ успешным ученикам, которые уже достигли своих целей
+            </p>
+            <a 
+              href="#contacts" 
+              className="inline-block bg-white/90 hover:bg-white text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl shadow-lg transition-all duration-300 hover:scale-105"
+            >
+              Начать обучение
+            </a>
           </div>
         </div>
       </section>
 
       {/* Online Classes Section */}
-      <section id="advantages" className="px-4 py-12 max-w-6xl mx-auto">
+      <section 
+        id="advantages" 
+        ref={advantagesSection.ref}
+        className={`px-4 py-12 max-w-6xl mx-auto animate-fade-in-up-delayed ${advantagesSection.isIntersecting ? 'is-visible' : ''}`}
+      >
         <div className="space-y-12">
           <div className="flex items-center">
             <MonitorIcon className="mr-6 text-black w-12 h-12" />
             <div>
-              <h3 className="font-arsenal text-3xl font-bold text-black">ОНЛАЙН ЗАНЯТИЯ</h3>
+              <h3 className="font-arsenal text-3xl font-bold text-black">ОНЛАЙН‑ЗАНЯТИЯ</h3>
               <p className="font-anonymous text-xs text-black opacity-50 mt-1">
                 Экономия времени и средств.
               </p>
@@ -259,7 +554,7 @@ export default function Index() {
             <div>
               <h3 className="font-arsenal text-3xl font-bold text-black">ИНДИВИДУАЛЬНЫЙ ПОДХОД</h3>
               <p className="font-anonymous text-xs text-black opacity-50 mt-1">
-                Вместе решим возникшие проблемы.
+                Решим любые возникшие проблемы вместе.
               </p>
             </div>
           </div>
@@ -271,7 +566,7 @@ export default function Index() {
             <div>
               <h3 className="font-arsenal text-3xl font-bold text-black">АВТОРСКИЕ ПОСОБИЯ</h3>
               <p className="font-anonymous text-xs text-black opacity-50 mt-1 max-w-sm">
-                Самые креативные задания, которые как можно быстрее приведут тебя к успеху.
+                Креативные задания, которые максимально быстро приведут тебя к успеху.
               </p>
             </div>
           </div>
@@ -291,7 +586,11 @@ export default function Index() {
       </section>
 
       {/* Online Courses Section */}
-      <section id="courses" className="px-4 py-12 max-w-6xl mx-auto">
+      <section 
+        id="courses" 
+        ref={coursesSection.ref}
+        className={`px-4 py-12 max-w-6xl mx-auto animate-fade-in-up ${coursesSection.isIntersecting ? 'is-visible' : ''}`}
+      >
         <div className="mb-12">
           <h2 className="font-arsenal text-3xl font-bold text-black mb-2">ОНЛАЙН КУРСЫ</h2>
           <div className="w-56 h-1 bg-brand-secondary"></div>
@@ -301,45 +600,21 @@ export default function Index() {
       </section>
 
       {/* Reviews Section */}
-      <section id="reviews" className="px-4 py-12 max-w-6xl mx-auto">
+      <section 
+        id="reviews" 
+        ref={reviewsSection.ref}
+        className={`px-4 py-12 max-w-6xl mx-auto animate-fade-in-up-slow ${reviewsSection.isIntersecting ? 'is-visible' : ''}`}
+      >
         <div className="mb-8">
           <h2 className="font-arsenal text-3xl font-bold text-black mb-2">ОТЗЫВЫ</h2>
           <div className="w-32 h-1 bg-brand-secondary"></div>
-          <p className="font-arsenal text-xl font-bold text-brand-secondary mt-2">или аллея благодарностей</p>
+          <p className="font-arsenal text-xl font-bold text-brand-secondary mt-2">или Аллея благодарностей</p>
         </div>
 
-        {/* Featured Review */}
-        <div className="mb-12">
-          <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/10de3b58d5530050c78ba94860dd2af60cf5dc74?width=412"
-            alt="Отзыв студента"
-            className="w-full max-w-sm mx-auto h-auto rounded-lg shadow-lg"
-          />
-        </div>
+        {/* Reviews Carousel */}
+        <ReviewsCarousel />
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4 mb-8">
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/899b622cf21eef00bb28472d7f05f9190771ec9d?width=426" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/226fa2a636395ec26b276dca7c30655041d76418?width=372" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/2ecfa3aaeb087e0ef2dcc329891e3ffa2e588c0c?width=312" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/14274000cb14fbd8cfb4bdddc13c3a1227240a80?width=370" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/517b8026cedf05c1fbc75266b35d560385278bc6?width=298" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/f4499f23025ec6e0294fd634573892af9b347ec2?width=326" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/8f6596ce356700b574fa1862f83781d96ef88c19?width=404" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/2d34873dda0360afcb3c0447cabdb97caebc2569?width=308" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/8270845a1cd46628b2f7d5fc9ccc7df4bf62413d?width=296" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/faf2b9f6c24e114c256d2c687860b517de9f5ad2?width=460" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/11c872fdce6ca90a82acd35d76667f56a4f4fb87?width=402" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/9e9acbedbc9a58270526e6a7d9b95a0fd8d565e1?width=398" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/69d8c4872280bdda0b7f394226d75fc29ec5db2c?width=370" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/b0cb0bac245812fca1105aef9ddf2643b6c98941?width=372" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/5efe29807344ab2173df57000767351800144ed0?width=296" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/83475f5d883fc20d8f17c32949db4106c2ba6a03?width=364" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/9fc3af600a6a12a47c0f43c46bad2f2f73938bd7?width=414" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/2addbfdf59531c93b933140ccf0cd74e33a5cd61?width=340" alt="Отзыв" className="w-full h-auto rounded-lg shadow-sm" />
-        </div>
-
-        <div className="text-center">
+        <div className="text-center mt-8">
           <svg className="mx-auto w-24 h-3 opacity-50" viewBox="0 0 121 5" fill="none">
             <path d="M1 3.04688L120 2" stroke="#C1B3A4" strokeWidth="3"/>
           </svg>
@@ -347,75 +622,131 @@ export default function Index() {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contacts" className="px-4 py-12 max-w-md mx-auto">
-        <div style={{ backgroundColor: '#FBF3F0' }} className="rounded-lg p-6 shadow-lg">
-          <div className="text-center mb-6">
-            <h2 className="font-arsenal text-2xl md:text-3xl font-bold text-black mb-2">
-              ЗАПИСЬ НА БЕСПЛАТНЫЙ УРОК-КОНСУЛЬТАЦИЮ
-            </h2>
-            <div className="w-full h-px bg-brand-secondary opacity-50 my-4"></div>
-            <p className="font-arsenal text-sm font-bold text-black opacity-50">
-              пожалуйста заполните форму, и мы свяжемся с вами в течении дня
-            </p>
+      <section 
+        id="contacts" 
+        ref={contactsSection.ref}
+        className={`px-4 py-12 max-w-6xl mx-auto animate-fade-in-up-delayed ${contactsSection.isIntersecting ? 'is-visible' : ''}`}
+      >
+        <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Contact Form */}
+          <div style={{ backgroundColor: '#FBF3F0' }} className="rounded-2xl p-6 shadow-lg">
+            <div className="text-center mb-6">
+              <h2 className="font-arsenal text-2xl md:text-3xl font-bold text-black mb-2">
+                ЗАПИСЬ НА БЕСПЛАТНЫЙ УРОК‑КОНСУЛЬТАЦИЮ
+              </h2>
+              <div className="w-full h-px bg-brand-secondary opacity-50 my-4"></div>
+              <p className="font-arsenal text-sm font-bold text-black opacity-50">
+                Пожалуйста, заполните форму, и мы свяжемся с вами в течение дня.
+              </p>
+            </div>
+
+            <form className="space-y-4">
+              <div>
+                <input
+                  type="text"
+                  placeholder="Ваше ФИО"
+                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
+                  style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
+                />
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Направление"
+                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
+                  style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
+                />
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Ваш возраст или возраст ребёнка"
+                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
+                  style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
+                />
+              </div>
+
+              <div>
+                <div className="text-center mb-2">
+                  <span className="font-arsenal text-sm font-bold text-black opacity-80">
+                    Номер телефона для связи
+                  </span>
+                </div>
+                <input
+                  type="tel"
+                  placeholder="+7 (999) 999-99-99"
+                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/30 font-arsenal text-sm font-bold border-0 shadow-inner"
+                  style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3 rounded-2xl font-arsenal text-lg font-bold text-black opacity-75 shadow-lg transition-all duration-300 hover:opacity-90"
+                style={{
+                  background: 'linear-gradient(236deg, #A99F9B 72.03%, #C4A698 0%)',
+                  boxShadow: '-4.044px 2.728px 4.878px 0 rgba(143, 135, 131, 0.50) inset, 4.044px -2.728px 4.878px 0 rgba(172, 162, 158, 0.50)'
+                }}
+              >
+                ОТПРАВИТЬ ЗАЯВКУ
+              </button>
+
+              <p className="text-center font-arsenal text-xs font-bold text-black opacity-30 mt-4">
+                Нажимая кнопку «Отправить», вы соглашаетесь с политикой конфиденциальности.
+              </p>
+            </form>
           </div>
 
-          <form className="space-y-4">
-            <div>
-              <input
-                type="text"
-                placeholder="Ваше ФИО"
-                className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
-                style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
-              />
-            </div>
-
-            <div>
-              <input
-                type="text"
-                placeholder="Направление"
-                className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
-                style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
-              />
-            </div>
-
-            <div>
-              <input
-                type="text"
-                placeholder="Ваш возраст или возраст ребенка"
-                className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
-                style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
-              />
-            </div>
-
-            <div>
-              <div className="text-center mb-2">
-                <span className="font-arsenal text-sm font-bold text-black opacity-80">
-                  Номер телефона для связи
-                </span>
+          {/* Telegram Contact Section */}
+          <div className="flex flex-col justify-center">
+            <div style={{ backgroundColor: '#E8DED6' }} className="rounded-2xl p-6 shadow-lg text-center">
+              <div className="mb-6">
+                <h3 className="font-arsenal text-2xl md:text-3xl font-bold text-black mb-2">
+                  ИЛИ НАПИШИ В ТЕЛЕГРАМ
+                </h3>
+                <div className="w-full h-px bg-brand-secondary opacity-50 my-4"></div>
+                <p className="font-arsenal text-sm font-bold text-black opacity-50">
+                  Быстрая связь и мгновенные ответы на ваши вопросы
+                </p>
               </div>
-              <input
-                type="tel"
-                placeholder="+7 (999) 999-99-99"
-                className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/30 font-arsenal text-sm font-bold border-0 shadow-inner"
-                style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
-              />
+
+              <div className="flex flex-col items-center space-y-4">
+                <div className="w-20 h-20 bg-white/60 rounded-full flex items-center justify-center shadow-lg">
+                  <img
+                    src="/telegram.png"
+                    alt="Telegram"
+                    className="w-12 h-12 object-contain"
+                  />
+                </div>
+                
+                <a 
+                  href="https://t.me/gtrigt" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="course-cta-button text-black font-arsenal text-lg font-bold px-8 py-3 rounded-2xl inline-flex items-center gap-3 transition-all duration-300 hover:scale-105"
+                >
+                  <img
+                    src="/telegram.png"
+                    alt="Telegram"
+                    className="w-6 h-6 object-contain"
+                  />
+                  Написать в Telegram
+                </a>
+                
+                <p className="font-arsenal text-sm text-black opacity-60">
+                  @gtrigt
+                </p>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-black/10">
+                <p className="font-arsenal text-xs text-black opacity-50">
+                  Отвечаю обычно в течение 30 минут
+                </p>
+              </div>
             </div>
-
-            <button
-              type="submit"
-              className="w-full py-3 rounded-2xl font-arsenal text-lg font-bold text-black opacity-75 shadow-lg transition-all duration-300 hover:opacity-90"
-              style={{
-                background: 'linear-gradient(236deg, #A99F9B 72.03%, #C4A698 0%)',
-                boxShadow: '-4.044px 2.728px 4.878px 0 rgba(143, 135, 131, 0.50) inset, 4.044px -2.728px 4.878px 0 rgba(172, 162, 158, 0.50)'
-              }}
-            >
-              ОТПРАВИТЬ ЗАЯВКУ
-            </button>
-
-            <p className="text-center font-arsenal text-xs font-bold text-black opacity-30 mt-4">
-              Нажимая на кнопку "Отправить", вы соглашаетесь на условия политики конфиденциальности
-            </p>
-          </form>
+          </div>
         </div>
       </section>
 
@@ -495,21 +826,21 @@ export default function Index() {
                 className="w-9 h-9 mr-2 object-contain cursor-pointer hover:opacity-80 transition-opacity"
               />
               <span className="font-arsenal text-base text-black">
-                Страничка нельзяграмм
+                Страница в Instagram
               </span>
             </a>
           </div>
 
           <div className="flex items-center justify-center mt-4">
             <a href="https://t.me/maratenglish" target="_blank" rel="noopener noreferrer" title="Telegram Channel" className="flex items-center">
-              <img
+            <img
                 src="/telegram.png"
-                alt="Telegram"
+              alt="Telegram"
                 className="w-10 h-10 mr-2 object-contain cursor-pointer hover:opacity-80 transition-opacity"
-              />
-              <span className="font-arsenal text-base text-black">
-                Telegram-канал
-              </span>
+            />
+            <span className="font-arsenal text-base text-black">
+              Telegram-канал
+            </span>
             </a>
           </div>
         </div>
@@ -517,7 +848,7 @@ export default function Index() {
         {/* Footer Note */}
         <div className="text-center">
           <p className="font-arsenal text-2xl text-black opacity-40">
-            благодарю за внимание
+            Благодарю за внимание
           </p>
         </div>
       </footer>

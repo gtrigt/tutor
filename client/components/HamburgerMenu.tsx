@@ -33,9 +33,9 @@ export const HamburgerMenu = () => {
             justifyContent: 'center'
           }}
         >
-          <span className="hamburger-line-right"></span>
-          <span className="hamburger-line-right"></span>
-          <span className="hamburger-line-right"></span>
+      <span className="hamburger-line-right"></span>
+      <span className="hamburger-line-right"></span>
+      <span className="hamburger-line-right"></span>
         </button>
       )}
 
