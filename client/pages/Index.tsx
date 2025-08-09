@@ -59,19 +59,18 @@ export default function Index() {
 
         {/* Main hero content */}
         <div className="relative">
-          {/* Hero image with background */}
-          <div className="relative mb-8 lg:mb-12 flex justify-center">
-            <div className="relative">
+          {/* Desktop Layout (>690px) */}
+          <div className="hidden min-[690px]:flex min-[690px]:items-center min-[690px]:justify-between min-[690px]:gap-8 lg:gap-12 xl:gap-16 mb-8 lg:mb-12">
+            {/* Left side - Photo with background */}
+            <div className="relative flex-shrink-0">
               {/* Background rectangle */}
               <div
                 className="absolute rounded-3xl opacity-60 shadow-inner z-0"
                 style={{
                   background: 'linear-gradient(180deg, #9C4F4B 0%, rgba(5, 5, 5, 0.62) 100%)',
                   boxShadow: '9px 5px 4px 0 rgba(0, 0, 0, 0.25) inset',
-                  width: 'clamp(280px, 35vw, 420px)',
-                  height: 'clamp(260px, 32vw, 400px)',
-                  minWidth: '280px',
-                  minHeight: '260px',
+                  width: 'clamp(280px, 25vw, 350px)',
+                  height: 'clamp(260px, 23vw, 330px)',
                   left: '50%',
                   top: '48px',
                   transform: 'translateX(-50%) translateY(40px)',
@@ -83,11 +82,57 @@ export default function Index() {
                 alt="Преподаватель английского языка"
                 className="w-full h-auto rounded-lg shadow-lg relative z-10"
                 style={{
-                  width: 'clamp(280px, 35vw, 420px)',
+                  width: 'clamp(280px, 25vw, 350px)',
                   height: 'auto',
                   objectFit: 'cover'
                 }}
               />
+            </div>
+
+            {/* Right side - Timer and CTA */}
+            <div className="flex-1 text-center max-w-lg">
+              <Timer />
+              <div className="font-arsenal text-lg md:text-2xl lg:text-3xl xl:text-4xl font-bold text-black opacity-50 mt-2 mb-6">
+                БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
+              </div>
+              <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-xl lg:text-2xl font-bold px-8 lg:px-12 py-3 lg:py-4 rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                УСПЕЙ ЗАПИСАТЬСЯ
+              </Button>
+            </div>
+          </div>
+
+          {/* Mobile Layout (<690px) */}
+          <div className="min-[690px]:hidden">
+            {/* Hero image with background */}
+            <div className="relative mb-8 flex justify-center">
+              <div className="relative">
+                {/* Background rectangle */}
+                <div
+                  className="absolute rounded-3xl opacity-60 shadow-inner z-0"
+                  style={{
+                    background: 'linear-gradient(180deg, #9C4F4B 0%, rgba(5, 5, 5, 0.62) 100%)',
+                    boxShadow: '9px 5px 4px 0 rgba(0, 0, 0, 0.25) inset',
+                    width: 'clamp(280px, 35vw, 420px)',
+                    height: 'clamp(260px, 32vw, 400px)',
+                    minWidth: '280px',
+                    minHeight: '260px',
+                    left: '50%',
+                    top: '48px',
+                    transform: 'translateX(-50%) translateY(40px)',
+                    paddingLeft: '55px',
+                  }}
+                ></div>
+                <img
+                  src="/me.png"
+                  alt="Преподаватель английского языка"
+                  className="w-full h-auto rounded-lg shadow-lg relative z-10"
+                  style={{
+                    width: 'clamp(280px, 35vw, 420px)',
+                    height: 'auto',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
             </div>
           </div>
 
@@ -105,10 +150,10 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Timer Section - Centered */}
-      <div className="text-center px-4 mb-12 lg:mb-16">
+      {/* Timer Section - Centered (Mobile only) */}
+      <div className="min-[690px]:hidden text-center px-4 mb-12">
         <Timer />
-          <div className="font-arsenal text-lg md:text-3xl lg:text-4xl xl:text-5xl font-bold text-black opacity-50 mt-2">
+          <div className="font-arsenal text-lg md:text-3xl font-bold text-black opacity-50 mt-2">
             БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
           </div>
       </div>
