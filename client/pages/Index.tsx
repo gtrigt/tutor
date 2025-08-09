@@ -405,9 +405,11 @@ export default function Index() {
 
         {/* CTA Button */}
         <div className="text-center">
-          <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-2xl font-bold px-12 py-4 rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-            ОСТАВИТЬ ЗАЯВКУ
-          </Button>
+          <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+            <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-2xl font-bold px-12 py-4 rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+              ОСТАВИТЬ ЗАЯВКУ
+            </Button>
+          </a>
           <p className="font-arsenal text-sm font-bold text-black opacity-50 mt-4 max-w-md mx-auto">
             Сделай правильный выбор. Помоги своему ребёнку стать лучшим.
           </p>
@@ -723,6 +725,15 @@ export default function Index() {
                 <input
                   type="text"
                   placeholder="Ваш возраст или возраст ребёнка"
+                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
+                  style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
+                />
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Telegram-ник (через @)"
                   className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
                   style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
                 />
