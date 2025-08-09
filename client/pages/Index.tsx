@@ -27,16 +27,16 @@ export default function Index() {
   return (
     <div className="min-h-screen w-full" style={{ backgroundColor: '#EBE4E2' }}>
       {/* Hero Section */}
-      <section className="relative px-0 py-8 max-w-6xl mx-auto">
+      <section className="relative px-0 py-8 lg:py-12 max-w-7xl mx-auto">
         {/* Header with contact info */}
-        <div className="relative w-full max-w-sm mx-auto mb-8">
-          <div className="rounded-[35px] h-12 shadow-md relative flex items-center justify-between px-4" style={{ backgroundColor: '#FFF6F6' }}>
+        <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mb-8 lg:mb-12">
+          <div className="rounded-[35px] h-12 md:h-14 lg:h-16 xl:h-18 shadow-md relative flex items-center justify-between px-4 lg:px-6 xl:px-8" style={{ backgroundColor: '#FFF6F6' }}>
             {/* Telegram Icon */}
             <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram">
               <img
                 src="/telegram.png"
                 alt="Telegram"
-                className="w-7 h-7 opacity-80 flex-shrink-0 object-contain cursor-pointer hover:opacity-100 transition-opacity"
+                className="w-7 h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 opacity-80 flex-shrink-0 object-contain cursor-pointer hover:opacity-100 transition-opacity"
               />
             </a>
             
@@ -45,7 +45,7 @@ export default function Index() {
               <img
                 src="/logo.png"
                 alt="MF Logo"
-                className="w-auto h-[46px]"
+                className="w-auto h-[46px] md:h-[50px] lg:h-[56px] xl:h-[64px]"
                 style={{ transform: 'translateY(3px) translateX(-3px)' }}
               />
             </div>
@@ -60,7 +60,7 @@ export default function Index() {
         {/* Main hero content */}
         <div className="relative">
           {/* Hero image with background */}
-          <div className="relative mb-8 flex justify-center">
+          <div className="relative mb-8 lg:mb-12 flex justify-center">
             <div className="relative">
               {/* Background rectangle */}
               <div
@@ -68,8 +68,8 @@ export default function Index() {
                 style={{
                   background: 'linear-gradient(180deg, #9C4F4B 0%, rgba(5, 5, 5, 0.62) 100%)',
                   boxShadow: '9px 5px 4px 0 rgba(0, 0, 0, 0.25) inset',
-                  width: 'clamp(280px, 50%, 300px)',
-                  height: 'clamp(260px, 45%, 280px)',
+                  width: 'clamp(280px, 35vw, 420px)',
+                  height: 'clamp(260px, 32vw, 400px)',
                   minWidth: '280px',
                   minHeight: '260px',
                   left: '50%',
@@ -81,9 +81,9 @@ export default function Index() {
               <img
                 src="/me.png"
                 alt="Преподаватель английского языка"
-                className="w-full max-w-md h-auto rounded-lg shadow-lg relative z-10"
+                className="w-full h-auto rounded-lg shadow-lg relative z-10"
                 style={{
-                  maxWidth: '280px',
+                  width: 'clamp(280px, 35vw, 420px)',
                   height: 'auto',
                   objectFit: 'cover'
                 }}
@@ -92,9 +92,9 @@ export default function Index() {
           </div>
 
           {/* Scrolling text banner */}
-          <div className="bg-brand-primary h-10 md:h-12 flex items-center overflow-hidden mb-8 -mx-4" style={{ marginTop: '-10px', zIndex: 30, position: 'relative' }}>
+          <div className="bg-brand-primary h-10 md:h-12 lg:h-14 xl:h-16 flex items-center overflow-hidden mb-8 lg:mb-12 -mx-4" style={{ marginTop: '-10px', zIndex: 30, position: 'relative' }}>
             <div className="animate-marquee whitespace-nowrap">
-              <span className="font-arsenal text-2xl md:text-4xl text-brand-accent">
+              <span className="font-arsenal text-2xl md:text-4xl lg:text-5xl xl:text-6xl text-brand-accent">
                 НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ | НЕ УПУСТИ ШАНС СТАТЬ ЛУЧШЕ |
               </span>
             </div>
@@ -106,9 +106,9 @@ export default function Index() {
       </section>
 
       {/* Timer Section - Centered */}
-      <div className="text-center px-4 mb-12">
+      <div className="text-center px-4 mb-12 lg:mb-16">
         <Timer />
-          <div className="font-arsenal text-lg md:text-3xl font-bold text-black opacity-50 mt-2">
+          <div className="font-arsenal text-lg md:text-3xl lg:text-4xl xl:text-5xl font-bold text-black opacity-50 mt-2">
             БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
           </div>
       </div>
