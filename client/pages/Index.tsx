@@ -100,7 +100,7 @@ export default function Index() {
                 БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
               </div>
               <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
-                <Button className="urgency-button bg-gradient-to-r from-red-500 to-red-600 text-white font-arsenal text-lg lg:text-xl font-bold px-6 lg:px-8 py-3 lg:py-4 rounded-3xl shadow-lg hover:shadow-2xl hover:scale-110 hover:from-red-600 hover:to-red-700 transition-all duration-300 border-2 border-red-400 hover:border-red-300 relative overflow-hidden">
+                <Button className="urgency-button bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-lg lg:text-xl font-bold px-6 lg:px-8 py-4 lg:py-6 rounded-3xl shadow-lg hover:shadow-2xl hover:scale-110 hover:from-[#D5B5A7] hover:to-[#B8AEAA] transition-all duration-300 border-2 border-brand-secondary/50 hover:border-brand-secondary relative overflow-hidden">
                   <span className="relative z-10 flex items-center gap-2">
                     ⚡ УСПЕЙ ЗАПИСАТЬСЯ ⚡
                   </span>

@@ -5,7 +5,7 @@ interface TimerProps {
 }
 
 export const Timer: React.FC<TimerProps> = ({ compact = false }) => {
-  const [time, setTime] = useState({ hours: 0, minutes: 23, seconds: 48 });
+  const [time, setTime] = useState({ hours: 0, minutes: 24, seconds: 59 });
 
   useEffect(() => {
     // Попытаться загрузить время из localStorage
@@ -17,13 +17,15 @@ export const Timer: React.FC<TimerProps> = ({ compact = false }) => {
       const remainingTime = Math.max(0, endTime - currentTime);
       
       if (remainingTime > 0) {
-        // Если время ещё не истекло, вычислить оставшееся время
+        // Если время ещё не истекло, вычислить оставшееся время (только минуты и секунды)
         const totalSeconds = Math.floor(remainingTime / 1000);
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds % 60;
         
-        setTime({ hours, minutes, seconds });
+        // Ограничиваем максимум до 25 минут
+        const cappedMinutes = Math.min(minutes, 24);
+        
+        setTime({ hours: 0, minutes: cappedMinutes, seconds });
       } else {
         // Если время истекло, начать новый 25-минутный цикл
         const newEndTime = Date.now() + (25 * 60 * 1000);
@@ -39,27 +41,22 @@ export const Timer: React.FC<TimerProps> = ({ compact = false }) => {
 
     const timer = setInterval(() => {
       setTime(prevTime => {
-        let { hours, minutes, seconds } = prevTime;
+        let { minutes, seconds } = prevTime;
         
         if (seconds > 0) {
           seconds--;
         } else if (minutes > 0) {
           minutes--;
           seconds = 59;
-        } else if (hours > 0) {
-          hours--;
-          minutes = 59;
-          seconds = 59;
         } else {
           // Таймер достиг 0, начать новый 25-минутный цикл
           const newEndTime = Date.now() + (25 * 60 * 1000);
           localStorage.setItem('timerEndTime', newEndTime.toString());
-          hours = 0;
           minutes = 24;
           seconds = 59;
         }
         
-        return { hours, minutes, seconds };
+        return { hours: 0, minutes, seconds };
       });
     }, 1000);
 
