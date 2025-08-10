@@ -641,8 +641,16 @@ img {
 /* Course Modal Positioning - avoid mobile notch */
 @media (max-width: 767px) {
   .course-modal {
-    margin-top: 2rem !important;
+    margin-top: 4rem !important;
     margin-bottom: 2rem !important;
-    max-height: calc(100vh - 4rem) !important;
+    max-height: calc(100vh - 6rem) !important;
+  }
+}
+
+/* Better positioning for all devices to avoid browser UI */
+@media (max-width: 1024px) {
+  .course-modal {
+    margin-top: 3rem !important;
+    max-height: calc(100vh - 6rem) !important;
   }
 }

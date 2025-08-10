@@ -125,6 +125,8 @@ export default function Index() {
       name: formData.get('name') as string,
       direction: formData.get('direction') as string,
       age: formData.get('age') as string,
+      country: formData.get('country') as string,
+      email: formData.get('email') as string,
       telegram: formData.get('telegram') as string,
       phone: formData.get('phone') as string,
     };
@@ -140,6 +142,8 @@ export default function Index() {
 👤 ФИО: ${data.name}
 📚 Направление: ${data.direction}
 🎂 Возраст: ${data.age}
+🌍 Страна: ${data.country}
+📧 Email: ${data.email}
 📱 Telegram: ${data.telegram}
 📞 Телефон: ${data.phone}
 
@@ -384,12 +388,12 @@ export default function Index() {
               <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
                 <OptimizedImage 
                   src="/english" 
-                  alt="Изучение языка" 
+                  alt="Обучение языку" 
                   className="w-full h-56 object-cover rounded-lg"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg group-hover:from-black/90 transition-all duration-300"></div>
                 <div className="absolute bottom-4 left-4">
-                  <h3 className="font-arsenal text-lg font-bold text-white">Изучение языка</h3>
+                  <h3 className="font-arsenal text-lg font-bold text-white">Обучение языку</h3>
                   <p className="font-arsenal text-sm text-white opacity-70 mt-1">Индивидуальные онлайн-уроки</p>
                 </div>
               </div>
@@ -397,7 +401,7 @@ export default function Index() {
             <DialogContent className="course-modal max-w-2xl max-h-[90vh] overflow-y-auto border-0" style={{ backgroundColor: '#FFF6F6' }}>
               <DialogHeader className="text-center pb-6">
                 <DialogTitle className="font-arsenal text-3xl font-bold text-black mb-2">
-                  Изучение английского языка
+                  Обучение английскому языку
                 </DialogTitle>
                 <p className="font-arsenal text-lg text-black opacity-70">Индивидуальные онлайн-уроки</p>
               </DialogHeader>
@@ -710,7 +714,7 @@ export default function Index() {
                     <span className="text-white font-arsenal text-lg font-bold">📚</span>
                   </div>
                   <div>
-                    <h4 className="font-arsenal text-xl font-bold text-black">КЕМБРИДЖСКОЕ ОБРАЗОВАНИЕ</h4>
+                    <h4 className="font-arsenal text-xl font-bold text-black">CAMBRIDGE CERTIFICATION</h4>
                     <p className="font-anonymous text-sm text-black opacity-70">Сертифицированный преподаватель</p>
                   </div>
                 </div>
@@ -987,7 +991,7 @@ export default function Index() {
                   <option value="Олимпиады" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🏆 Олимпиады</option>
                   <option value="ЕГЭ" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">📚 ЕГЭ</option>
                   <option value="ОГЭ" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">📝 ОГЭ</option>
-                  <option value="Изучение языка" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🌍 Изучение языка</option>
+                  <option value="Обучение языку" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🌍 Обучение языку</option>
                   <option value="Другой экзамен" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">📋 Другой экзамен</option>
                   <option value="Другое" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">💭 Другое</option>
                 </select>
@@ -1004,6 +1008,51 @@ export default function Index() {
                   type="text"
                   name="age"
                   placeholder="Ваш возраст или возраст ребёнка"
+                  required
+                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
+                  style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
+                />
+              </div>
+
+              {/* Country Select */}
+              <div className="relative">
+                <select
+                  name="country"
+                  required
+                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black font-arsenal text-sm font-bold border-0 shadow-inner appearance-none cursor-pointer pr-10"
+                  style={{ 
+                    boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset',
+                    backgroundImage: 'none'
+                  }}
+                  defaultValue=""
+                >
+                  <option value="" disabled className="text-black/40">Выберите страну</option>
+                  <option value="Россия" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇷🇺 Россия</option>
+                  <option value="Казахстан" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇰🇿 Казахстан</option>
+                  <option value="Беларусь" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇧🇾 Беларусь</option>
+                  <option value="Украина" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇺🇦 Украина</option>
+                  <option value="США" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇺🇸 США</option>
+                  <option value="Канада" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇨🇦 Канада</option>
+                  <option value="Великобритания" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇬🇧 Великобритания</option>
+                  <option value="Германия" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇩🇪 Германия</option>
+                  <option value="Франция" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇫🇷 Франция</option>
+                  <option value="Китай" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🇨🇳 Китай</option>
+                  <option value="Другая" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🌍 Другая</option>
+                </select>
+                {/* Custom dropdown arrow */}
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg className="w-5 h-5 text-black/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Email Field */}
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Ваш email"
                   required
                   className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
                   style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
