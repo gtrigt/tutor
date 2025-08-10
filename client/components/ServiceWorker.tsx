@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 
 export const ServiceWorker: React.FC = () => {
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    // Регистрируем SW только в продакшене, чтобы dev не залипал на кэшах
+    if (import.meta.env.PROD && 'serviceWorker' in navigator) {
       // Регистрируем Service Worker только один раз при загрузке страницы
       const registerSW = async () => {
         try {
@@ -46,6 +47,11 @@ export const ServiceWorker: React.FC = () => {
       } else {
         registerSW();
       }
+    } else if ('serviceWorker' in navigator) {
+      // В режиме разработки отписываем SW, чтобы избежать конфликтов с кэшем
+      navigator.serviceWorker.getRegistrations()
+        .then(regs => regs.forEach(reg => reg.unregister()))
+        .catch(() => {});
     }
   }, []);
 
