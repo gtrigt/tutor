@@ -1,4 +1,5 @@
 import React from 'react';
+import OptimizedImage from './OptimizedImage';
 
 export const HamburgerMenu = () => {
   const [open, setOpen] = React.useState(false);
@@ -74,22 +75,22 @@ export const HamburgerMenu = () => {
         <div className="menu-social-right">
           <div className="social-icons-right">
             <a href="https://t.me/m/VX8q96qONjYy" className="social-icon-right" target="_blank" rel="noopener noreferrer" title="Telegram">
-              <img
-                src="/telegram.png"
+              <OptimizedImage
+                src="/telegram"
                 alt="Telegram"
                 className="w-8 h-8 object-contain"
               />
             </a>
             <a href="https://instagram.com/marat_english" className="social-icon-right" target="_blank" rel="noopener noreferrer" title="Instagram">
-              <img
-                src="/instagram.png"
+              <OptimizedImage
+                src="/instagram"
                 alt="Instagram"
                 className="w-8 h-8 object-contain"
               />
             </a>
             <a href="https://wa.me/79172676373" className="social-icon-right" target="_blank" rel="noopener noreferrer" title="WhatsApp">
-              <img
-                src="/whatsapp.png"
+              <OptimizedImage
+                src="/whatsapp"
                 alt="WhatsApp"
                 className="w-8 h-8 object-contain"
               />
