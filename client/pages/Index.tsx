@@ -24,6 +24,60 @@ export default function Index() {
   const reviewsSection = useIntersectionObserver({ threshold: 0.1 });
   const contactsSection = useIntersectionObserver({ threshold: 0.1 });
 
+  // Функция отправки формы в Telegram
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name') as string,
+      direction: formData.get('direction') as string,
+      age: formData.get('age') as string,
+      telegram: formData.get('telegram') as string,
+      phone: formData.get('phone') as string,
+    };
+
+    try {
+      // Здесь будет отправка в Telegram (замените на свои данные)
+      const botToken = 'YOUR_BOT_TOKEN'; // Замените на токен вашего бота
+      const chatId = 'YOUR_CHAT_ID'; // Замените на ID вашего канала
+      
+      const message = `
+🆕 НОВАЯ ЗАЯВКА С САЙТА!
+
+👤 ФИО: ${data.name}
+📚 Направление: ${data.direction}
+🎂 Возраст: ${data.age}
+📱 Telegram: ${data.telegram}
+📞 Телефон: ${data.phone}
+
+⏰ Время: ${new Date().toLocaleString('ru-RU')}
+🌐 Источник: Веб-сайт
+      `;
+
+      // Отправляем в Telegram
+      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'HTML'
+        })
+      });
+
+      if (response.ok) {
+        alert('✅ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+        e.currentTarget.reset(); // Очищаем форму
+      } else {
+        throw new Error('Ошибка отправки');
+      }
+    } catch (error) {
+      console.error('Ошибка отправки заявки:', error);
+      alert('❌ Ошибка отправки заявки. Попробуйте еще раз или напишите в Telegram.');
+    }
+  };
+
   return (
     <div className="min-h-screen w-full" style={{ backgroundColor: '#EBE4E2' }}>
       {/* Hero Section */}
@@ -702,11 +756,13 @@ export default function Index() {
               </p>
             </div>
 
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleFormSubmit}>
               <div>
                 <input
                   type="text"
+                  name="name"
                   placeholder="Ваше ФИО"
+                  required
                   className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
                   style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
                 />
@@ -715,7 +771,9 @@ export default function Index() {
               <div>
                 <input
                   type="text"
+                  name="direction"
                   placeholder="Направление"
+                  required
                   className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
                   style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
                 />
@@ -724,7 +782,9 @@ export default function Index() {
               <div>
                 <input
                   type="text"
+                  name="age"
                   placeholder="Ваш возраст или возраст ребёнка"
+                  required
                   className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
                   style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
                 />
@@ -733,7 +793,9 @@ export default function Index() {
               <div>
                 <input
                   type="text"
+                  name="telegram"
                   placeholder="Telegram-ник (через @)"
+                  required
                   className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
                   style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
                 />
@@ -747,7 +809,9 @@ export default function Index() {
                 </div>
                 <input
                   type="tel"
+                  name="phone"
                   placeholder="+7 (999) 999-99-99"
+                  required
                   className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/30 font-arsenal text-sm font-bold border-0 shadow-inner"
                   style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
                 />
