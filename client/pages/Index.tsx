@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import OptimizedImage from '@/components/OptimizedImage';
 import { 
   TelegramIcon, 
   MonitorIcon, 
@@ -203,8 +204,8 @@ export default function Index() {
           <div className="rounded-[35px] h-12 md:h-14 lg:h-16 xl:h-18 shadow-md relative flex items-center justify-between px-4 lg:px-6 xl:px-8" style={{ backgroundColor: '#FFF6F6' }}>
             {/* Telegram Icon */}
             <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram">
-              <img
-                src="/telegram.png"
+              <OptimizedImage
+                src="/telegram"
                 alt="Telegram"
                 loading="lazy"
                 className="w-7 h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 opacity-80 flex-shrink-0 object-contain cursor-pointer hover:opacity-100 transition-opacity"
@@ -213,8 +214,8 @@ export default function Index() {
             
             {/* Center Logo */}
             <div className="flex items-center flex-1 justify-center">
-              <img
-                src="/logo.png"
+              <OptimizedImage
+                src="/logo"
                 alt="MF Logo"
                 loading="lazy"
                 className="w-auto h-[46px] md:h-[50px] lg:h-[56px] xl:h-[64px]"
@@ -252,8 +253,8 @@ export default function Index() {
                   paddingLeft: '55px',
                 }}
               ></div>
-              <img
-                src="/me.png"
+              <OptimizedImage
+                src="/me"
                 alt="Преподаватель английского языка"
                 loading="eager"
                 fetchPriority="high"
@@ -309,8 +310,8 @@ export default function Index() {
                     paddingLeft: '55px',
                   }}
                 ></div>
-                <img
-                  src="/me.png"
+                <OptimizedImage
+                  src="/me"
                   alt="Преподаватель английского языка"
                   loading="eager"
                   fetchPriority="high"
@@ -381,8 +382,8 @@ export default function Index() {
           <Dialog open={serviceDialogs.language} onOpenChange={(open) => setServiceDialogs(prev => ({ ...prev, language: open }))}>
             <DialogTrigger asChild>
               <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
-                <img 
-                  src="/english.png" 
+                <OptimizedImage 
+                  src="/english" 
                   alt="Изучение языка" 
                   className="w-full h-56 object-cover rounded-lg"
                 />
@@ -457,8 +458,8 @@ export default function Index() {
           <Dialog open={serviceDialogs.olimp} onOpenChange={(open) => setServiceDialogs(prev => ({ ...prev, olimp: open }))}>
             <DialogTrigger asChild>
               <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
-                <img 
-                  src="/Mark.png" 
+                <OptimizedImage 
+                  src="/Mark" 
                   alt="Олимпиадная подготовка" 
                   className="w-full h-56 object-cover rounded-lg"
                 />
@@ -535,8 +536,8 @@ export default function Index() {
           <Dialog open={serviceDialogs.ege} onOpenChange={(open) => setServiceDialogs(prev => ({ ...prev, ege: open }))}>
             <DialogTrigger asChild>
               <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
-                <img 
-                  src="/EGE.png" 
+                <OptimizedImage 
+                  src="/EGE" 
                   alt="Подготовка к ОГЭ/ЕГЭ" 
                   className="w-full h-56 object-cover rounded-lg"
                 />
@@ -742,13 +743,13 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 max-w-2xl mx-auto">
             <a href="https://instagram.com/marat_english" target="_blank" rel="noopener noreferrer" 
                className="flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-2xl p-3 sm:p-4 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center sm:justify-start">
-              <img src="/instagram.png" alt="Instagram" className="w-6 h-6 sm:w-8 sm:h-8 object-contain flex-shrink-0" />
+              <OptimizedImage src="/instagram" alt="Instagram" className="w-6 h-6 sm:w-8 sm:h-8 object-contain flex-shrink-0" />
               <span className="font-arsenal text-base sm:text-lg font-bold text-black truncate">@marat_english</span>
             </a>
             
             <a href="https://t.me/maratenglish" target="_blank" rel="noopener noreferrer"
                className="flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-2xl p-3 sm:p-4 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center sm:justify-start">
-              <img src="/telegram.png" alt="Telegram" className="w-6 h-6 sm:w-8 sm:h-8 object-contain flex-shrink-0" />
+              <OptimizedImage src="/telegram" alt="Telegram" className="w-6 h-6 sm:w-8 sm:h-8 object-contain flex-shrink-0" />
               <span className="font-arsenal text-base sm:text-lg font-bold text-black truncate">@maratenglish</span>
             </a>
           </div>
@@ -1069,7 +1070,7 @@ export default function Index() {
               <div className="flex flex-col items-center space-y-4">
                 <div className="w-20 h-20 bg-white/60 rounded-full flex items-center justify-center shadow-lg">
                   <img
-                    src="/telegram.png"
+                    src="/telegram"
                     alt="Telegram"
                     className="w-12 h-12 object-contain"
                   />
@@ -1082,7 +1083,7 @@ export default function Index() {
                   className="course-cta-button text-black font-arsenal text-lg font-bold px-8 py-3 rounded-2xl inline-flex items-center gap-3 transition-all duration-300 hover:scale-105"
                 >
                   <img
-                    src="/telegram.png"
+                    src="/telegram"
                     alt="Telegram"
                     className="w-6 h-6 object-contain"
                   />
@@ -1141,7 +1142,7 @@ export default function Index() {
             <a href="https://wa.me/79172676373" target="_blank" rel="noopener noreferrer" title="WhatsApp" className="flex flex-col items-center">
               <div className="w-8 h-8 mb-2">
                 <img
-                  src="/whatsapp.png"
+                  src="/whatsapp"
                   alt="WhatsApp"
                   className="w-full h-full object-contain cursor-pointer hover:opacity-80 transition-opacity"
                 />
@@ -1156,7 +1157,7 @@ export default function Index() {
               <div className="w-8 h-8 mb-2 relative">
                 <div className="w-full h-full rounded-full bg-[#EBE4E2] flex items-center justify-center">
                   <img
-                    src="/telegram.png"
+                    src="/telegram"
                     alt="Telegram"
                     className="w-6 h-6 object-contain cursor-pointer hover:opacity-80 transition-opacity"
                   />
@@ -1175,7 +1176,7 @@ export default function Index() {
             {/* Instagram */}
             <a href="https://instagram.com/marat_english" target="_blank" rel="noopener noreferrer" title="Instagram" className="flex items-center">
               <img
-                src="/instagram.png"
+                src="/instagram"
                 alt="Instagram"
                 className="w-9 h-9 mr-2 object-contain cursor-pointer hover:opacity-80 transition-opacity"
               />
@@ -1187,8 +1188,8 @@ export default function Index() {
 
           <div className="flex items-center justify-center mt-4">
             <a href="https://t.me/maratenglish" target="_blank" rel="noopener noreferrer" title="Telegram Channel" className="flex items-center">
-            <img
-                src="/telegram.png"
+            <OptimizedImage
+                src="/telegram"
               alt="Telegram"
                 className="w-10 h-10 mr-2 object-contain cursor-pointer hover:opacity-80 transition-opacity"
             />

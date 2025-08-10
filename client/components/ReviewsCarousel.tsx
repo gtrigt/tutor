@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Virtual } from 'swiper/modules';
-import { ReviewImage } from './OptimizedImage';
+import OptimizedImage from './OptimizedImage';
 
 // Типы для отзывов
 interface Review {
@@ -363,7 +363,7 @@ const ReviewsCarousel: React.FC = () => {
         {uniqueImages.map((src, idx) => (
           <SwiperSlide key={`img-${idx}`} virtualIndex={reviews.length + idx}>
             <div className="bg-[#FBF3F0] rounded-lg shadow-lg p-3 h-full flex items-center justify-center">
-              <ReviewImage
+              <OptimizedImage
                 src={src}
                 alt={`Отзыв ${idx + 1}`}
                 reviewIndex={idx}
