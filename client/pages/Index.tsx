@@ -47,11 +47,40 @@ export default function Index() {
     ege: false
   });
 
+  // Состояние для уведомлений
+  const [notification, setNotification] = useState<{
+    show: boolean;
+    type: 'success' | 'error' | 'loading';
+    title: string;
+    message: string;
+  }>({
+    show: false,
+    type: 'success',
+    title: '',
+    message: ''
+  });
+
   // Функция для закрытия модальных окон и перехода к анкете
   const handleCTAClick = (dialogType: keyof typeof serviceDialogs) => {
     setServiceDialogs(prev => ({ ...prev, [dialogType]: false }));
     // Плавный переход к анкете
     document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Функции для управления уведомлениями
+  const showNotification = (type: 'success' | 'error' | 'loading', title: string, message: string) => {
+    setNotification({ show: true, type, title, message });
+    
+    // Автоматическое скрытие для success и error
+    if (type !== 'loading') {
+      setTimeout(() => {
+        setNotification(prev => ({ ...prev, show: false }));
+      }, 4000);
+    }
+  };
+
+  const hideNotification = () => {
+    setNotification(prev => ({ ...prev, show: false }));
   };
   
   // Применяем оптимизации прокрутки
@@ -86,6 +115,9 @@ export default function Index() {
     // Показываем загрузку
     submitButton.disabled = true;
     submitButton.textContent = '📤 Отправляем...';
+    
+    // Показываем уведомление о загрузке
+    showNotification('loading', '📤 Отправляем заявку...', 'Пожалуйста, подождите несколько секунд');
     
     const formData = new FormData(e.currentTarget);
     const data = {
@@ -134,8 +166,8 @@ export default function Index() {
         console.log('Fetch error (silent):', error);
       }
       
-      // Всегда показываем успех и очищаем форму
-      alert('✅ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+      // Показываем успех и очищаем форму
+      showNotification('success', '✅ Заявка отправлена!', 'Спасибо за ваш интерес! Мы свяжемся с вами в ближайшее время.');
       e.currentTarget.reset();
       
       // Восстанавливаем кнопку
@@ -145,8 +177,8 @@ export default function Index() {
       // Если что-то пошло не так, все равно показываем успех
       console.log('Unexpected error (silent):', error);
       
-      // Всегда показываем успех и очищаем форму
-      alert('✅ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+      // Показываем успех и очищаем форму
+      showNotification('success', '✅ Заявка отправлена!', 'Спасибо за ваш интерес! Мы свяжемся с вами в ближайшее время.');
       e.currentTarget.reset();
       
       // Восстанавливаем кнопку
@@ -1159,6 +1191,76 @@ export default function Index() {
         </div>
       </footer>
     </div>
+
+    {/* Modern Notification Toast */}
+    {notification.show && (
+      <div className="fixed top-4 right-4 z-50 animate-slide-in-from-right">
+        <div 
+          className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-6 max-w-sm transform transition-all duration-300 hover:scale-105"
+          style={{
+            background: notification.type === 'success' 
+              ? 'linear-gradient(135deg, #FFF6F6 0%, #E8DED6 100%)'
+              : notification.type === 'error'
+              ? 'linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%)'
+              : 'linear-gradient(135deg, #F0F8FF 0%, #E6F3FF 100%)'
+          }}
+        >
+          <div className="flex items-start gap-4">
+            {/* Icon */}
+            <div className="flex-shrink-0">
+              {notification.type === 'success' && (
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              )}
+              {notification.type === 'error' && (
+                <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+              )}
+              {notification.type === 'loading' && (
+                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                  <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 min-w-0">
+              <h3 className="font-arsenal text-lg font-bold text-black mb-1">
+                {notification.title}
+              </h3>
+              <p className="font-anonymous text-sm text-black/80 leading-relaxed">
+                {notification.message}
+              </p>
+            </div>
+
+            {/* Close button */}
+            {notification.type !== 'loading' && (
+              <button
+                onClick={hideNotification}
+                className="flex-shrink-0 p-1 rounded-full hover:bg-black/10 transition-colors"
+              >
+                <svg className="w-5 h-5 text-black/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+
+          {/* Progress bar for loading */}
+          {notification.type === 'loading' && (
+            <div className="mt-4 h-1 bg-black/10 rounded-full overflow-hidden">
+              <div className="h-full bg-blue-500 rounded-full animate-pulse"></div>
+            </div>
+          )}
+        </div>
+      </div>
+    )}
     </>
   );
 }
