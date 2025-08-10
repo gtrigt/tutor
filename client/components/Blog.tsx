@@ -200,8 +200,18 @@ export const Blog: React.FC<BlogProps> = ({
                 <Button 
                   className="w-full bg-brand-secondary text-black font-arsenal font-bold hover:bg-brand-secondary/90"
                   onClick={() => {
-                    // Здесь будет навигация к полной статье
-                    console.log(`Читать статью: ${post.slug}`);
+                    // Навигация к полной статье
+                    const routes: { [key: string]: string } = {
+                      'ege-preparation': '/blog/ege-preparation.html',
+                      'olympiad-success': '/blog/olympiad-success.html', 
+                      'common-mistakes': '/blog/common-mistakes.html',
+                      'online-learning': '/blog/online-learning.html'
+                    };
+                    
+                    const route = routes[post.slug];
+                    if (route) {
+                      window.open(route, '_blank');
+                    }
                   }}
                 >
                   Читать полностью
