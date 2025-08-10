@@ -43,8 +43,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   }
   
   // Генерируем пути для WebP и PNG
-  const webpSrc = `${folder}${baseSrc}.webp`;
-  const pngSrc = `${folder}${baseSrc}.png`;
+  const fileName = baseSrc.replace(/^\//, ''); // убираем начальную косую черту
+  const webpSrc = `${folder}/${fileName}.webp`;
+  const pngSrc = `${folder}/${fileName}.png`;
   
   return (
     <picture>

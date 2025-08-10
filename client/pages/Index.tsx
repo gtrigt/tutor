@@ -1118,7 +1118,7 @@ export default function Index() {
 
               <div className="flex flex-col items-center space-y-4">
                 <div className="w-20 h-20 bg-white/60 rounded-full flex items-center justify-center shadow-lg">
-                  <img
+                  <OptimizedImage
                     src="/telegram"
                     alt="Telegram"
                     className="w-12 h-12 object-contain"
@@ -1131,7 +1131,7 @@ export default function Index() {
                   rel="noopener noreferrer"
                   className="course-cta-button text-black font-arsenal text-lg font-bold px-8 py-3 rounded-2xl inline-flex items-center gap-3 transition-all duration-300 hover:scale-105"
                 >
-                  <img
+                  <OptimizedImage
                     src="/telegram"
                     alt="Telegram"
                     className="w-6 h-6 object-contain"
@@ -1190,7 +1190,7 @@ export default function Index() {
             {/* WhatsApp */}
             <a href="https://wa.me/79172676373" target="_blank" rel="noopener noreferrer" title="WhatsApp" className="flex flex-col items-center">
               <div className="w-8 h-8 mb-2">
-                <img
+                <OptimizedImage
                   src="/whatsapp"
                   alt="WhatsApp"
                   className="w-full h-full object-contain cursor-pointer hover:opacity-80 transition-opacity"
@@ -1205,7 +1205,7 @@ export default function Index() {
             <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram" className="flex flex-col items-center">
               <div className="w-8 h-8 mb-2 relative">
                 <div className="w-full h-full rounded-full bg-[#EBE4E2] flex items-center justify-center">
-                  <img
+                  <OptimizedImage
                     src="/telegram"
                     alt="Telegram"
                     className="w-6 h-6 object-contain cursor-pointer hover:opacity-80 transition-opacity"
@@ -1224,7 +1224,7 @@ export default function Index() {
           <div className="flex items-center justify-center space-x-6">
             {/* Instagram */}
             <a href="https://instagram.com/marat_english" target="_blank" rel="noopener noreferrer" title="Instagram" className="flex items-center">
-              <img
+              <OptimizedImage
                 src="/instagram"
                 alt="Instagram"
                 className="w-9 h-9 mr-2 object-contain cursor-pointer hover:opacity-80 transition-opacity"
