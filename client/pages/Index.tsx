@@ -28,6 +28,14 @@ export default function Index() {
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
+    // Получаем кнопку отправки для показа загрузки
+    const submitButton = e.currentTarget.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalText = submitButton.textContent;
+    
+    // Показываем загрузку
+    submitButton.disabled = true;
+    submitButton.textContent = '📤 Отправляем...';
+    
     const formData = new FormData(e.currentTarget);
     const data = {
       name: formData.get('name') as string,
@@ -39,8 +47,8 @@ export default function Index() {
 
     try {
       // Здесь будет отправка в Telegram (замените на свои данные)
-      const botToken = 'YOUR_BOT_TOKEN'; // Замените на токен вашего бота
-      const chatId = 'YOUR_CHAT_ID'; // Замените на ID вашего канала
+      const botToken = '8059904436:AAF8kJbXOKbMgv6tvq5hMCEmvorfHt608ow'; // Замените на токен вашего бота
+      const chatId = '-1002835359630'; // Замените на ID вашего канала
       
       const message = `
 🆕 НОВАЯ ЗАЯВКА С САЙТА!
@@ -66,15 +74,33 @@ export default function Index() {
         })
       });
 
-      if (response.ok) {
+      // Проверяем ответ от Telegram API
+      const responseData = await response.json();
+      
+      if (response.ok && responseData.ok) {
+        // Успешная отправка
         alert('✅ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
         e.currentTarget.reset(); // Очищаем форму
       } else {
-        throw new Error('Ошибка отправки');
+        // Ошибка от Telegram API
+        console.error('Telegram API Error:', responseData);
+        throw new Error(`Ошибка Telegram API: ${responseData.description || 'Неизвестная ошибка'}`);
       }
     } catch (error) {
       console.error('Ошибка отправки заявки:', error);
-      alert('❌ Ошибка отправки заявки. Попробуйте еще раз или напишите в Telegram.');
+      
+      // Проверяем, если это ошибка CORS или сети
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        alert('❌ Ошибка сети. Проверьте интернет-соединение и попробуйте еще раз.');
+      } else if (error.message.includes('Telegram API')) {
+        alert(`❌ Ошибка Telegram API: ${error.message}. Попробуйте еще раз или напишите в Telegram.`);
+      } else {
+        alert('❌ Ошибка отправки заявки. Попробуйте еще раз или напишите в Telegram.');
+      }
+    } finally {
+      // Восстанавливаем кнопку в любом случае
+      submitButton.disabled = false;
+      submitButton.textContent = originalText;
     }
   };
 
