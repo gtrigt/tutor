@@ -637,3 +637,12 @@ img {
 .animate-slide-out-to-right {
   animation: slide-out-to-right 0.3s ease-in forwards;
 }
+
+/* Course Modal Positioning - avoid mobile notch */
+@media (max-width: 767px) {
+  .course-modal {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+    max-height: calc(100vh - 4rem) !important;
+  }
+}

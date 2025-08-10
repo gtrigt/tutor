@@ -231,7 +231,7 @@ export default function Index() {
 
         {/* Main hero content */}
         <div className="relative">
-          <h1 className="font-arsenal text-2xl min-[690px]:text-3xl lg:text-4xl font-bold text-black text-center mb-6">
+          <h1 className="font-arsenal text-2xl min-[690px]:text-3xl lg:text-4xl font-bold text-black text-center mb-6 px-4 md:px-0">
             Репетитор английского языка — подготовка к олимпиадам, ЕГЭ/ОГЭ и IELTS
           </h1>
           {/* Desktop Layout (>690px) */}
@@ -343,8 +343,24 @@ export default function Index() {
       {/* Timer Section - Centered (Mobile only) */}
       <div className="min-[690px]:hidden text-center px-4 mb-12">
         <Timer />
-          <div className="font-arsenal text-lg md:text-3xl font-bold text-black opacity-50 mt-2">
+          <div className="font-arsenal text-lg md:text-3xl font-bold text-black opacity-50 mt-2 mb-6">
             БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
+          </div>
+          
+          {/* Mobile CTA Button with Lightning */}
+          <div className="relative mt-6">
+            <a href="#contacts">
+              <button className="relative bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-lg font-bold px-8 py-3 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden">
+                {/* Lightning effects */}
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute top-1 left-2 text-yellow-300 text-xs">⚡</div>
+                  <div className="absolute bottom-1 right-2 text-yellow-300 text-xs">⚡</div>
+                  <div className="absolute top-2 right-4 text-yellow-300 text-xs">⚡</div>
+                  <div className="absolute bottom-2 left-4 text-yellow-300 text-xs">⚡</div>
+                </div>
+                <span className="relative z-10">⚡ УСПЕЙ ЗАПИСАТЬСЯ ⚡</span>
+              </button>
+            </a>
           </div>
       </div>
 
