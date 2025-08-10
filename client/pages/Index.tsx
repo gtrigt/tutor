@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { 
@@ -39,6 +39,20 @@ export default function Index() {
   const coursesSection = useIntersectionObserver({ threshold: 0.1 });
   const reviewsSection = useIntersectionObserver({ threshold: 0.1 });
   const contactsSection = useIntersectionObserver({ threshold: 0.1 });
+  
+  // Состояния для управления модальными окнами
+  const [serviceDialogs, setServiceDialogs] = useState({
+    language: false,
+    olimp: false,
+    ege: false
+  });
+
+  // Функция для закрытия модальных окон и перехода к анкете
+  const handleCTAClick = (dialogType: keyof typeof serviceDialogs) => {
+    setServiceDialogs(prev => ({ ...prev, [dialogType]: false }));
+    // Плавный переход к анкете
+    document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' });
+  };
   
   // Применяем оптимизации прокрутки
   useScrollOptimization({
@@ -306,12 +320,17 @@ export default function Index() {
       <section id="services" className="px-4 py-12 max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="font-arsenal text-3xl font-bold text-black mb-2">УСЛУГИ</h2>
-          <div className="w-24 h-1 bg-brand-secondary mx-auto"></div>
+          <div className="w-24 h-1 bg-brand-secondary mx-auto mb-4"></div>
+          <div className="mt-4">
+            <button className="px-4 py-2 rounded-full font-arsenal text-sm font-bold bg-brand-secondary/20 text-black shadow hover:bg-brand-secondary/30 transition">
+              Нажми, чтобы узнать больше 👇
+            </button>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {/* Language Learning */}
-          <Dialog>
+          <Dialog open={serviceDialogs.language} onOpenChange={(open) => setServiceDialogs(prev => ({ ...prev, language: open }))}>
             <DialogTrigger asChild>
               <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
                 <img 
@@ -323,11 +342,6 @@ export default function Index() {
                 <div className="absolute bottom-4 left-4">
                   <h3 className="font-arsenal text-lg font-bold text-white">Изучение языка</h3>
                   <p className="font-arsenal text-sm text-white opacity-70 mt-1">Индивидуальные онлайн-уроки</p>
-                </div>
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                  <button className="px-3 py-1 rounded-full text-[12px] font-arsenal font-bold bg-white/80 text-black shadow hover:bg-white transition">
-                    Нажми, чтобы узнать больше 👇
-                  </button>
                 </div>
               </div>
             </DialogTrigger>
@@ -377,11 +391,12 @@ export default function Index() {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
-                  <a href="#contacts">
-                    <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
-                      🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
-                    </Button>
-                  </a>
+                  <Button 
+                    onClick={() => handleCTAClick('language')}
+                    className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto"
+                  >
+                    🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
+                  </Button>
                   <p className="font-arsenal text-sm text-black opacity-50 mt-3">
                     Первый урок — бесплатно
                   </p>
@@ -391,7 +406,7 @@ export default function Index() {
           </Dialog>
 
           {/* Olympic Preparation */}
-          <Dialog>
+          <Dialog open={serviceDialogs.olimp} onOpenChange={(open) => setServiceDialogs(prev => ({ ...prev, olimp: open }))}>
             <DialogTrigger asChild>
               <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
                 <img 
@@ -405,11 +420,6 @@ export default function Index() {
                   <p className="font-arsenal text-sm font-bold text-white opacity-70 mt-1">
                     Индивидуальные онлайн-уроки
                   </p>
-                </div>
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                  <button className="px-3 py-1 rounded-full text-[12px] font-arsenal font-bold bg-white/80 text-black shadow hover:bg-white transition">
-                    Нажми, чтобы узнать больше 👇
-                  </button>
                 </div>
               </div>
             </DialogTrigger>
@@ -459,11 +469,12 @@ export default function Index() {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
-                  <a href="#contacts">
-                    <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
-                      🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
-                    </Button>
-                  </a>
+                  <Button 
+                    onClick={() => handleCTAClick('olimp')}
+                    className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto"
+                  >
+                    🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
+                  </Button>
                   <p className="font-arsenal text-sm text-black opacity-50 mt-3">
                     Первое занятие — бесплатно
                   </p>
@@ -473,7 +484,7 @@ export default function Index() {
           </Dialog>
 
           {/* OGE/EGE Preparation */}
-          <Dialog>
+          <Dialog open={serviceDialogs.ege} onOpenChange={(open) => setServiceDialogs(prev => ({ ...prev, ege: open }))}>
             <DialogTrigger asChild>
               <div className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300">
                 <img 
@@ -485,11 +496,6 @@ export default function Index() {
                 <div className="absolute bottom-4 left-4">
                   <h3 className="font-arsenal text-lg font-bold text-white">Подготовка к ОГЭ/ЕГЭ</h3>
                   <p className="font-arsenal text-sm text-white opacity-70 mt-1">Индивидуальные онлайн-уроки</p>
-                </div>
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                  <button className="px-3 py-1 rounded-full text-[12px] font-arsenal font-bold bg-white/80 text-black shadow hover:bg-white transition">
-                    Нажми, чтобы узнать больше 👇
-                  </button>
                 </div>
               </div>
             </DialogTrigger>
@@ -539,11 +545,12 @@ export default function Index() {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
-                  <a href="#contacts">
-                    <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
-                      🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
-                    </Button>
-                  </a>
+                  <Button 
+                    onClick={() => handleCTAClick('ege')}
+                    className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto"
+                  >
+                    🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
+                  </Button>
                   <p className="font-arsenal text-sm text-black opacity-50 mt-3">
                     Первое занятие — бесплатно
                   </p>
@@ -916,22 +923,31 @@ export default function Index() {
                 />
               </div>
 
-              <div>
+              <div className="relative">
                 <select
                   name="direction"
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black font-arsenal text-sm font-bold border-0 shadow-inner"
-                  style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
+                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black font-arsenal text-sm font-bold border-0 shadow-inner appearance-none cursor-pointer pr-10"
+                  style={{ 
+                    boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset',
+                    backgroundImage: 'none'
+                  }}
                   defaultValue=""
                 >
-                  <option value="" disabled>Выберите направление</option>
-                  <option value="Олимпиады">Олимпиады</option>
-                  <option value="ЕГЭ">ЕГЭ</option>
-                  <option value="ОГЭ">ОГЭ</option>
-                  <option value="Изучение языка">Изучение языка</option>
-                  <option value="Другой экзамен">Другой экзамен</option>
-                  <option value="Другое">Другое</option>
+                  <option value="" disabled className="text-black/40">Выберите направление</option>
+                  <option value="Олимпиады" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🏆 Олимпиады</option>
+                  <option value="ЕГЭ" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">📚 ЕГЭ</option>
+                  <option value="ОГЭ" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">📝 ОГЭ</option>
+                  <option value="Изучение языка" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">🌍 Изучение языка</option>
+                  <option value="Другой экзамен" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">📋 Другой экзамен</option>
+                  <option value="Другое" className="bg-[#E8DED6] text-black font-arsenal font-bold py-2">💭 Другое</option>
                 </select>
+                {/* Custom dropdown arrow */}
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg className="w-5 h-5 text-black/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
               </div>
 
               <div>
