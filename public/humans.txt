@@ -1,0 +1,19 @@
+/* TEAM */
+    Developer: Marat English Team
+    Contact: https://t.me/maratenglish
+    From: Russia
+
+/* SITE */
+    Last update: 2024/12/19
+    Language: Russian
+    Doctype: HTML5
+    IDE: Cursor
+    Standards: HTML5, CSS3, JavaScript ES6+
+    Components: React, TypeScript, Tailwind CSS
+    Software: Vite, Netlify
+
+/* SERVICES */
+    Hosting: Netlify
+    Analytics: Google Analytics
+    Search: Google Search Console
+    Social: Instagram, Telegram 

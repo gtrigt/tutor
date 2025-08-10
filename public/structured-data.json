@@ -1,0 +1,230 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalService",
+      "@id": "https://marat-english.com/#service",
+      "name": "Marat English - Репетитор английского языка",
+      "description": "Опытный репетитор английского языка с олимпиадным стажем. Подготовка к ВСОШ, перечневым олимпиадам, ЕГЭ/ОГЭ (80+ баллов), IELTS (7.0+).",
+      "url": "https://marat-english.com/",
+      "telephone": "+79172676373",
+      "email": "contact@marat-english.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "RU",
+        "addressRegion": "Россия"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Россия"
+      },
+      "serviceType": "Репетиторство по английскому языку",
+      "provider": {
+        "@type": "Person",
+        "@id": "https://marat-english.com/#person",
+        "name": "Marat",
+        "jobTitle": "Репетитор английского языка",
+        "description": "Опытный преподаватель с олимпиадным стажем, подготовка к ВСОШ, ЕГЭ/ОГЭ, IELTS",
+        "knowsAbout": [
+          "Английский язык",
+          "Подготовка к олимпиадам ВСОШ",
+          "Подготовка к ЕГЭ/ОГЭ",
+          "Подготовка к IELTS",
+          "Олимпиадная подготовка"
+        ],
+        "hasCredential": [
+          "Кембриджское образование",
+          "Опыт обучения в США",
+          "Опыт обучения в Великобритании",
+          "Член олимпиадной сборной"
+        ]
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Индивидуальный онлайн-урок",
+          "price": "3000",
+          "priceCurrency": "RUB",
+          "description": "Индивидуальный онлайн-урок английского языка 60 минут",
+          "availability": "https://schema.org/InStock",
+          "validFrom": "2024-01-01",
+          "validThrough": "2025-12-31"
+        },
+        {
+          "@type": "Offer",
+          "name": "Бесплатный пробный урок",
+          "price": "0",
+          "priceCurrency": "RUB",
+          "description": "Бесплатный пробный урок-консультация",
+          "availability": "https://schema.org/InStock",
+          "validFrom": "2024-01-01",
+          "validThrough": "2025-12-31"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "200",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Услуги репетитора",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Подготовка к олимпиадам ВСОШ",
+              "description": "Специализированная подготовка к олимпиадам по английскому языку"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Подготовка к ЕГЭ/ОГЭ",
+              "description": "Целенаправленная подготовка к государственным экзаменам"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Подготовка к IELTS",
+              "description": "Подготовка к международному экзамену IELTS"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://marat-english.com/#person",
+      "name": "Marat",
+      "jobTitle": "Репетитор английского языка",
+      "description": "Опытный преподаватель с олимпиадным стажем",
+      "knowsAbout": [
+        "Английский язык",
+        "Подготовка к олимпиадам ВСОШ",
+        "Подготовка к ЕГЭ/ОГЭ",
+        "Подготовка к IELTS"
+      ],
+      "hasCredential": [
+        "Кембриджское образование",
+        "Опыт обучения в США",
+        "Опыт обучения в Великобритании"
+      ],
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Американские университеты",
+          "description": "Три года изучения в американских университетах"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Британские университеты",
+          "description": "Стажировка в Великобритании"
+        }
+      ],
+      "award": [
+        "Победитель Всероссийской олимпиады по английскому языку",
+        "Член олимпиадной сборной по английскому языку"
+      ],
+      "sameAs": [
+        "https://t.me/maratenglish",
+        "https://instagram.com/marat_english"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://marat-english.com/#organization",
+      "name": "Marat English",
+      "description": "Онлайн центр изучения английского языка",
+      "url": "https://marat-english.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://marat-english.com/logo.png",
+        "width": "512",
+        "height": "512"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+79172676373",
+        "contactType": "customer service",
+        "availableLanguage": ["Russian", "English"]
+      },
+      "sameAs": [
+        "https://t.me/maratenglish",
+        "https://instagram.com/marat_english"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://marat-english.com/#website",
+      "url": "https://marat-english.com/",
+      "name": "Marat English - Репетитор английского языка",
+      "description": "Официальный сайт опытного репетитора английского языка",
+      "publisher": {
+        "@id": "https://marat-english.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://marat-english.com/?s={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://marat-english.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Главная",
+          "item": "https://marat-english.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Услуги",
+          "item": "https://marat-english.com/#services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "О преподавателе",
+          "item": "https://marat-english.com/#about"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Преимущества",
+          "item": "https://marat-english.com/#advantages"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Курсы",
+          "item": "https://marat-english.com/#courses"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Отзывы",
+          "item": "https://marat-english.com/#reviews"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Контакты",
+          "item": "https://marat-english.com/#contacts"
+        }
+      ]
+    }
+  ]
+} 

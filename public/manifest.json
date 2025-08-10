@@ -1,0 +1,48 @@
+{
+  "name": "Marat English - Репетитор английского языка",
+  "short_name": "Marat English",
+  "description": "Опытный репетитор английского языка с олимпиадным стажем. Подготовка к ВСОШ, ЕГЭ/ОГЭ, IELTS.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EBE4E2",
+  "theme_color": "#9C4F4B",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ru",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/me.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://marat-english.com"
+    }
+  ],
+  "prefer_related_applications": false
+} 

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="16" fill="#9C4F4B"/>
+  
+  <!-- Letter M -->
+  <path d="M8 24V8L12 16L16 8L20 16L24 8V24" 
+        stroke="#FFF6F6" 
+        stroke-width="2.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"/>
+  
+  <!-- Decorative accent -->
+  <circle cx="16" cy="16" r="14" 
+          stroke="#C4A698" 
+          stroke-width="1" 
+          fill="none" 
+          opacity="0.6"/>
+</svg> 

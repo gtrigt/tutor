@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Analytics | Marat English</title>
+    <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        // Замените GA_MEASUREMENT_ID на ваш реальный ID
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: 'Marat English - Репетитор английского языка',
+            page_location: 'https://marat-english.com/',
+            send_page_view: true,
+            custom_map: {
+                'custom_parameter_1': 'user_type',
+                'custom_parameter_2': 'service_type'
+            }
+        });
+        
+        // Отслеживание событий
+        gtag('event', 'page_view', {
+            page_title: 'Marat English - Репетитор английского языка',
+            page_location: 'https://marat-english.com/',
+            custom_parameter_1: 'visitor'
+        });
+        
+        // Отслеживание форм
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function() {
+                    gtag('event', 'form_submit', {
+                        form_name: 'contact_form',
+                        custom_parameter_2: 'contact'
+                    });
+                });
+            });
+            
+            // Отслеживание кликов по кнопкам
+            const buttons = document.querySelectorAll('button, a[href*="t.me"]');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    gtag('event', 'button_click', {
+                        button_text: button.textContent || button.innerText,
+                        button_location: 'main_page'
+                    });
+                });
+            });
+        });
+    </script>
+    
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-XXXXXXX');
+    </script>
+    
+    <!-- Yandex.Metrika -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        
+        ym(YANDEX_METRIKA_ID, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    
+    <!-- Facebook Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'FACEBOOK_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+    
+    <noscript>
+        <img height="1" width="1" style="display:none" 
+             src="https://www.facebook.com/tr?id=FACEBOOK_PIXEL_ID&ev=PageView&noscript=1"/>
+    </noscript>
+</body>
+</html> 

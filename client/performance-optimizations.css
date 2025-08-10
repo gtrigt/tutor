@@ -1,0 +1,220 @@
+/* Performance Optimizations CSS */
+
+/* Оптимизация для мобильных устройств */
+@media (max-width: 768px) {
+  /* Уменьшаем сложность анимаций на мобильных */
+  * {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  
+  /* Оптимизация для Swiper на мобильных */
+  .swiper-container,
+  .swiper {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Упрощаем переходы на мобильных */
+  .swiper-slide {
+    transition: transform 0.3s ease-out;
+  }
+  
+  /* Оптимизация для изображений на мобильных */
+  img {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+}
+
+/* Оптимизация для быстрой прокрутки */
+@media (prefers-reduced-motion: no-preference) {
+  /* Включаем аппаратное ускорение для всех элементов с анимацией */
+  .animate-fade-in-up,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-fade-in-up-delayed,
+  .animate-fade-in-up-slow {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+}
+
+/* Оптимизация для Swiper компонентов */
+.swiper-container,
+.swiper {
+  /* Включаем аппаратное ускорение */
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+.swiper-wrapper {
+  /* Оптимизация для wrapper */
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.swiper-slide {
+  /* Оптимизация для слайдов */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Оптимизация для отзывов */
+.reviews-swiper {
+  /* Дополнительные оптимизации для карусели отзывов */
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+.reviews-swiper .swiper-slide {
+  /* Оптимизация рендеринга слайдов отзывов */
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+/* Оптимизация для изображений отзывов */
+.review-image {
+  /* Оптимизация для изображений */
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+}
+
+/* Оптимизация для модальных окон */
+.course-modal {
+  /* Упрощаем анимации модальных окон */
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Оптимизация для кнопок и интерактивных элементов */
+button,
+.button,
+.btn {
+  /* Оптимизация для кнопок */
+  will-change: transform, background-color, box-shadow;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Оптимизация для прокрутки страницы */
+html {
+  /* Плавная прокрутка */
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Оптимизация для мобильных устройств */
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+}
+
+/* Оптимизация для анимаций */
+@keyframes optimizedFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+@keyframes optimizedSlideIn {
+  from {
+    transform: translateX(-100%) translateZ(0);
+  }
+  to {
+    transform: translateX(0) translateZ(0);
+  }
+}
+
+/* Применяем оптимизированные анимации */
+.animate-fade-in-up {
+  animation: optimizedFadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: optimizedSlideIn 0.6s ease-out forwards;
+}
+
+/* Оптимизация для hover эффектов */
+@media (hover: hover) {
+  /* Только для устройств с hover */
+  button:hover,
+  .button:hover,
+  .btn:hover {
+    transform: translateY(-2px) translateZ(0);
+    -webkit-transform: translateY(-2px) translateZ(0);
+  }
+}
+
+/* Оптимизация для touch устройств */
+@media (hover: none) and (pointer: coarse) {
+  /* Для touch устройств отключаем hover эффекты */
+  button:hover,
+  .button:hover,
+  .btn:hover {
+    transform: none;
+    -webkit-transform: none;
+  }
+  
+  /* Упрощаем анимации на touch устройствах */
+  .swiper-slide {
+    transition: transform 0.2s ease-out;
+  }
+}
+
+/* Оптимизация для высоких DPI экранов */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Для Retina экранов */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+  }
+}
+
+/* Оптимизация для слабых устройств */
+@media (max-width: 480px) {
+  /* Дополнительные оптимизации для маленьких экранов */
+  * {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* Упрощаем все анимации */
+  .animate-fade-in-up,
+  .animate-slide-in-left,
+  .animate-slide-in-right {
+    animation-duration: 0.3s;
+  }
+  
+  /* Отключаем сложные эффекты */
+  .swiper-slide {
+    transition: none;
+  }
+} 

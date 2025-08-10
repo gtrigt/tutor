@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Virtual } from 'swiper/modules';
+import { ReviewImage } from './OptimizedImage';
 
 // Типы для отзывов
 interface Review {
@@ -13,27 +14,36 @@ interface Review {
   shortText: string;
 }
 
-// Компонент звездочки для рейтинга
-const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
-  return (
-    <div className="flex gap-1">
-      {[...Array(5)].map((_, index) => (
-        <svg
-          key={index}
-          className={`w-4 h-4 ${index < rating ? 'text-yellow-400' : 'text-gray-300'}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  );
-};
+// Оптимизированный компонент звездочки для рейтинга
+const StarRating: React.FC<{ rating: number }> = React.memo(({ rating }) => {
+  const stars = useMemo(() => {
+    return Array.from({ length: 5 }, (_, index) => (
+      <svg
+        key={index}
+        className={`w-4 h-4 ${index < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        aria-hidden="true"
+      >
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
+    ));
+  }, [rating]);
 
-// Компонент карточки отзыва
-const ReviewCard: React.FC<{ review: Review }> = ({ review }) => {
+  return <div className="flex gap-1">{stars}</div>;
+});
+
+StarRating.displayName = 'StarRating';
+
+// Оптимизированный компонент карточки отзыва
+const ReviewCard: React.FC<{ review: Review }> = React.memo(({ review }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggle = useCallback(() => {
+    setIsExpanded(prev => !prev);
+  }, []);
+
+  const shouldShowButton = review.text.length > review.shortText.length;
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 h-full flex flex-col border border-gray-100" style={{ backgroundColor: '#FBF3F0' }}>
@@ -56,10 +66,11 @@ const ReviewCard: React.FC<{ review: Review }> = ({ review }) => {
         </p>
         
         {/* Кнопка развернуть/свернуть */}
-        {review.text.length > review.shortText.length && (
+        {shouldShowButton && (
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={handleToggle}
             className="mt-3 text-brand-secondary hover:text-black font-arsenal font-bold text-sm transition-colors underline"
+            aria-expanded={isExpanded}
           >
             {isExpanded ? 'Свернуть' : 'Читать полностью'}
           </button>
@@ -67,14 +78,58 @@ const ReviewCard: React.FC<{ review: Review }> = ({ review }) => {
       </div>
     </div>
   );
+});
+
+ReviewCard.displayName = 'ReviewCard';
+
+// Хук для определения мобильного устройства
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
+
+// Хук для debouncing
+const useDebounce = (value: any, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
 };
 
 // Основной компонент карусели
 const ReviewsCarousel: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const isMobile = useIsMobile();
+  const swiperRef = useRef<any>(null);
+  
+  // Debounced индекс для оптимизации производительности
+  const debouncedIndex = useDebounce(currentIndex, 100);
+
   // Изображения отзывов из /public
-  const imageFiles: string[] = [
+  const imageFiles: string[] = useMemo(() => [
     '/IMG_2887.png','/IMG_2888.png','/IMG_2889.png','/IMG_2890.png','/IMG_2891.png','/IMG_2892.png',
     '/IMG_2894.png','/IMG_2895.png','/IMG_2896.png','/IMG_2898.png','/IMG_2899.png','/IMG_2900.png',
     '/IMG_2901.png','/IMG_2902.png','/IMG_2903.png','/IMG_2904.png','/IMG_2905.png','/IMG_2906.png',
@@ -82,34 +137,12 @@ const ReviewsCarousel: React.FC = () => {
     '/IMG_2915.png','/IMG_2916.png','/IMG_2917.png','/IMG_2919.png','/IMG_2920.png','/IMG_2921.png',
     '/IMG_2922.png','/IMG_2923.png','/IMG_2926.png','/IMG_2927.png','/IMG_2930.png','/IMG_2931.png',
     '/IMG_2934.png','/IMG_2935.png','/IMG_2936.png','/IMG_2937.png'
-  ];
-  const uniqueImages = Array.from(new Set(imageFiles));
+  ], []);
 
-  useEffect(() => {
-    // Загружаем данные из обработанного JSON файла
-    const loadReviews = async () => {
-      try {
-        const response = await fetch('/processed_reviews.json');
-        if (response.ok) {
-          const data = await response.json();
-          // Используем улучшенные данные вместо сырых OCR
-          setReviews(getImprovedReviews());
-        } else {
-          setReviews(getImprovedReviews());
-        }
-      } catch (error) {
-        console.error('Ошибка загрузки отзывов:', error);
-        setReviews(getImprovedReviews());
-      } finally {
-        setLoading(false);
-      }
-    };
+  const uniqueImages = useMemo(() => Array.from(new Set(imageFiles)), [imageFiles]);
 
-    loadReviews();
-  }, []);
-
-  // Улучшенные отзывы на основе реальных данных (с корректировкой формулировок)
-  const getImprovedReviews = (): Review[] => [
+  // Мемоизированные отзывы
+  const memoizedReviews = useMemo(() => [
     {
       id: 1,
       name: "Анна Петрова",
@@ -245,7 +278,64 @@ const ReviewsCarousel: React.FC = () => {
       text: "Прекрасный репетитор по английскому! Ребенок с удовольствием занимается, а это главное! От себя хочу сказать, что Марат очень вежливый и пунктуальный.",
       shortText: "Прекрасный репетитор по английскому! Ребенок с удовольствием занимается, а это главное! От себя хочу сказать..."
     }
-  ];
+  ], []);
+
+  useEffect(() => {
+    // Загружаем данные из обработанного JSON файла
+    const loadReviews = async () => {
+      try {
+        const response = await fetch('/processed_reviews.json');
+        if (response.ok) {
+          const data = await response.json();
+          setReviews(memoizedReviews);
+        } else {
+          setReviews(memoizedReviews);
+        }
+      } catch (error) {
+        console.error('Ошибка загрузки отзывов:', error);
+        setReviews(memoizedReviews);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadReviews();
+  }, [memoizedReviews]);
+
+  // Обработчик изменения слайда с debouncing
+  const handleSlideChange = useCallback((swiper: any) => {
+    setCurrentIndex(swiper.realIndex);
+  }, []);
+
+  // Оптимизированные настройки для мобильных устройств
+  const swiperConfig = useMemo(() => ({
+    modules: [Autoplay, Virtual],
+    spaceBetween: isMobile ? 20 : 30,
+    slidesPerView: 1,
+    autoplay: {
+      delay: isMobile ? 10000 : 8000, // Больше задержка на мобильных
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 1,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 25,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+    virtual: true, // Включаем виртуализацию
+    speed: isMobile ? 400 : 600, // Медленнее на мобильных для плавности
+    watchSlidesProgress: true,
+    preventInteractionOnTransition: true, // Предотвращаем взаимодействие во время анимации
+  }), [isMobile]);
 
   if (loading) {
     return (
@@ -260,36 +350,25 @@ const ReviewsCarousel: React.FC = () => {
   return (
     <div className="w-full max-w-6xl mx-auto px-4">
       <Swiper
-        modules={[Autoplay]}
-        spaceBetween={30}
-        slidesPerView={1}
-
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        breakpoints={{
-          640: {
-            slidesPerView: 1,
-          },
-          768: {
-            slidesPerView: 2,
-          },
-          1024: {
-            slidesPerView: 3,
-          },
-        }}
+        {...swiperConfig}
+        onSlideChange={handleSlideChange}
         className="reviews-swiper"
+        ref={swiperRef}
       >
-        {reviews.map((review) => (
-          <SwiperSlide key={`text-${review.id}`}>
+        {reviews.map((review, index) => (
+          <SwiperSlide key={`text-${review.id}`} virtualIndex={index}>
             <ReviewCard review={review} />
           </SwiperSlide>
         ))}
         {uniqueImages.map((src, idx) => (
-          <SwiperSlide key={`img-${idx}`}>
+          <SwiperSlide key={`img-${idx}`} virtualIndex={reviews.length + idx}>
             <div className="bg-[#FBF3F0] rounded-lg shadow-lg p-3 h-full flex items-center justify-center">
-              <img src={src} alt={`Отзыв ${idx + 1}`} loading="lazy" className="max-h-[420px] w-auto object-contain rounded-md" />
+              <ReviewImage
+                src={src}
+                alt={`Отзыв ${idx + 1}`}
+                reviewIndex={idx}
+                loading="lazy"
+              />
             </div>
           </SwiperSlide>
         ))}

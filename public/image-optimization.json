@@ -1,0 +1,159 @@
+{
+  "image_formats": {
+    "webp": {
+      "enabled": true,
+      "quality": 85,
+      "compression": "lossy"
+    },
+    "avif": {
+      "enabled": false,
+      "quality": 80,
+      "compression": "lossy"
+    },
+    "png": {
+      "enabled": true,
+      "compression": "lossless",
+      "use_for": ["logos", "icons", "transparent_images"]
+    },
+    "jpg": {
+      "enabled": true,
+      "quality": 85,
+      "compression": "lossy",
+      "use_for": ["photos", "backgrounds"]
+    }
+  },
+  "responsive_images": {
+    "breakpoints": [
+      {
+        "width": 320,
+        "suffix": "-sm",
+        "description": "Mobile small"
+      },
+      {
+        "width": 480,
+        "suffix": "-md",
+        "description": "Mobile medium"
+      },
+      {
+        "width": 768,
+        "suffix": "-lg",
+        "description": "Tablet"
+      },
+      {
+        "width": 1024,
+        "suffix": "-xl",
+        "description": "Desktop small"
+      },
+      {
+        "width": 1440,
+        "suffix": "-2xl",
+        "description": "Desktop large"
+      }
+    ]
+  },
+  "critical_images": {
+    "preload": [
+      {
+        "src": "/logo.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "priority": "high"
+      },
+      {
+        "src": "/me.png",
+        "sizes": "400x400",
+        "type": "image/png",
+        "priority": "high"
+      }
+    ],
+    "lazy_load": [
+      {
+        "src": "/english.png",
+        "sizes": "400x300",
+        "type": "image/png",
+        "loading": "lazy"
+      },
+      {
+        "src": "/Mark.png",
+        "sizes": "400x300",
+        "type": "image/png",
+        "loading": "lazy"
+      },
+      {
+        "src": "/EGE.png",
+        "sizes": "400x300",
+        "type": "image/png",
+        "loading": "lazy"
+      }
+    ]
+  },
+  "optimization_settings": {
+    "compression": {
+      "webp_quality": 85,
+      "jpg_quality": 85,
+      "png_compression": 9
+    },
+    "resizing": {
+      "max_width": 1920,
+      "max_height": 1080,
+      "maintain_aspect_ratio": true
+    },
+    "metadata": {
+      "remove_exif": true,
+      "remove_icc": true,
+      "keep_copyright": true
+    }
+  },
+  "image_sources": {
+    "hero_image": {
+      "src": "/me.png",
+      "alt": "Преподаватель английского языка",
+      "sizes": "(max-width: 690px) 280px, (max-width: 1024px) 320px, 400px",
+      "srcset": [
+        "/me-sm.webp 280w",
+        "/me-md.webp 320w",
+        "/me-lg.webp 400w"
+      ]
+    },
+    "service_images": {
+      "english": {
+        "src": "/english.png",
+        "alt": "Изучение английского языка",
+        "sizes": "(max-width: 768px) 100vw, 33vw",
+        "srcset": [
+          "/english-sm.webp 320w",
+          "/english-md.webp 480w",
+          "/english-lg.webp 768w"
+        ]
+      },
+      "olympiad": {
+        "src": "/Mark.png",
+        "alt": "Олимпиадная подготовка",
+        "sizes": "(max-width: 768px) 100vw, 33vw",
+        "srcset": [
+          "/Mark-sm.webp 320w",
+          "/Mark-md.webp 480w",
+          "/Mark-lg.webp 768w"
+        ]
+      },
+      "exam": {
+        "src": "/EGE.png",
+        "alt": "Подготовка к ОГЭ/ЕГЭ",
+        "sizes": "(max-width: 768px) 100vw, 33vw",
+        "srcset": [
+          "/EGE-sm.webp 320w",
+          "/EGE-md.webp 480w",
+          "/EGE-lg.webp 768w"
+        ]
+      }
+    }
+  },
+  "performance_optimization": {
+    "lazy_loading": true,
+    "intersection_observer": true,
+    "preload_critical": true,
+    "responsive_images": true,
+    "webp_support": true,
+    "image_compression": true
+  }
+} 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { 
@@ -13,9 +13,25 @@ import {
 } from '@/components/Icons';
 import { HamburgerMenu } from '@/components/HamburgerMenu';
 import { Timer } from '@/components/Timer';
-import { CoursesCarousel } from '@/components/CoursesCarousel';
-import ReviewsCarousel from '@/components/ReviewsCarousel';
+import { FAQ } from '@/components/FAQ';
+
+import { SEOHead } from '@/components/SEOHead';
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
+import { useScrollOptimization } from '@/hooks/use-scroll-optimization';
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
+import { ServiceWorker } from '@/components/ServiceWorker';
+import { Blog } from '@/components/Blog';
+
+// Lazy loading для тяжелых компонентов с preload
+const CoursesCarousel = lazy(() => import('@/components/CoursesCarousel').then(module => ({ default: module.CoursesCarousel })));
+const ReviewsCarousel = lazy(() => import('@/components/ReviewsCarousel').then(module => ({ default: module.default })));
+
+// Компонент загрузки
+const LoadingSpinner = () => (
+  <div className="flex justify-center items-center p-8">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-primary"></div>
+  </div>
+);
 
 export default function Index() {
   const aboutSection = useIntersectionObserver({ threshold: 0.1 });
@@ -23,6 +39,27 @@ export default function Index() {
   const coursesSection = useIntersectionObserver({ threshold: 0.1 });
   const reviewsSection = useIntersectionObserver({ threshold: 0.1 });
   const contactsSection = useIntersectionObserver({ threshold: 0.1 });
+  
+  // Применяем оптимизации прокрутки
+  useScrollOptimization({
+    throttleMs: 16, // 60fps
+    enableSmoothScrolling: true,
+    enableTouchOptimization: true
+  });
+
+  // Preload компоненты при загрузке страницы
+  useEffect(() => {
+    // Preload тяжелые компоненты в фоне
+    const preloadComponents = () => {
+      import('@/components/CoursesCarousel');
+      import('@/components/ReviewsCarousel');
+    };
+    
+    // Запускаем preload после небольшой задержки
+    const timer = setTimeout(preloadComponents, 1000);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   // Функция отправки формы в Telegram
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -105,7 +142,14 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen w-full" style={{ backgroundColor: '#EBE4E2' }}>
+    <>
+      <SEOHead />
+      {/* Замените G-XXXXXXXXXX на ваш реальный Google Analytics ID */}
+      <GoogleAnalytics measurementId="G-XXXXXXXXXX" />
+      <ServiceWorker />
+      <div className="min-h-screen w-full" style={{ backgroundColor: '#EBE4E2' }}>
+
+      
       {/* Hero Section */}
       <section className="relative px-0 py-8 lg:py-12 max-w-7xl mx-auto">
         {/* Header with contact info */}
@@ -116,6 +160,7 @@ export default function Index() {
               <img
                 src="/telegram.png"
                 alt="Telegram"
+                loading="lazy"
                 className="w-7 h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 opacity-80 flex-shrink-0 object-contain cursor-pointer hover:opacity-100 transition-opacity"
               />
             </a>
@@ -125,6 +170,7 @@ export default function Index() {
               <img
                 src="/logo.png"
                 alt="MF Logo"
+                loading="lazy"
                 className="w-auto h-[46px] md:h-[50px] lg:h-[56px] xl:h-[64px]"
                 style={{ transform: 'translateY(3px) translateX(-3px)' }}
               />
@@ -139,6 +185,9 @@ export default function Index() {
 
         {/* Main hero content */}
         <div className="relative">
+          <h1 className="font-arsenal text-2xl min-[690px]:text-3xl lg:text-4xl font-bold text-black text-center mb-6">
+            Репетитор английского языка — подготовка к олимпиадам, ЕГЭ/ОГЭ и IELTS
+          </h1>
           {/* Desktop Layout (>690px) */}
           <div className="hidden min-[690px]:flex min-[690px]:items-center min-[690px]:justify-center min-[690px]:gap-6 lg:gap-8 xl:gap-12 mb-8 lg:mb-12 px-4 lg:px-8">
             {/* Left side - Photo with background (главный элемент) */}
@@ -160,6 +209,9 @@ export default function Index() {
               <img
                 src="/me.png"
                 alt="Преподаватель английского языка"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-auto rounded-lg shadow-lg relative z-10"
                 style={{
                   width: 'clamp(320px, 28vw, 400px)',
@@ -214,6 +266,9 @@ export default function Index() {
                 <img
                   src="/me.png"
                   alt="Преподаватель английского языка"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-auto rounded-lg shadow-lg relative z-10"
                   style={{
                     width: 'clamp(280px, 35vw, 420px)',
@@ -738,7 +793,11 @@ export default function Index() {
           <div className="w-56 h-1 bg-brand-secondary"></div>
         </div>
 
-        <CoursesCarousel />
+        <Suspense fallback={
+          <LoadingSpinner />
+        }>
+          <CoursesCarousel />
+        </Suspense>
       </section>
 
       {/* Reviews Section */}
@@ -754,13 +813,61 @@ export default function Index() {
         </div>
 
         {/* Reviews Carousel */}
-        <ReviewsCarousel />
+        <Suspense fallback={
+          <LoadingSpinner />
+        }>
+          <ReviewsCarousel />
+        </Suspense>
 
         <div className="text-center mt-8">
           <svg className="mx-auto w-24 h-3 opacity-50" viewBox="0 0 121 5" fill="none">
             <path d="M1 3.04688L120 2" stroke="#C1B3A4" strokeWidth="3"/>
           </svg>
         </div>
+      </section>
+
+      {/* Blog Section */}
+      <Blog />
+
+      {/* FAQ Section */}
+      <section className="px-4 py-12 max-w-6xl mx-auto">
+        <FAQ 
+          title="ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ"
+          items={[
+            {
+              question: "Как проходят онлайн-уроки?",
+              answer: "Уроки проводятся в Zoom или Skype. Используется интерактивная доска, современные учебные материалы и индивидуальный подход к каждому ученику. Длительность урока - 60 минут."
+            },
+            {
+              question: "Сколько стоит занятие?",
+              answer: "Стоимость одного занятия составляет 3000 рублей за 60 минут. Первый пробный урок проводится бесплатно."
+            },
+            {
+              question: "Какой уровень английского нужен для начала занятий?",
+              answer: "Занятия проводятся для всех уровней - от начального до продвинутого. Программа подбирается индивидуально под ваши цели и текущий уровень."
+            },
+            {
+              question: "Сколько времени нужно для подготовки к ЕГЭ/ОГЭ?",
+              answer: "Время подготовки зависит от начального уровня. В среднем для хорошего результата нужно 6-12 месяцев регулярных занятий (2-3 раза в неделю)."
+            },
+            {
+              question: "Какие результаты показывают ваши ученики?",
+              answer: "Наши ученики регулярно получают 80+ баллов на ЕГЭ, 7.0+ на IELTS и становятся призерами олимпиад различного уровня. Средний балл ЕГЭ - 85+."
+            },
+            {
+              question: "Можно ли заниматься в выходные?",
+              answer: "Да, занятия проводятся 7 дней в неделю с 9:00 до 21:00 по московскому времени. График подбирается индивидуально под ваши возможности."
+            },
+            {
+              question: "Какие материалы используются на занятиях?",
+              answer: "Используются авторские пособия, материалы ФИПИ для ЕГЭ/ОГЭ, олимпиадные задания прошлых лет, современные учебники и интерактивные материалы."
+            },
+            {
+              question: "Есть ли домашние задания?",
+              answer: "Да, после каждого урока даются домашние задания, которые проверяются и разбираются на следующем занятии. Это помогает закрепить материал."
+            }
+          ]}
+        />
       </section>
 
       {/* Contact Form Section */}
@@ -1014,5 +1121,6 @@ export default function Index() {
         </div>
       </footer>
     </div>
+    </>
   );
 }

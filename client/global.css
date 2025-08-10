@@ -102,11 +102,38 @@
 
 @layer base {
   * {
-    @apply border-border;
+    box-sizing: border-box;
   }
 
   body {
-    @apply bg-background text-foreground;
+    font-family: 'Arsenal SC', serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+    /* Оптимизация для плавной прокрутки */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Оптимизация для мобильных устройств */
+  @media (max-width: 768px) {
+    body {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
   }
 }
 
@@ -345,6 +372,43 @@ html, body, #root {
 /* Swiper styles for reviews carousel - more specific selectors */
 #reviews .reviews-swiper {
   padding-bottom: 20px;
+  /* Оптимизация производительности для Swiper */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Оптимизация для мобильных устройств */
+@media (max-width: 768px) {
+  #reviews .reviews-swiper {
+    /* Уменьшаем сложность анимаций на мобильных */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  
+  #reviews .reviews-swiper .swiper-slide {
+    /* Оптимизация рендеринга слайдов */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+}
+
+/* Оптимизация для быстрой прокрутки */
+.reviews-swiper .swiper-wrapper {
+  /* Включаем аппаратное ускорение */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+
+.reviews-swiper .swiper-slide {
+  /* Оптимизация рендеринга */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* В отзывах скрываем стрелки полностью */
@@ -507,4 +571,38 @@ html, body, #root {
 .animate-slide-in-right.is-visible {
   opacity: 1;
   transform: translateX(0);
+}
+
+/* Оптимизация производительности */
+.animate-fade-in-up,
+.animate-fade-in-up-delayed,
+.animate-fade-in-up-slow,
+.animate-slide-in-left,
+.animate-slide-in-right {
+  will-change: transform, opacity;
+  contain: layout style paint;
+}
+
+/* Оптимизация для мобильных устройств */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-fade-in-up-delayed,
+  .animate-fade-in-up-slow,
+  .animate-slide-in-left,
+  .animate-slide-in-right {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Оптимизация изображений */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Оптимизация шрифтов */
+@font-face {
+  font-display: swap;
 }

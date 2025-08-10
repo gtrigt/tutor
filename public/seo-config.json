@@ -1,0 +1,108 @@
+{
+  "meta_tags": {
+    "viewport": "width=device-width, initial-scale=1.0, maximum-scale=5.0",
+    "theme-color": "#9C4F4B",
+    "msapplication-TileColor": "#9C4F4B",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "apple-mobile-web-app-title": "Marat English",
+    "format-detection": "telephone=no",
+    "referrer": "strict-origin-when-cross-origin"
+  },
+  "performance": {
+    "preload": [
+      "/logo.png",
+      "/me.png",
+      "/english.png",
+      "/Mark.png",
+      "/EGE.png"
+    ],
+    "prefetch": [
+      "/#services",
+      "/#about",
+      "/#advantages",
+      "/#courses",
+      "/#reviews",
+      "/#contacts"
+    ],
+    "dns-prefetch": [
+      "https://cdn.jsdelivr.net",
+      "https://www.googletagmanager.com",
+      "https://mc.yandex.ru"
+    ]
+  },
+  "social_media": {
+    "instagram": {
+      "username": "@marat_english",
+      "url": "https://instagram.com/marat_english",
+      "followers": "1000+"
+    },
+    "telegram": {
+      "username": "@maratenglish",
+      "url": "https://t.me/maratenglish",
+      "channel": "https://t.me/m/VX8q96qONjYy"
+    },
+    "whatsapp": {
+      "phone": "+79172676373",
+      "url": "https://wa.me/79172676373"
+    }
+  },
+  "content_optimization": {
+    "target_keywords": [
+      "репетитор английского языка",
+      "подготовка к олимпиадам ВСОШ",
+      "подготовка к ЕГЭ английский",
+      "подготовка к ОГЭ английский",
+      "подготовка к IELTS",
+      "олимпиадная подготовка английский",
+      "репетитор английского онлайн",
+      "английский язык для школьников",
+      "английский язык для студентов",
+      "высокие баллы ЕГЭ",
+      "IELTS 7.0",
+      "олимпиады по английскому языку"
+    ],
+    "long_tail_keywords": [
+      "репетитор английского языка онлайн",
+      "подготовка к олимпиадам по английскому языку",
+      "репетитор английского для ЕГЭ",
+      "репетитор английского для ОГЭ",
+      "подготовка к IELTS онлайн",
+      "олимпиадная подготовка по английскому",
+      "английский язык для поступления в вуз",
+      "высокий балл ЕГЭ по английскому",
+      "индивидуальные уроки английского",
+      "онлайн курсы английского языка"
+    ]
+  },
+  "local_seo": {
+    "region": "Россия",
+    "city": "Онлайн",
+    "service_area": "Вся Россия",
+    "business_hours": "Пн-Вс 9:00-21:00",
+    "timezone": "UTC+3"
+  },
+  "technical_seo": {
+    "canonical_url": "https://marat-english.com/",
+    "alternate_languages": {
+      "ru": "https://marat-english.com/",
+      "en": "https://marat-english.com/en/"
+    },
+    "xml_sitemap": "https://marat-english.com/sitemap.xml",
+    "robots_txt": "https://marat-english.com/robots.txt",
+    "structured_data": "https://marat-english.com/structured-data.json"
+  },
+  "monitoring": {
+    "google_search_console": "https://search.google.com/search-console",
+    "yandex_webmaster": "https://webmaster.yandex.ru/",
+    "google_analytics": "GA_MEASUREMENT_ID",
+    "yandex_metrika": "YANDEX_METRIKA_ID",
+    "facebook_pixel": "FACEBOOK_PIXEL_ID"
+  },
+  "security": {
+    "https": true,
+    "hsts": true,
+    "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://mc.yandex.ru https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net;",
+    "referrer_policy": "strict-origin-when-cross-origin"
+  }
+} 
