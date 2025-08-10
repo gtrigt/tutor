@@ -324,6 +324,11 @@ export default function Index() {
                   <h3 className="font-arsenal text-lg font-bold text-white">Изучение языка</h3>
                   <p className="font-arsenal text-sm text-white opacity-70 mt-1">Индивидуальные онлайн-уроки</p>
                 </div>
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+                  <button className="px-3 py-1 rounded-full text-[12px] font-arsenal font-bold bg-white/80 text-black shadow hover:bg-white transition">
+                    Нажми, чтобы узнать больше 👇
+                  </button>
+                </div>
               </div>
             </DialogTrigger>
             <DialogContent className="course-modal max-w-2xl max-h-[90vh] overflow-y-auto border-0" style={{ backgroundColor: '#FFF6F6' }}>
@@ -372,7 +377,7 @@ export default function Index() {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
-                  <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+                  <a href="#contacts">
                     <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
                       🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
                     </Button>
@@ -400,6 +405,11 @@ export default function Index() {
                   <p className="font-arsenal text-sm font-bold text-white opacity-70 mt-1">
                     Индивидуальные онлайн-уроки
                   </p>
+                </div>
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+                  <button className="px-3 py-1 rounded-full text-[12px] font-arsenal font-bold bg-white/80 text-black shadow hover:bg-white transition">
+                    Нажми, чтобы узнать больше 👇
+                  </button>
                 </div>
               </div>
             </DialogTrigger>
@@ -449,7 +459,7 @@ export default function Index() {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
-                  <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+                  <a href="#contacts">
                     <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
                       🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
                     </Button>
@@ -475,6 +485,11 @@ export default function Index() {
                 <div className="absolute bottom-4 left-4">
                   <h3 className="font-arsenal text-lg font-bold text-white">Подготовка к ОГЭ/ЕГЭ</h3>
                   <p className="font-arsenal text-sm text-white opacity-70 mt-1">Индивидуальные онлайн-уроки</p>
+                </div>
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+                  <button className="px-3 py-1 rounded-full text-[12px] font-arsenal font-bold bg-white/80 text-black shadow hover:bg-white transition">
+                    Нажми, чтобы узнать больше 👇
+                  </button>
                 </div>
               </div>
             </DialogTrigger>
@@ -524,7 +539,7 @@ export default function Index() {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
                   </div>
-                  <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+                  <a href="#contacts">
                     <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
                       🚀 НАЧАТЬ ПРЯМО СЕЙЧАС!
                     </Button>
@@ -540,7 +555,7 @@ export default function Index() {
 
         {/* CTA Button */}
         <div className="text-center">
-          <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+          <a href="#contacts">
             <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-2xl font-bold px-12 py-4 rounded-3xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
               ОСТАВИТЬ ЗАЯВКУ
             </Button>
@@ -902,14 +917,21 @@ export default function Index() {
               </div>
 
               <div>
-                <input
-                  type="text"
+                <select
                   name="direction"
-                  placeholder="Направление"
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
+                  className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black font-arsenal text-sm font-bold border-0 shadow-inner"
                   style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
-                />
+                  defaultValue=""
+                >
+                  <option value="" disabled>Выберите направление</option>
+                  <option value="Олимпиады">Олимпиады</option>
+                  <option value="ЕГЭ">ЕГЭ</option>
+                  <option value="ОГЭ">ОГЭ</option>
+                  <option value="Изучение языка">Изучение языка</option>
+                  <option value="Другой экзамен">Другой экзамен</option>
+                  <option value="Другое">Другое</option>
+                </select>
               </div>
 
               <div>

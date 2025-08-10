@@ -297,8 +297,10 @@ export const CoursesCarousel = () => {
                     </div>
                     <p className="font-arsenal text-sm text-black opacity-60">за весь курс</p>
                   </div>
-                  <Button className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                  <Button asChild className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
+                    <a href="#contacts">
                     Записаться на курс
+                    </a>
                   </Button>
                   <p className="font-arsenal text-sm text-black opacity-50 mt-3">
                     Первое занятие — бесплатно
