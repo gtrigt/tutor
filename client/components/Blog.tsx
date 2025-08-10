@@ -33,7 +33,7 @@ const defaultPosts: BlogPost[] = [
     category: 'ЕГЭ/ОГЭ',
     tags: ['ЕГЭ', 'английский', 'подготовка', 'экзамен'],
     readTime: 8,
-    image: '/blog/ege-preparation.jpg',
+    image: '/images/blog/blog_language.png',
     slug: 'ege-preparation'
   },
   {
@@ -46,7 +46,7 @@ const defaultPosts: BlogPost[] = [
     category: 'Изучение языка',
     tags: ['английский', 'ошибки', 'изучение', 'советы'],
     readTime: 6,
-    image: '/blog/common-mistakes.jpg',
+    image: '/images/blog/blog_mistakes.png',
     slug: 'common-mistakes'
   },
   {
@@ -59,7 +59,7 @@ const defaultPosts: BlogPost[] = [
     category: 'Олимпиады',
     tags: ['олимпиада', 'английский', 'подготовка', 'успех'],
     readTime: 10,
-    image: '/blog/olympiad-success.jpg',
+    image: '/images/blog/blog_olymp.png',
     slug: 'olympiad-success'
   },
   {
@@ -72,7 +72,7 @@ const defaultPosts: BlogPost[] = [
     category: 'Онлайн-обучение',
     tags: ['онлайн', 'обучение', 'преимущества', 'технологии'],
     readTime: 7,
-    image: '/blog/online-learning.jpg',
+    image: '/images/blog/blog_online.png',
     slug: 'online-learning'
   }
 ];
