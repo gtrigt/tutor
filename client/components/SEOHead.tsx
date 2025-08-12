@@ -132,6 +132,12 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       <link rel="dns-prefetch" href="//api.telegram.org" />
       <link rel="preconnect" href="https://cdn.jsdelivr.net" />
       <link rel="preconnect" href="https://api.telegram.org" />
+      
+      {/* Preload Blog Images */}
+      <link rel="preload" as="image" href="/images/blog/blog_language.png" />
+      <link rel="preload" as="image" href="/images/blog/blog_mistakes.png" />
+      <link rel="preload" as="image" href="/images/blog/blog_olymp.png" />
+      <link rel="preload" as="image" href="/images/blog/blog_online.png" />
     </Helmet>
   );
 }; 

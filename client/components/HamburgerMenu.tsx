@@ -17,28 +17,17 @@ export const HamburgerMenu = () => {
 
   return (
     <div className="hamburger-menu-right">
-      {/* Hamburger button */}
-      {!open && (
-        <button
-          aria-label="Open menu"
-          onClick={() => setOpen(true)}
-          style={{ 
-            background: 'none', 
-            border: 'none', 
-            padding: 0, 
-            margin: 0, 
-            cursor: 'pointer',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-      <span className="hamburger-line-right"></span>
-      <span className="hamburger-line-right"></span>
-      <span className="hamburger-line-right"></span>
-        </button>
-      )}
+      {/* Hamburger button (morphs to X) */}
+      <button
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+        onClick={() => setOpen(prev => !prev)}
+        className={`hamburger ${open ? 'is-open' : ''}`}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
 
       {/* Menu Overlay */}
       <div 
@@ -49,13 +38,6 @@ export const HamburgerMenu = () => {
           transition: 'transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0)'
         }}
       >
-        {/* Close button */}
-        <div className="close-button-right" onClick={() => setOpen(false)}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-          </svg>
-        </div>
-
         {/* Menu items */}
         <nav className="menu-nav-right">
           <a href="#services" onClick={e => handleMenuClick(e, '#services')} className="menu-item-right">
@@ -67,6 +49,7 @@ export const HamburgerMenu = () => {
           <a href="#about" onClick={e => handleMenuClick(e, '#about')} className="menu-item-right">ОБО МНЕ</a>
           <a href="#advantages" onClick={e => handleMenuClick(e, '#advantages')} className="menu-item-right">ПРЕИМУЩЕСТВА</a>
           <a href="#courses" onClick={e => handleMenuClick(e, '#courses')} className="menu-item-right">КУРСЫ</a>
+          <a href="#blog" onClick={e => handleMenuClick(e, '#blog')} className="menu-item-right">БЛОГ</a>
           <a href="#reviews" onClick={e => handleMenuClick(e, '#reviews')} className="menu-item-right">ОТЗЫВЫ</a>
           <a href="#contacts" onClick={e => handleMenuClick(e, '#contacts')} className="menu-item-right">КОНТАКТЫ</a>
         </nav>
@@ -74,25 +57,25 @@ export const HamburgerMenu = () => {
         {/* Social icons */}
         <div className="menu-social-right">
           <div className="social-icons-right">
-            <a href="https://t.me/m/VX8q96qONjYy" className="social-icon-right" target="_blank" rel="noopener noreferrer" title="Telegram">
+            <a href="https://t.me/m/VX8q96qONjYy" className="social-icon-right social-hover is-telegram" target="_blank" rel="noopener noreferrer" title="Telegram">
               <OptimizedImage
                 src="/telegram"
                 alt="Telegram"
-                className="w-8 h-8 object-contain"
+                className="object-contain"
               />
             </a>
-            <a href="https://instagram.com/marat_english" className="social-icon-right" target="_blank" rel="noopener noreferrer" title="Instagram">
+            <a href="https://instagram.com/marat_english" className="social-icon-right social-hover is-instagram" target="_blank" rel="noopener noreferrer" title="Instagram">
               <OptimizedImage
                 src="/instagram"
                 alt="Instagram"
-                className="w-8 h-8 object-contain"
+                className="object-contain"
               />
             </a>
-            <a href="https://wa.me/79172676373" className="social-icon-right" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+            <a href="https://wa.me/79172676373" className="social-icon-right social-hover is-whatsapp" target="_blank" rel="noopener noreferrer" title="WhatsApp">
               <OptimizedImage
                 src="/whatsapp"
                 alt="WhatsApp"
-                className="w-8 h-8 object-contain"
+                className="object-contain"
               />
             </a>
           </div>

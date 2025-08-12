@@ -15,6 +15,7 @@ interface Course {
   duration: string;
   format: string;
   includes: string[];
+  comingSoon?: boolean;
 }
 
 const courses: Course[] = [
@@ -32,7 +33,7 @@ const courses: Course[] = [
       '• УНИКАЛЬНЫЕ ЛАЙФХАКИ'
     ],
     price: '8.000 руб',
-    bgColor: '#FFF3E3',
+    bgColor: '#F8F6F1',
     description: 'Комплексная подготовка к ОГЭ и ЕГЭ по английскому языку. Системный подход, проверенная методика и гарантированный результат.',
     duration: '9 месяцев',
     format: 'Группы',
@@ -50,12 +51,13 @@ const courses: Course[] = [
         <path d="M20 21.5V36H23.5V21.5L21.5 34V23V22M2 2H28.5V28H2V2ZM23 18L20 21H25.5L23 18Z" stroke="currentColor" strokeWidth="3"/>
         <path d="M6 8H24M6 13H24M6 18H18" stroke="currentColor" strokeWidth="2"/>
       </svg>
-    )
+    ),
+    comingSoon: true
   },
   {
     id: 'ielts',
     title: 'IELTS',
-    subtitle: 'подготовка к экзамену',
+    subtitle: 'международный экзамен',
     features: [
       '• ОНЛАЙН ВЕБИНАРЫ',
       '• ГРУППОВЫЕ ЗАНЯТИЯ ОНЛАЙН',
@@ -66,7 +68,7 @@ const courses: Course[] = [
       '• СОПРОВОЖДЕНИЕ ПРИ СДАЧЕ'
     ],
     price: '10.000 руб',
-    bgColor: '#F3F1E2',
+    bgColor: '#F2F0EB',
     textColor: '#D5D1B2',
     description: 'Профессиональная подготовка к международному экзамену IELTS. Достигни нужного балла для учёбы или работы за рубежом.',
     duration: '6 месяцев',
@@ -84,7 +86,8 @@ const courses: Course[] = [
       <svg width="43" height="24" viewBox="0 0 49 28" fill="none">
         <path d="M10 12L11 23.5C15 25.6667 24.9 28.5 32.5 22.5C32.5 13.3 32.5 9.36364 32.5 8.54545M32.5 8.54545L37 6.5L20.5 2.5L4.5 9.5L20.5 14L32.5 8.54545ZM41 6.5L44.5 15.5L44 18.5L46 15.5L47.5 14" stroke="currentColor" strokeWidth="3"/>
       </svg>
-    )
+    ),
+    comingSoon: true
   },
   {
     id: 'olimp',
@@ -99,7 +102,7 @@ const courses: Course[] = [
       '• АВТОРСКИЕ ЗАДАНИЯ'
     ],
     price: '9.000 руб',
-    bgColor: 'white',
+    bgColor: '#FAFAFA',
     description: 'Элитная подготовка к олимпиадам всех уровней. От школьных до международных — путь к победе начинается здесь.',
     duration: '10 месяцев',
     format: 'Группы',
@@ -116,7 +119,8 @@ const courses: Course[] = [
       <svg width="37" height="26" viewBox="0 0 39 29" fill="none">
         <path d="M1.5 27.5004L10.5 17.5004L15.5 24.0004L30 3.5004M30 3.5004C32.9925 1.16909 34.723 0.952261 38 3.5004M30 3.5004L27.5 10.5004C26.1667 17.3337 26.1 30.2004 36.5 27.0004" stroke="currentColor" strokeWidth="3"/>
       </svg>
-    )
+    ),
+    comingSoon: true
   }
 ];
 
@@ -124,18 +128,28 @@ export const CoursesCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startX, setStartX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const nextSlide = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setCurrentIndex((prev) => (prev + 1) % courses.length);
+    setTimeout(() => setIsTransitioning(false), 500);
   };
 
   const prevSlide = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setCurrentIndex((prev) => (prev - 1 + courses.length) % courses.length);
+    setTimeout(() => setIsTransitioning(false), 500);
   };
 
   const goToSlide = (index: number) => {
+    if (isTransitioning || index === currentIndex) return;
+    setIsTransitioning(true);
     setCurrentIndex(index);
+    setTimeout(() => setIsTransitioning(false), 500);
   };
 
   // Touch/Mouse handlers for swipe functionality
@@ -145,12 +159,14 @@ export const CoursesCarousel = () => {
   };
 
   const handleEnd = (clientX: number) => {
-    if (!isDragging) return;
+    if (!isDragging || isTransitioning) return;
     
     const diff = startX - clientX;
-    const threshold = 50;
+    const threshold = 30; // Reduced threshold for easier swiping
+    const velocity = Math.abs(diff);
 
-    if (Math.abs(diff) > threshold) {
+    // More sensitive swipe detection
+    if (velocity > threshold) {
       if (diff > 0) {
         nextSlide();
       } else {
@@ -184,12 +200,10 @@ export const CoursesCarousel = () => {
       {/* Desktop Grid (700px+) */}
       <div className="hidden min-[700px]:grid grid-cols-3 gap-6 lg:gap-8">
         {courses.map((course) => (
-          <Dialog key={course.id}>
-            <DialogTrigger asChild>
-              <div
-                className="rounded-xl shadow-lg p-6 relative min-h-[400px] flex flex-col cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
-                style={{ backgroundColor: course.bgColor }}
-              >
+          <div key={course.id} className={`rounded-xl shadow-lg p-6 relative min-h-[400px] flex flex-col ${course.comingSoon ? 'course-coming-soon' : 'cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]'}`} style={{ backgroundColor: course.bgColor }}>
+            {course.comingSoon ? (
+              // Course content wrapped for blur effect
+              <div className="course-content">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
                     <h3 className="font-arsenal text-4xl font-bold text-black mb-1">
@@ -222,118 +236,137 @@ export const CoursesCarousel = () => {
                   </div>
                 </div>
               </div>
-            </DialogTrigger>
-            <DialogContent className="course-modal max-w-2xl max-h-[85vh] overflow-y-auto border-0" style={{ backgroundColor: course.bgColor }}>
-              <DialogHeader className="text-center pb-6">
-                <DialogTitle className="font-arsenal text-4xl font-bold text-black flex items-center justify-center gap-4 mb-2">
-                  <div style={{ color: course.textColor || '#9C4F4B' }}>
-                    {course.icon}
-                  </div>
-                  {course.title}
-                </DialogTitle>
-                <p className="font-arsenal text-xl text-black opacity-70">{course.subtitle}</p>
-              </DialogHeader>
-              
-              <div className="space-y-8">
-                <div className="text-center">
-                  <p className="font-arsenal text-lg text-black leading-relaxed">{course.description}</p>
-                </div>
-                
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-white/50 rounded-full flex items-center justify-center">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/>
-                        </svg>
+            ) : (
+              // Regular course with dialog
+              <Dialog>
+                <DialogTrigger asChild>
+                  <>
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <h3 className="font-arsenal text-4xl font-bold text-black mb-1">
+                          {course.title}
+                        </h3>
+                        <p className="font-anonymous text-sm text-black mb-4">
+                          {course.subtitle}
+                        </p>
                       </div>
-                      <h4 className="font-arsenal text-xl font-bold text-black">Длительность</h4>
+                      <div 
+                        className="ml-4 opacity-70"
+                        style={{ color: course.textColor || '#9C4F4B' }}
+                      >
+                        {course.icon}
+                      </div>
                     </div>
-                    <p className="font-anonymous text-lg text-black">{course.duration}</p>
-                  </div>
+                    
+                    <div className="flex-1 mb-6">
+                      <div className="font-arsenal text-base text-black space-y-3">
+                        {course.features.map((feature, index) => (
+                          <p key={index}>{feature}</p>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="mt-auto pt-4 -mx-6">
+                      <div className="perforated-divider-full mb-4" aria-hidden="true"></div>
+                      <div className="font-anonymous text-2xl font-normal text-black text-center px-6">
+                        {course.price}
+                      </div>
+                    </div>
+                  </>
+                </DialogTrigger>
+                <DialogContent className="course-modal max-w-2xl max-h-[85vh] overflow-y-auto border-0" style={{ backgroundColor: course.bgColor }}>
+                  <DialogHeader className="text-center pb-6">
+                    <DialogTitle className="font-arsenal text-4xl font-bold text-black flex items-center justify-center gap-4 mb-2">
+                      <div style={{ color: course.textColor || '#9C4F4B' }}>
+                        {course.icon}
+                      </div>
+                      {course.title}
+                    </DialogTitle>
+                    <p className="font-arsenal text-xl text-black opacity-70">{course.subtitle}</p>
+                  </DialogHeader>
                   
-                  <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-white/50 rounded-full flex items-center justify-center">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                          <path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z" fill="currentColor"/>
-                        </svg>
+                  <div className="space-y-8">
+                    <div className="text-center">
+                      <p className="font-arsenal text-lg text-black leading-relaxed">{course.description}</p>
+                    </div>
+                    
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 bg-white/50 rounded-full flex items-center justify-center">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/>
+                            </svg>
+                          </div>
+                          <h4 className="font-arsenal text-xl font-bold text-black">Длительность</h4>
+                        </div>
+                        <p className="font-anonymous text-lg text-black">{course.duration}</p>
                       </div>
-                      <h4 className="font-arsenal text-xl font-bold text-black">Формат</h4>
+                      
+                      <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 bg-white/50 rounded-full flex items-center justify-center">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                              <path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z" fill="currentColor"/>
+                            </svg>
+                          </div>
+                          <h4 className="font-arsenal text-xl font-bold text-black">Формат</h4>
+                        </div>
+                        <p className="font-anonymous text-lg text-black">{course.format}</p>
+                      </div>
                     </div>
-                    <p className="font-anonymous text-lg text-black">{course.format}</p>
-                  </div>
-                </div>
 
-                <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-white/50 rounded-full flex items-center justify-center">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="currentColor"/>
-                      </svg>
-                    </div>
-                    <h4 className="font-arsenal text-xl font-bold text-black">Что включено:</h4>
-                  </div>
-                  <div className="grid md:grid-cols-2 gap-3">
-                    {course.includes.map((item, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="white"/>
+                    <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 bg-white/50 rounded-full flex items-center justify-center">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="currentColor"/>
                           </svg>
                         </div>
-                        <p className="font-anonymous text-black leading-relaxed">{item}</p>
+                        <h4 className="font-arsenal text-xl font-bold text-black">Что включено:</h4>
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="text-center pt-6">
-                  <div className="perforated-divider-full mb-6" aria-hidden="true"></div>
-                  <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/20 shadow-lg">
-                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость курса</p>
-                    <div className="font-anonymous text-4xl font-bold text-black mb-3">
-                      {course.price}
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {course.includes.map((item, index) => (
+                          <div key={index} className="flex items-start gap-3">
+                            <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="white"/>
+                              </svg>
+                            </div>
+                            <p className="font-anonymous text-base text-black">{item}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <p className="font-arsenal text-sm text-black opacity-60">за весь курс</p>
                   </div>
-                  <Button asChild className="course-cta-button text-black font-arsenal text-xl font-bold px-10 py-4 rounded-2xl w-full md:w-auto">
-                    <a href="#contacts">
-                    Записаться на курс
-                    </a>
-                  </Button>
-                  <p className="font-arsenal text-sm text-black opacity-50 mt-3">
-                    Первое занятие — бесплатно
-                  </p>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+                </DialogContent>
+              </Dialog>
+            )}
+          </div>
         ))}
       </div>
 
-      {/* Mobile Carousel (under 700px) */}
-      <div className="min-[700px]:hidden relative max-w-md mx-auto">
+      {/* Mobile Carousel (< 700px) */}
+      <div className="min-[700px]:hidden relative max-w-md mx-auto carousel-container">
         {/* Course Card */}
         <div 
-          className="overflow-hidden cursor-grab active:cursor-grabbing"
+          className="overflow-hidden cursor-grab active:cursor-grabbing touch-pan-x"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           ref={carouselRef}
+          style={{ touchAction: 'pan-x' }}
         >
           <div 
-            className="flex transition-transform duration-300 ease-in-out"
+            className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {courses.map((course) => (
-              <Dialog key={course.id}>
-                <DialogTrigger asChild>
-                  <div
-                    className="w-full flex-shrink-0 rounded-xl shadow-lg p-6 relative min-h-[400px] flex flex-col cursor-pointer hover:shadow-xl transition-all duration-300"
-                    style={{ backgroundColor: course.bgColor }}
-                  >
+              <div key={course.id} className={`w-full flex-shrink-0 rounded-xl shadow-lg p-6 relative min-h-[400px] flex flex-col ${course.comingSoon ? 'course-coming-soon' : 'cursor-pointer hover:shadow-xl transition-all duration-300'}`} style={{ backgroundColor: course.bgColor }}>
+                {course.comingSoon ? (
+                  // Course content wrapped for blur effect
+                  <div className="course-content">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <h3 className="font-arsenal text-4xl font-bold text-black mb-1">
@@ -366,91 +399,113 @@ export const CoursesCarousel = () => {
                       </div>
                     </div>
                   </div>
-                </DialogTrigger>
-                <DialogContent className="course-modal max-w-[95vw] max-h-[85vh] overflow-y-auto border-0" style={{ backgroundColor: course.bgColor }}>
-                  <DialogHeader className="text-center pb-4">
-                    <DialogTitle className="font-arsenal text-2xl font-bold text-black flex items-center justify-center gap-3 mb-1">
-                      <div style={{ color: course.textColor || '#9C4F4B' }}>
-                        {course.icon}
-                      </div>
-                      {course.title}
-                    </DialogTitle>
-                    <p className="font-arsenal text-lg text-black opacity-70">{course.subtitle}</p>
-                  </DialogHeader>
-                  
-                  <div className="space-y-6">
-                    <div className="text-center">
-                      <p className="font-arsenal text-base text-black leading-relaxed">{course.description}</p>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className="w-8 h-8 bg-white/50 rounded-full flex items-center justify-center">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/>
-                            </svg>
+                ) : (
+                  // Regular course with dialog
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <>
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h3 className="font-arsenal text-4xl font-bold text-black mb-1">
+                              {course.title}
+                            </h3>
+                            <p className="font-anonymous text-sm text-black mb-4">
+                              {course.subtitle}
+                            </p>
                           </div>
-                          <h4 className="font-arsenal text-lg font-bold text-black">Длительность</h4>
+                          <div 
+                            className="ml-4 opacity-70"
+                            style={{ color: course.textColor || '#9C4F4B' }}
+                          >
+                            {course.icon}
+                          </div>
                         </div>
-                        <p className="font-anonymous text-base text-black">{course.duration}</p>
-                      </div>
+                        
+                        <div className="flex-1 mb-6">
+                          <div className="font-arsenal text-base text-black space-y-3">
+                            {course.features.map((feature, index) => (
+                              <p key={index}>{feature}</p>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <div className="mt-auto pt-4 -mx-6">
+                          <div className="perforated-divider-full mb-4" aria-hidden="true"></div>
+                          <div className="font-anonymous text-2xl font-normal text-black text-center px-6">
+                            {course.price}
+                          </div>
+                        </div>
+                      </>
+                    </DialogTrigger>
+                    <DialogContent className="course-modal max-w-[95vw] max-h-[85vh] overflow-y-auto border-0" style={{ backgroundColor: course.bgColor }}>
+                      <DialogHeader className="text-center pb-4">
+                        <DialogTitle className="font-arsenal text-2xl font-bold text-black flex items-center justify-center gap-3 mb-1">
+                          <div style={{ color: course.textColor || '#9C4F4B' }}>
+                            {course.icon}
+                          </div>
+                          {course.title}
+                        </DialogTitle>
+                        <p className="font-arsenal text-lg text-black opacity-70">{course.subtitle}</p>
+                      </DialogHeader>
                       
-                      <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className="w-8 h-8 bg-white/50 rounded-full flex items-center justify-center">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                              <path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z" fill="currentColor"/>
-                            </svg>
+                      <div className="space-y-6">
+                        <div className="text-center">
+                          <p className="font-arsenal text-base text-black leading-relaxed">{course.description}</p>
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
+                            <div className="flex items-center gap-2 mb-2">
+                              <div className="w-8 h-8 bg-white/50 rounded-full flex items-center justify-center">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/>
+                                </svg>
+                              </div>
+                              <h4 className="font-arsenal text-lg font-bold text-black">Длительность</h4>
+                            </div>
+                            <p className="font-anonymous text-base text-black">{course.duration}</p>
                           </div>
-                          <h4 className="font-arsenal text-lg font-bold text-black">Формат</h4>
+                          
+                          <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
+                            <div className="flex items-center gap-2 mb-2">
+                              <div className="w-8 h-8 bg-white/50 rounded-full flex items-center justify-center">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                  <path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z" fill="currentColor"/>
+                                </svg>
+                              </div>
+                              <h4 className="font-arsenal text-lg font-bold text-black">Формат</h4>
+                            </div>
+                            <p className="font-anonymous text-base text-black">{course.format}</p>
+                          </div>
                         </div>
-                        <p className="font-anonymous text-base text-black">{course.format}</p>
-                      </div>
-                    </div>
 
-                    <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-8 h-8 bg-white/50 rounded-full flex items-center justify-center">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="currentColor"/>
-                          </svg>
-                        </div>
-                        <h4 className="font-arsenal text-lg font-bold text-black">Что включено:</h4>
-                      </div>
-                      <div className="space-y-2">
-                        {course.includes.map((item, index) => (
-                          <div key={index} className="flex items-start gap-2">
-                            <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
-                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="white"/>
+                        <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
+                          <div className="flex items-center gap-2 mb-3">
+                            <div className="w-8 h-8 bg-white/50 rounded-full flex items-center justify-center">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="currentColor"/>
                               </svg>
                             </div>
-                            <p className="font-anonymous text-sm text-black leading-relaxed">{item}</p>
+                            <h4 className="font-arsenal text-lg font-bold text-black">Что включено:</h4>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-4">
-                      <div className="perforated-divider-full mb-4" aria-hidden="true"></div>
-                      <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-4 mb-4 border border-white/20 shadow-lg">
-                        <p className="font-arsenal text-xs text-black opacity-70 mb-1">Стоимость курса</p>
-                        <div className="font-anonymous text-3xl font-bold text-black mb-2">
-                          {course.price}
+                          <div className="space-y-2">
+                            {course.includes.map((item, index) => (
+                              <div key={index} className="flex items-start gap-2">
+                                <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="white"/>
+                                  </svg>
+                                </div>
+                                <p className="font-anonymous text-sm text-black leading-relaxed">{item}</p>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                        <p className="font-arsenal text-xs text-black opacity-60">за весь курс</p>
                       </div>
-                      <Button className="course-cta-button text-black font-arsenal text-lg font-bold px-8 py-3 rounded-2xl w-full">
-                        Записаться на курс
-                      </Button>
-                      <p className="font-arsenal text-xs text-black opacity-50 mt-2">
-                        Первое занятие — бесплатно
-                      </p>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
+                    </DialogContent>
+                  </Dialog>
+                )}
+              </div>
             ))}
           </div>
         </div>

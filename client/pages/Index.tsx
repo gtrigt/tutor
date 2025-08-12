@@ -22,6 +22,7 @@ import { useScrollOptimization } from '@/hooks/use-scroll-optimization';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { ServiceWorker } from '@/components/ServiceWorker';
 import { Blog } from '@/components/Blog';
+import { ChecklistModal } from '@/components/ChecklistModal';
 
 // Lazy loading для тяжелых компонентов с preload
 const CoursesCarousel = lazy(() => import('@/components/CoursesCarousel').then(module => ({ default: module.CoursesCarousel })));
@@ -99,8 +100,42 @@ export default function Index() {
       import('@/components/ReviewsCarousel');
     };
     
+    // Preload изображения блога (PNG и WebP)
+    const preloadBlogImages = () => {
+      const blogImages = [
+        '/images/blog/blog_language.png',
+        '/images/blog/blog_mistakes.png',
+        '/images/blog/blog_olymp.png',
+        '/images/blog/blog_online.png'
+      ];
+      
+      const blogImagesWebp = [
+        '/images/blog/blog_language.webp',
+        '/images/blog/blog_mistakes.webp',
+        '/images/blog/blog_olymp.webp',
+        '/images/blog/blog_online.webp'
+      ];
+      
+      // Preload PNG версии
+      blogImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+      
+      // Preload WebP версии для поддерживаемых браузеров
+      if (typeof window !== 'undefined' && 'createImageBitmap' in window) {
+        blogImagesWebp.forEach(src => {
+          const img = new Image();
+          img.src = src;
+        });
+      }
+    };
+    
     // Запускаем preload после небольшой задержки
-    const timer = setTimeout(preloadComponents, 1000);
+    const timer = setTimeout(() => {
+      preloadComponents();
+      preloadBlogImages();
+    }, 1000);
     
     return () => clearTimeout(timer);
   }, []);
@@ -144,7 +179,7 @@ export default function Index() {
 🎂 Возраст: ${data.age}
 🌍 Страна: ${data.country}
 📧 Email: ${data.email}
-📱 Telegram: ${data.telegram}
+📱 Telegram: ${data.telegram || 'Не указан'}
 📞 Телефон: ${data.phone}
 
 ⏰ Время: ${new Date().toLocaleString('ru-RU')}
@@ -207,12 +242,12 @@ export default function Index() {
         <div className="relative w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mb-8 lg:mb-12">
           <div className="rounded-[35px] h-12 md:h-14 lg:h-16 xl:h-18 shadow-md relative flex items-center justify-between px-4 lg:px-6 xl:px-8" style={{ backgroundColor: '#FFF6F6' }}>
             {/* Telegram Icon */}
-            <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram">
+            <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram" className="social-hover is-telegram header-telegram">
               <OptimizedImage
                 src="/telegram"
                 alt="Telegram"
                 loading="lazy"
-                className="w-7 h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 opacity-80 flex-shrink-0 object-contain cursor-pointer hover:opacity-100 transition-opacity"
+                className="object-contain"
               />
             </a>
             
@@ -236,9 +271,12 @@ export default function Index() {
 
         {/* Main hero content */}
         <div className="relative">
-          <h1 className="font-arsenal text-2xl min-[690px]:text-3xl lg:text-4xl font-bold text-black text-center mb-6 px-4 md:px-0">
-            Репетитор английского языка — подготовка к олимпиадам, ЕГЭ/ОГЭ и IELTS
+          <h1 className="font-arsenal text-2xl min-[690px]:text-3xl lg:text-4xl font-bold text-black text-center mb-4 px-4 md:px-0">
+            Свободная речь без языкового барьера за 8 недель
           </h1>
+          <p className="font-anonymous text-center text-black/70 text-base lg:text-lg mb-6 px-4 max-w-3xl mx-auto">
+            Авторская методика + персональная программа под твою цель: ЕГЭ/ОГЭ 85+ баллов, олимпиада или свободное общение
+          </p>
           {/* Desktop Layout (>690px) */}
           <div className="hidden min-[690px]:flex min-[690px]:items-center min-[690px]:justify-center min-[690px]:gap-6 lg:gap-8 xl:gap-12 mb-8 lg:mb-12 px-4 lg:px-8">
             {/* Left side - Photo with background (главный элемент) */}
@@ -394,7 +432,6 @@ export default function Index() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg group-hover:from-black/90 transition-all duration-300"></div>
                 <div className="absolute bottom-4 left-4">
                   <h3 className="font-arsenal text-lg font-bold text-white">Обучение языку</h3>
-                  <p className="font-arsenal text-sm text-white opacity-70 mt-1">Индивидуальные онлайн-уроки</p>
                 </div>
               </div>
             </DialogTrigger>
@@ -403,14 +440,12 @@ export default function Index() {
                 <DialogTitle className="font-arsenal text-3xl font-bold text-black mb-2">
                   Обучение английскому языку
                 </DialogTitle>
-                <p className="font-arsenal text-lg text-black opacity-70">Индивидуальные онлайн-уроки</p>
               </DialogHeader>
               
               <div className="space-y-6">
                 <div className="text-center">
                   <p className="font-arsenal text-lg text-black leading-relaxed">
-                    Персональные занятия онлайн для изучения английского языка с нуля или для улучшения имеющихся навыков. 
-                    Гибкий график, индивидуальная программа и современные методики обучения.
+                    Постоянная практика языка на уроках, чтобы уже с начала занятий разрушить языковой барьер и научиться свободно говорить на языке с носителями!
                   </p>
                 </div>
                 
@@ -438,11 +473,18 @@ export default function Index() {
 
                 <div className="text-center pt-6">
                   <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/20 shadow-lg">
-                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость урока</p>
-                    <div className="font-anonymous text-4xl font-bold text-black mb-3">
-                      3.000 руб
+                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость блоков</p>
+                    <div className="space-y-2 mb-3">
+                      <div className="flex justify-between items-center">
+                        <span className="font-arsenal text-lg text-black">4 урока</span>
+                        <span className="font-arsenal text-xl font-bold text-black">19.000₽</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="font-arsenal text-lg text-black">8 уроков</span>
+                        <span className="font-arsenal text-xl font-bold text-black">38.000₽</span>
+                      </div>
                     </div>
-                    <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
+                    <p className="font-arsenal text-sm text-black opacity-60">скидки до 32%</p>
                   </div>
                   <Button 
                     onClick={() => handleCTAClick('language')}
@@ -470,9 +512,6 @@ export default function Index() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg group-hover:from-black/90 transition-all duration-300"></div>
                 <div className="absolute bottom-4 left-4">
                   <h3 className="font-arsenal text-lg font-bold text-white">Олимпиадная подготовка</h3>
-                  <p className="font-arsenal text-sm font-bold text-white opacity-70 mt-1">
-                    Индивидуальные онлайн-уроки
-                  </p>
                 </div>
               </div>
             </DialogTrigger>
@@ -481,7 +520,6 @@ export default function Index() {
                 <DialogTitle className="font-arsenal text-3xl font-bold text-black mb-2">
                   Олимпиадная подготовка
                 </DialogTitle>
-                <p className="font-arsenal text-lg text-black opacity-70">Индивидуальные онлайн-уроки</p>
               </DialogHeader>
               
               <div className="space-y-6">
@@ -516,11 +554,18 @@ export default function Index() {
 
                 <div className="text-center pt-6">
                   <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/20 shadow-lg">
-                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость урока</p>
-                    <div className="font-anonymous text-4xl font-bold text-black mb-3">
-                      3.000 руб
+                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость блоков</p>
+                    <div className="space-y-2 mb-3">
+                      <div className="flex justify-between items-center">
+                        <span className="font-arsenal text-lg text-black">4 урока</span>
+                        <span className="font-arsenal text-xl font-bold text-black">19.000₽</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="font-arsenal text-lg text-black">8 уроков</span>
+                        <span className="font-arsenal text-xl font-bold text-black">38.000₽</span>
+                      </div>
                     </div>
-                    <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
+                    <p className="font-arsenal text-sm text-black opacity-60">скидки до 32%</p>
                   </div>
                   <Button 
                     onClick={() => handleCTAClick('olimp')}
@@ -548,7 +593,6 @@ export default function Index() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-lg group-hover:from-black/90 transition-all duration-300"></div>
                 <div className="absolute bottom-4 left-4">
                   <h3 className="font-arsenal text-lg font-bold text-white">Подготовка к ОГЭ/ЕГЭ</h3>
-                  <p className="font-arsenal text-sm text-white opacity-70 mt-1">Индивидуальные онлайн-уроки</p>
                 </div>
               </div>
             </DialogTrigger>
@@ -557,7 +601,6 @@ export default function Index() {
                 <DialogTitle className="font-arsenal text-3xl font-bold text-black mb-2">
                   Подготовка к ОГЭ/ЕГЭ
                 </DialogTitle>
-                <p className="font-arsenal text-lg text-black opacity-70">Индивидуальные онлайн-уроки</p>
               </DialogHeader>
               
               <div className="space-y-6">
@@ -592,11 +635,18 @@ export default function Index() {
 
                 <div className="text-center pt-6">
                   <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/20 shadow-lg">
-                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость урока</p>
-                    <div className="font-anonymous text-4xl font-bold text-black mb-3">
-                      3.000 руб
+                    <p className="font-arsenal text-sm text-black opacity-70 mb-2">Стоимость блоков</p>
+                    <div className="space-y-2 mb-3">
+                      <div className="flex justify-between items-center">
+                        <span className="font-arsenal text-lg text-black">4 урока</span>
+                        <span className="font-arsenal text-xl font-bold text-black">19.000₽</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="font-arsenal text-lg text-black">8 уроков</span>
+                        <span className="font-arsenal text-xl font-bold text-black">38.000₽</span>
+                      </div>
                     </div>
-                    <p className="font-arsenal text-sm text-black opacity-60">за 60 минут</p>
+                    <p className="font-arsenal text-sm text-black opacity-60">скидки до 32%</p>
                   </div>
                   <Button 
                     onClick={() => handleCTAClick('ege')}
@@ -747,13 +797,13 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 max-w-2xl mx-auto">
             <a href="https://instagram.com/marat_english" target="_blank" rel="noopener noreferrer" 
                className="flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-2xl p-3 sm:p-4 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center sm:justify-start">
-              <OptimizedImage src="/instagram" alt="Instagram" className="w-6 h-6 sm:w-8 sm:h-8 object-contain flex-shrink-0" />
+              <span className="social-hover is-instagram"><OptimizedImage src="/instagram" alt="Instagram" className="object-contain flex-shrink-0" /></span>
               <span className="font-arsenal text-base sm:text-lg font-bold text-black truncate">@marat_english</span>
             </a>
             
             <a href="https://t.me/maratenglish" target="_blank" rel="noopener noreferrer"
                className="flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-2xl p-3 sm:p-4 shadow-lg border border-white/20 hover:bg-white/40 transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center sm:justify-start">
-              <OptimizedImage src="/telegram" alt="Telegram" className="w-6 h-6 sm:w-8 sm:h-8 object-contain flex-shrink-0" />
+              <span className="social-hover is-telegram"><OptimizedImage src="/telegram" alt="Telegram" className="object-contain flex-shrink-0" /></span>
               <span className="font-arsenal text-base sm:text-lg font-bold text-black truncate">@maratenglish</span>
             </a>
           </div>
@@ -902,7 +952,89 @@ export default function Index() {
       </section>
 
       {/* Blog Section */}
-      <Blog />
+      <section id="blog">
+        <Blog />
+      </section>
+
+      {/* Pricing & Lead Magnet Section */}
+      <section className="px-4 py-16 max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="font-arsenal text-4xl font-bold text-black mb-4">СТОИМОСТЬ И ГАРАНТИИ</h2>
+          <div className="w-32 h-1 bg-brand-secondary mx-auto mb-6"></div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 mb-12">
+          {/* Цены */}
+          <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 border border-white/40 shadow-xl">
+            <h3 className="font-arsenal text-2xl font-bold text-black mb-6 text-center">Индивидуальные занятия</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="font-arsenal text-lg text-black">Пробный урок</span>
+                <span className="font-arsenal text-xl font-bold text-green-600">БЕСПЛАТНО</span>
+              </div>
+              <div className="flex justify-between items-center bg-blue-50 rounded-xl p-3">
+                <div>
+                  <span className="font-arsenal text-lg text-black block">Блок 4 урока</span>
+                  <span className="font-anonymous text-sm text-black/70">Скидка 32%</span>
+                </div>
+                <div className="text-right">
+                  <span className="font-arsenal text-sm text-black/60 line-through">28000₽</span>
+                  <span className="font-arsenal text-xl font-bold text-black block">19000₽</span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center bg-brand-secondary/20 rounded-xl p-3">
+                <div>
+                  <span className="font-arsenal text-lg text-black block">Блок 8 уроков</span>
+                  <span className="font-anonymous text-sm text-black/70">Скидка 32% • Лучший выбор</span>
+                </div>
+                <div className="text-right">
+                  <span className="font-arsenal text-sm text-black/60 line-through">56000₽</span>
+                  <span className="font-arsenal text-xl font-bold text-black block">38000₽</span>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 p-4 bg-blue-50 rounded-xl">
+              <p className="font-arsenal text-sm text-blue-800 text-center">
+                ⭐ Гарантия: если не увидишь прогресс за 4 урока — вернем деньги
+              </p>
+            </div>
+          </div>
+
+          {/* Лид-магнит: чек-лист */}
+          <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-3xl p-8 border border-red-200 shadow-xl">
+            <h3 className="font-arsenal text-2xl font-bold text-red-800 mb-4 text-center">
+              🎯 БЕСПЛАТНЫЙ ЧЕК-ЛИСТ
+            </h3>
+            <h4 className="font-arsenal text-xl font-bold text-black mb-4 text-center">
+              "10 главных ошибок в письменной части ЕГЭ"
+            </h4>
+            <p className="font-anonymous text-black/70 mb-6 text-center">
+              Скачай чек-лист и узнай, какие ошибки стоят тебе драгоценных баллов на экзамене. Плюс получи персональный разбор своих работ.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-green-600">✓</span>
+                <span className="font-anonymous text-sm text-black">Частые ошибки в Writing</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-green-600">✓</span>
+                <span className="font-anonymous text-sm text-black">Типичные фразы-клише, которые НЕ работают</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-green-600">✓</span>
+                <span className="font-anonymous text-sm text-black">Шаблоны для эссе на максимальный балл</span>
+              </div>
+            </div>
+            <ChecklistModal
+              trigger={
+                <Button className="w-full mt-6 bg-red-600 text-white font-arsenal font-bold py-4 rounded-2xl hover:bg-red-700 shadow-lg">
+                  📥 Скачать чек-лист бесплатно
+                </Button>
+              }
+            />
+          </div>
+        </div>
+      </section>
 
       {/* FAQ Section */}
       <section className="px-4 py-12 max-w-6xl mx-auto">
@@ -915,7 +1047,7 @@ export default function Index() {
             },
             {
               question: "Сколько стоит занятие?",
-              answer: "Стоимость одного занятия составляет 3000 рублей за 60 минут. Первый пробный урок проводится бесплатно."
+              answer: "Занятия продаются блоками: 4 урока — 19000₽ (скидка 32%), 8 уроков — 38000₽ (скидка 32%). Первый пробный урок проводится бесплатно."
             },
             {
               question: "Какой уровень английского нужен для начала занятий?",
@@ -1063,8 +1195,7 @@ export default function Index() {
                 <input
                   type="text"
                   name="telegram"
-                  placeholder="Telegram-ник (через @)"
-                  required
+                  placeholder="Telegram-ник (через @) — опционально"
                   className="w-full px-4 py-3 rounded-lg bg-[#E8DED6] text-black placeholder-black/20 font-arsenal text-sm font-bold border-0 shadow-inner"
                   style={{ boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.25) inset' }}
                 />
@@ -1189,13 +1320,7 @@ export default function Index() {
           <div className="grid md:grid-cols-2 gap-6 max-w-lg mx-auto mb-8">
             {/* WhatsApp */}
             <a href="https://wa.me/79172676373" target="_blank" rel="noopener noreferrer" title="WhatsApp" className="flex flex-col items-center">
-              <div className="w-8 h-8 mb-2">
-                <OptimizedImage
-                  src="/whatsapp"
-                  alt="WhatsApp"
-                  className="w-full h-full object-contain cursor-pointer hover:opacity-80 transition-opacity"
-                />
-              </div>
+              <div className="w-8 h-8 mb-2"><span className="social-hover is-whatsapp"><OptimizedImage src="/whatsapp" alt="WhatsApp" className="object-contain" /></span></div>
               <span className="font-arsenal text-sm text-black text-center">
                 Написать в WhatsApp
               </span>
@@ -1203,15 +1328,7 @@ export default function Index() {
 
             {/* Telegram */}
             <a href="https://t.me/m/VX8q96qONjYy" target="_blank" rel="noopener noreferrer" title="Telegram" className="flex flex-col items-center">
-              <div className="w-8 h-8 mb-2 relative">
-                <div className="w-full h-full rounded-full bg-[#EBE4E2] flex items-center justify-center">
-                  <OptimizedImage
-                    src="/telegram"
-                    alt="Telegram"
-                    className="w-6 h-6 object-contain cursor-pointer hover:opacity-80 transition-opacity"
-                  />
-                </div>
-              </div>
+              <div className="w-8 h-8 mb-2 relative"><span className="social-hover is-telegram"><OptimizedImage src="/telegram" alt="Telegram" className="object-contain" /></span></div>
               <span className="font-arsenal text-sm text-black text-center">
                 Написать<br />в Telegram
               </span>
@@ -1224,11 +1341,7 @@ export default function Index() {
           <div className="flex items-center justify-center space-x-6">
             {/* Instagram */}
             <a href="https://instagram.com/marat_english" target="_blank" rel="noopener noreferrer" title="Instagram" className="flex items-center">
-              <OptimizedImage
-                src="/instagram"
-                alt="Instagram"
-                className="w-9 h-9 mr-2 object-contain cursor-pointer hover:opacity-80 transition-opacity"
-              />
+              <span className="social-hover is-instagram mr-2"><OptimizedImage src="/instagram" alt="Instagram" className="object-contain" /></span>
               <span className="font-arsenal text-base text-black">
                 Страница в Instagram
               </span>
@@ -1237,11 +1350,7 @@ export default function Index() {
 
           <div className="flex items-center justify-center mt-4">
             <a href="https://t.me/maratenglish" target="_blank" rel="noopener noreferrer" title="Telegram Channel" className="flex items-center">
-            <OptimizedImage
-                src="/telegram"
-              alt="Telegram"
-                className="w-10 h-10 mr-2 object-contain cursor-pointer hover:opacity-80 transition-opacity"
-            />
+            <span className="social-hover is-telegram mr-2"><OptimizedImage src="/telegram" alt="Telegram" className="object-contain" /></span>
             <span className="font-arsenal text-base text-black">
               Telegram-канал
             </span>
