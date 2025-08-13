@@ -1,9 +1,21 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://marat-english.com/sitemap.xml
+# Sitemaps
+Sitemap: https://tutor-marat.netlify.app/sitemap.xml
+Sitemap: https://tutor-marat.netlify.app/sitemap-blog.xml
 
 # Disallow admin areas (if any)
 Disallow: /admin/
 Disallow: /private/
+Disallow: /netlify/
+Disallow: /_next/
+Disallow: /api/
+
+# Allow important resources
+Allow: /images/
+Allow: /blog/
+Allow: /checklist.html
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1

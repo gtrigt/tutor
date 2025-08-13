@@ -1,18 +1,32 @@
-const CACHE_NAME = 'tutor-cache-v2';
-const STATIC_CACHE = 'tutor-static-v2';
+const CACHE_NAME = 'tutor-cache-v3';
+const STATIC_CACHE = 'tutor-static-v3';
+const DYNAMIC_CACHE = 'tutor-dynamic-v3';
+const IMAGE_CACHE = 'tutor-images-v3';
+
+// Файлы для предварительного кэширования
 const urlsToCache = [
   '/',
   '/index.html',
   '/global.css',
-  '/logo.png',
-  '/me.png',
-  '/telegram.png',
-  '/instagram.png',
-  '/whatsapp.png',
-  '/english.png',
-  '/Mark.png',
-  '/EGE.png'
+  '/performance-optimizations.css',
+  '/manifest.json',
+  '/favicon.ico',
+  '/favicon.svg'
 ];
+
+// Критические ресурсы для мгновенной загрузки
+const criticalResources = [
+  '/global.css',
+  '/performance-optimizations.css'
+];
+
+// Стратегии кэширования
+const cacheStrategies = {
+  critical: 'cache-first',
+  static: 'stale-while-revalidate',
+  images: 'cache-first',
+  api: 'network-first'
+};
 
 // Установка Service Worker
 self.addEventListener('install', (event) => {

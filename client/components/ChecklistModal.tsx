@@ -45,12 +45,24 @@ export const ChecklistModal: React.FC<ChecklistModalProps> = ({ trigger }) => {
         }).catch(() => {});
       } catch {}
 
+      // Помечаем лид как отправленный
+      try { sessionStorage.setItem('leadSubmitted', 'true'); } catch {}
+
       form.reset();
       setIsOpen(false);
       setIsSuccessOpen(true);
+      
+      // Открываем чек-лист немедленно в том же окне (надежнее чем popup)
+      setTimeout(() => {
+        window.location.href = '/checklist.html';
+      }, 1500);
     } catch {
       setIsOpen(false);
       setIsSuccessOpen(true);
+      // Все равно открываем чек-лист
+      setTimeout(() => {
+        window.location.href = '/checklist.html';
+      }, 1500);
     } finally {
       setIsSubmitting(false);
     }
@@ -115,12 +127,18 @@ export const ChecklistModal: React.FC<ChecklistModalProps> = ({ trigger }) => {
           <div className="mx-auto mb-2 w-14 h-14 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #DC2626, #EF4444)' }}>
             <span className="text-white text-2xl">📥</span>
           </div>
-          <DialogTitle className="font-arsenal text-2xl text-black">Чек-лист отправлен!</DialogTitle>
+          <DialogTitle className="font-arsenal text-2xl text-black">Готово! Переходим к чек-листу...</DialogTitle>
           <DialogDescription className="font-anonymous text-black/70">
-            Проверь email и Telegram. Также мы свяжемся с тобой для персональных рекомендаций.
+            Сейчас откроется страница с чек-листом. Также мы свяжемся с тобой для персональных рекомендаций.
           </DialogDescription>
           <div className="mt-4 space-y-3">
-            <Button onClick={() => setIsSuccessOpen(false)} className="bg-red-600 text-white font-arsenal font-bold hover:bg-red-700 w-full">
+            <Button 
+              onClick={() => window.location.href = '/checklist.html'} 
+              className="bg-red-600 text-white font-arsenal font-bold hover:bg-red-700 w-full"
+            >
+              📥 Открыть чек-лист
+            </Button>
+            <Button onClick={() => setIsSuccessOpen(false)} className="bg-gray-100 text-black font-arsenal font-bold hover:bg-gray-200 w-full">
               Закрыть
             </Button>
             <Button 

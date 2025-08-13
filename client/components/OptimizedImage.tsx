@@ -40,30 +40,72 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     folder = '/images/icons';
   } else if (baseSrc.includes('/IMG_')) {
     folder = '/images/reviews';
+  } else if (baseSrc.includes('/blog_')) {
+    folder = '/images/blog';
   }
   
-  // Генерируем пути для WebP и PNG
+  // Если папка не определена, используем базовый путь
+  if (!folder) {
+    folder = '/images';
+  }
+  
+  // Генерируем пути для WebP, AVIF и PNG
   const fileName = baseSrc.replace(/^\//, ''); // убираем начальную косую черту
   const webpSrc = `${folder}/${fileName}.webp`;
+  const avifSrc = `${folder}/${fileName}.avif`;
   const pngSrc = `${folder}/${fileName}.png`;
   
+  // Определяем размеры для responsive images
+  const responsiveSizes = sizes || `(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw`;
+  
+  // Создаем srcSet для разных размеров (если они существуют)
+  const createSrcSet = (format: string) => {
+    // Проверяем, есть ли изображения разных размеров
+    const sizes = [300, 600, 900, 1200];
+    const availableSizes = sizes.filter(size => {
+      // Проверяем существование файла (в реальности это будет проверяться на сервере)
+      return true; // Пока возвращаем все размеры
+    });
+    
+    if (availableSizes.length > 0) {
+      return availableSizes
+        .map(size => `${folder}/${fileName}-${size}.${format} ${size}w`)
+        .join(', ');
+    }
+    
+    // Если нет разных размеров, возвращаем основной файл
+    return `${folder}/${fileName}.${format}`;
+  };
+  
   return (
-    <picture>
+    <picture className="optimized-image">
       {/* WebP версия для современных браузеров */}
-      <source srcSet={webpSrc} type="image/webp" sizes={sizes} />
+      <source 
+        srcSet={`${folder}/${fileName}.webp`}
+        type="image/webp" 
+        sizes={responsiveSizes}
+      />
       
       {/* PNG fallback для старых браузеров */}
       <img
         src={pngSrc}
         alt={alt}
-        className={className}
+        className={`${className} loading-optimized`}
         loading={loading}
         fetchPriority={fetchPriority}
         decoding={decoding}
-        style={style}
+        style={{
+          ...style,
+          contentVisibility: 'auto',
+          containIntrinsicSize: '0 500px'
+        }}
         width={width}
         height={height}
-        sizes={sizes}
+        sizes={responsiveSizes}
+        onLoad={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.classList.add('loaded');
+        }}
       />
     </picture>
   );

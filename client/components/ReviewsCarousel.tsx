@@ -366,13 +366,51 @@ const ReviewsCarousel: React.FC = () => {
               <OptimizedImage
                 src={src}
                 alt={`Отзыв ${idx + 1}`}
-                reviewIndex={idx}
                 loading="lazy"
               />
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
+      
+      {/* Schema.org разметка для отзывов */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AggregateRating",
+            "itemReviewed": {
+              "@type": "Service",
+              "name": "Обучение английскому языку",
+              "description": "Подготовка к ЕГЭ, олимпиадам, разговорная практика"
+            },
+            "ratingValue": "4.9",
+            "reviewCount": reviews.length,
+            "bestRating": "5",
+            "worstRating": "1",
+            "review": reviews.map(review => ({
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": review.name
+              },
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": review.rating,
+                "bestRating": "5",
+                "worstRating": "1"
+              },
+              "reviewBody": review.text,
+              "datePublished": review.date,
+              "itemReviewed": {
+                "@type": "Service",
+                "name": review.direction
+              }
+            }))
+          })
+        }}
+      />
     </div>
   );
 };

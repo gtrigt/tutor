@@ -15,6 +15,11 @@ import {
 import { HamburgerMenu } from '@/components/HamburgerMenu';
 import { Timer } from '@/components/Timer';
 import { FAQ } from '@/components/FAQ';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { OrganizationSchema } from '@/components/OrganizationSchema';
+import { LocalBusinessSchema } from '@/components/LocalBusinessSchema';
+import { WebSiteSchema } from '@/components/WebSiteSchema';
+import { PersonSchema } from '@/components/PersonSchema';
 
 import { SEOHead } from '@/components/SEOHead';
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
@@ -23,6 +28,15 @@ import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { ServiceWorker } from '@/components/ServiceWorker';
 import { Blog } from '@/components/Blog';
 import { ChecklistModal } from '@/components/ChecklistModal';
+import { UrgencyTriggers } from '@/components/UrgencyTriggers';
+import { SocialProofBar } from '@/components/SocialProofBar';
+import { ExitIntentPopup } from '@/components/ExitIntentPopup';
+import { ChatBot } from '@/components/ChatBot';
+import { LiveSocialProof } from '@/components/LiveSocialProof';
+import { LevelTest } from '@/components/LevelTest';
+import { PrivacyPolicy } from '@/components/PrivacyPolicy';
+
+
 
 // Lazy loading для тяжелых компонентов с preload
 const CoursesCarousel = lazy(() => import('@/components/CoursesCarousel').then(module => ({ default: module.CoursesCarousel })));
@@ -201,6 +215,8 @@ export default function Index() {
           // Логируем ошибку в консоль, но не показываем пользователю
           console.log('Telegram API error (silent):', error);
         });
+        // Помечаем, что лид отправлен — чтобы не показывать exit-intent в этой сессии
+        try { sessionStorage.setItem('leadSubmitted', 'true'); } catch {}
       } catch (error) {
         // Логируем ошибку в консоль, но не показываем пользователю
         console.log('Fetch error (silent):', error);
@@ -235,6 +251,14 @@ export default function Index() {
       <ServiceWorker />
       <div className="min-h-screen w-full" style={{ backgroundColor: '#EBE4E2' }}>
 
+      {/* Breadcrumbs для SEO */}
+      <div className="container mx-auto px-4 py-2 bg-white/50 backdrop-blur-sm">
+        <Breadcrumbs 
+          items={[
+            { label: 'Главная', href: '/', current: true }
+          ]} 
+        />
+      </div>
       
       {/* Hero Section */}
       <section className="relative px-0 py-8 lg:py-12 max-w-7xl mx-auto">
@@ -313,14 +337,16 @@ export default function Index() {
             {/* Vertical divider line */}
             <div className="hidden min-[690px]:block h-64 lg:h-72 xl:h-80 w-px bg-gradient-to-b from-transparent via-brand-secondary to-transparent opacity-60 flex-shrink-0"></div>
 
-            {/* Right side - Timer and CTA (вторичный элемент) */}
+            {/* Right side - CTA (вторичный элемент) */}
             <div className="flex-1 text-center max-w-sm lg:max-w-md">
-              {/* Compact Timer для desktop */}
-              <Timer compact={true} />
-              <div className="font-arsenal text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-black opacity-50 mt-2 mb-6">
-                БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
+              {/* Urgency Triggers - Desktop */}
+              <div className="mb-4">
+                <UrgencyTriggers className="space-y-2" />
               </div>
-              <a href="https://t.me/m/fEpHrZQfYTBi" target="_blank" rel="noopener noreferrer">
+
+
+
+              <a href="#contacts">
                 <Button className="urgency-button bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-lg lg:text-xl font-bold px-6 lg:px-8 py-4 lg:py-6 rounded-3xl shadow-lg hover:shadow-2xl hover:scale-110 hover:from-[#D5B5A7] hover:to-[#B8AEAA] transition-all duration-300 border-2 border-brand-secondary/50 hover:border-brand-secondary relative overflow-hidden">
                   <span className="relative z-10 flex items-center gap-2">
                     ⚡ УСПЕЙ ЗАПИСАТЬСЯ ⚡
@@ -328,6 +354,10 @@ export default function Index() {
                   <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 </Button>
               </a>
+
+
+
+
             </div>
           </div>
 
@@ -378,18 +408,27 @@ export default function Index() {
             </div>
           </div>
           
+          {/* Social Proof Bar - Desktop */}
+          <div className="hidden lg:block px-4 mb-8">
+            <SocialProofBar />
+          </div>
+          
           {/* Achievement Text Background */}
           {/* Removed achievement/feature text block as requested */}
         </div>
       </section>
 
-      {/* Timer Section - Centered (Mobile only) */}
+
+
+      {/* CTA Section - Centered (Mobile only) */}
       <div className="min-[690px]:hidden text-center px-4 mb-12">
-        <Timer />
-          <div className="font-arsenal text-lg md:text-3xl font-bold text-black opacity-50 mt-2 mb-6">
-            БЕСПЛАТНЫЙ ПРОБНЫЙ УРОК
+          {/* Urgency Triggers - Mobile */}
+          <div className="mb-4">
+            <UrgencyTriggers className="space-y-2" />
           </div>
-          
+
+
+
           {/* Mobile CTA Button with Lightning */}
           <div className="relative mt-6">
             <a href="#contacts">
@@ -404,6 +443,11 @@ export default function Index() {
                 <span className="relative z-10">⚡ УСПЕЙ ЗАПИСАТЬСЯ ⚡</span>
               </button>
             </a>
+          </div>
+
+          {/* Social Proof Bar - Mobile */}
+          <div className="mt-6">
+            <SocialProofBar />
           </div>
       </div>
 
@@ -923,6 +967,8 @@ export default function Index() {
         }>
           <CoursesCarousel />
         </Suspense>
+
+
       </section>
 
       {/* Reviews Section */}
@@ -957,7 +1003,7 @@ export default function Index() {
       </section>
 
       {/* Pricing & Lead Magnet Section */}
-      <section className="px-4 py-16 max-w-6xl mx-auto">
+      <section id="pricing" className="px-4 py-16 max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="font-arsenal text-4xl font-bold text-black mb-4">СТОИМОСТЬ И ГАРАНТИИ</h2>
           <div className="w-32 h-1 bg-brand-secondary mx-auto mb-6"></div>
@@ -1034,6 +1080,8 @@ export default function Index() {
             />
           </div>
         </div>
+        
+
       </section>
 
       {/* FAQ Section */}
@@ -1072,6 +1120,26 @@ export default function Index() {
             {
               question: "Есть ли домашние задания?",
               answer: "Да, после каждого урока даются домашние задания, которые проверяются и разбираются на следующем занятии. Это помогает закрепить материал."
+            },
+            {
+              question: "А что если мне не подойдет ваша методика?",
+              answer: "Понимаю твои сомнения! Поэтому даю гарантию: если после 4 уроков ты не увидишь конкретного прогресса — верну 100% денег. Без вопросов и условий."
+            },
+            {
+              question: "Не слишком ли дорого? У конкурентов дешевле...",
+              answer: "Согласен, есть и дешевле. Но инвестиция в качественное образование окупается поступлением в топ-вуз и будущей зарплатой. Мои ученики в среднем зарабатывают на 50% больше благодаря свободному английскому."
+            },
+            {
+              question: "Хватит ли времени подготовиться к ЕГЭ за несколько месяцев?",
+              answer: "Зависит от стартового уровня. Но даже за 3-4 месяца интенсивной работы можно значительно поднять балл. У меня есть ученик, который за 5 месяцев поднял результат с 45 до 94 баллов."
+            },
+            {
+              question: "Можно ли заниматься самостоятельно по учебникам?",
+              answer: "Теоретически — да. Практически — 95% бросают через месяц. Без системы, обратной связи и мотивации очень сложно. Я даю структуру, исправляю ошибки сразу и веду к результату."
+            },
+            {
+              question: "А если я не смогу заниматься регулярно?",
+              answer: "Понятно, что жизнь непредсказуема. Поэтому мы составляем гибкий график, а пропущенные уроки можно перенести. Главное — твоя мотивация и готовность работать над собой."
             }
           ]}
         />
@@ -1436,6 +1504,84 @@ export default function Index() {
         </div>
       </div>
     )}
-    </>
-  );
+    
+    {/* Exit Intent Popup */}
+    <ExitIntentPopup />
+    
+    {/* ChatBot */}
+    <ChatBot />
+
+
+
+    {/* Level Test - Fixed position */}
+    <div className="fixed bottom-6 right-6 z-40">
+      <LevelTest />
+    </div>
+
+    {/* Sticky Floating CTA */}
+    <div className="fixed bottom-6 left-6 z-40">
+      <a href="#contacts">
+        <Button className="bg-gradient-to-r from-brand-secondary to-[#C4A698] text-black font-arsenal text-sm font-bold px-4 py-3 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-brand-secondary/50">
+          ⚡ ЗАПИСАТЬСЯ ⚡
+        </Button>
+      </a>
+    </div>
+    
+    {/* Live Social Proof */}
+    <LiveSocialProof />
+
+    {/* FAQ Section - Completely hidden */}
+    {/* <FAQ 
+      items={[
+        {
+          question: "Как быстро я смогу заговорить на английском?",
+          answer: "По нашей методике большинство учеников начинают свободно общаться уже через 4-6 недель регулярных занятий. Ключ в постоянной практике и преодолении языкового барьера."
+        },
+        {
+          question: "Какие результаты на ЕГЭ у ваших учеников?",
+          answer: "Средний балл наших учеников на ЕГЭ - 87 баллов. Многие получают 90+ баллов. Мы гарантируем минимум 80 баллов при соблюдении всех рекомендаций."
+        },
+        {
+          question: "Как проходят онлайн занятия?",
+          answer: "Занятия проводятся на интерактивной платформе с видеосвязью. Используем современные технологии, интерактивные доски и авторские материалы. Каждое занятие записывается для повторения."
+        },
+        {
+          question: "Можно ли заниматься в группе?",
+          answer: "Да, у нас есть как индивидуальные, так и групповые занятия. Группы формируются по уровню и целям (3-5 человек). Это позволяет снизить стоимость и добавить элемент соревнования."
+        },
+        {
+          question: "Что входит в стоимость занятий?",
+          answer: "В стоимость входят: все учебные материалы, доступ к платформе 24/7, проверка домашних заданий, пробные экзамены, поддержка куратора и персональный план обучения."
+        }
+      ]}
+    /> */}
+
+          {/* Organization Schema.org разметка */}
+      <OrganizationSchema />
+      <LocalBusinessSchema />
+      <WebSiteSchema />
+      <PersonSchema />
+      
+      {/* Privacy Policy Footer */}
+      <div className="bg-gray-50 border-t border-gray-200 py-8 mt-16">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center space-y-4">
+          <div className="flex items-center justify-center gap-4">
+            <PrivacyPolicy />
+            <a 
+              href="#contacts" 
+              className="font-arsenal text-sm text-gray-600 hover:text-brand-secondary transition-colors"
+            >
+              Контакты
+            </a>
+          </div>
+          <p className="font-anonymous text-xs text-gray-500">
+            © 2024 Марат Фассахов. Все права защищены.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </>
+);
 }

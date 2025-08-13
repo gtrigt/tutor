@@ -84,9 +84,16 @@ export const FAQ: React.FC<FAQProps> = ({
               "name": item.question,
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": item.answer
+                "text": item.answer,
+                "upvoteCount": 1,
+                "dateCreated": new Date().toISOString()
               }
-            }))
+            })),
+            "about": {
+              "@type": "Service",
+              "name": "Обучение английскому языку",
+              "description": "Подготовка к ЕГЭ, олимпиадам и разговорная практике"
+            }
           })
         }}
       />

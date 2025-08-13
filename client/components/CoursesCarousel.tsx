@@ -547,6 +547,48 @@ export const CoursesCarousel = () => {
           ))}
         </div>
       </div>
+      
+      {/* Schema.org разметка для курсов */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Курсы английского языка",
+            "description": "Курсы подготовки к ЕГЭ, олимпиадам и разговорной практике",
+            "numberOfItems": courses.length,
+            "itemListElement": courses.map((course, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "item": {
+                "@type": "Course",
+                "name": course.title,
+                "description": course.description,
+                "provider": {
+                  "@type": "Organization",
+                  "name": "Marat English",
+                  "sameAs": "https://t.me/maratenglish"
+                },
+                "courseMode": course.format === "Группы" ? "blended" : "online",
+                "educationalLevel": "secondary",
+                "inLanguage": "ru-RU",
+                "timeRequired": course.duration,
+                "teaches": [
+                  "Английский язык",
+                  course.title === "ОГЭ-ЕГЭ" ? "Подготовка к экзаменам" : 
+                  course.title === "IELTS" ? "Международный экзамен" : "Олимпиадная подготовка"
+                ],
+                "hasCourseInstance": {
+                  "@type": "CourseInstance",
+                  "courseMode": course.format === "Группы" ? "blended" : "online",
+                  "inLanguage": "ru-RU"
+                }
+              }
+            }))
+          })
+        }}
+      />
     </>
   );
 };

@@ -15,46 +15,58 @@ export const ExitIntentPopup: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
 
+  const SHOWN_KEY = 'exitIntentShown';
+  const LEAD_SUBMITTED_KEY = 'leadSubmitted';
+  const ACTIVATION_DELAY_MS = 25000;
+  const mountedAtRef = React.useRef<number>(Date.now());
+
   // Тестовая кнопка удалена
 
   useEffect(() => {
+    const eligible = () => {
+      const enoughTime = Date.now() - mountedAtRef.current >= ACTIVATION_DELAY_MS;
+      const alreadyShown = sessionStorage.getItem(SHOWN_KEY);
+      const leadSubmitted = sessionStorage.getItem(LEAD_SUBMITTED_KEY);
+      return enoughTime && !alreadyShown && !leadSubmitted && !hasShown && !isOpen;
+    };
+
     const handleMouseLeave = (e: MouseEvent) => {
-      // Показывать только если курсор уходит в верхнюю часть экрана или покидает документ
-      if ((e.clientY <= 0 || e.relatedTarget === null) && !hasShown && !isOpen) {
+      if ((e.clientY <= 0 || e.relatedTarget === null) && eligible()) {
         setIsOpen(true);
         setHasShown(true);
-        localStorage.setItem('exitIntentShown', 'true');
+        sessionStorage.setItem(SHOWN_KEY, 'true');
       }
     };
 
-    // Альтернативный способ - при попытке закрыть вкладку/страницу
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (!hasShown && !isOpen) {
-        e.preventDefault();
+    // Guard для кнопки Back (history popstate)
+    const pushGuardState = () => {
+      try {
+        if (!(history.state && (history.state as any).__exitGuard)) {
+          history.pushState({ __exitGuard: true }, '');
+        }
+      } catch {}
+    };
+
+    const handlePopState = () => {
+      if (eligible()) {
         setIsOpen(true);
         setHasShown(true);
-        localStorage.setItem('exitIntentShown', 'true');
-        return '';
+        sessionStorage.setItem(SHOWN_KEY, 'true');
+        pushGuardState();
       }
     };
 
-    // Проверяем, показывали ли уже попап
-    const alreadyShown = localStorage.getItem('exitIntentShown');
-    if (alreadyShown) {
-      setHasShown(true);
-      return;
-    }
-
-    // Задержка перед активацией (пользователь должен побыть на сайте минимум 10 сек для тестирования)
     const timer = setTimeout(() => {
       document.addEventListener('mouseleave', handleMouseLeave);
-      window.addEventListener('beforeunload', handleBeforeUnload);
-    }, 10000);
+      window.addEventListener('popstate', handlePopState);
+    }, ACTIVATION_DELAY_MS);
+
+    pushGuardState();
 
     return () => {
       clearTimeout(timer);
       document.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, [hasShown, isOpen]);
 

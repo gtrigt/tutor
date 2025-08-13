@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Главная страница -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Блог - главная страница -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/#blog</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Статья: Почему у тебя не получается выучить английский? -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/blog/why-english-fails.html</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://tutor-marat.netlify.app/images/blog/blog_language.png</image:loc>
+      <image:title>Почему у тебя не получается выучить английский?</image:title>
+      <image:caption>Анализ основных причин неудач в изучении английского языка</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Статья: Как заговорить на английском быстро -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/blog/speak-english-in-30-days.html</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://tutor-marat.netlify.app/images/blog/blog_online.png</image:loc>
+      <image:title>Как заговорить на английском быстро: 30 дней, которые меняют всё</image:title>
+      <image:caption>Практические советы для быстрого освоения разговорного английского</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Статья: Подготовка к ЕГЭ по английскому -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/blog/ege-preparation.html</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://tutor-marat.netlify.app/images/blog/blog_mistakes.png</image:loc>
+      <image:title>Подготовка к ЕГЭ по английскому: полное руководство</image:title>
+      <image:caption>Структурированный подход к подготовке к ЕГЭ по английскому языку</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Статья: Олимпиадная подготовка -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/blog/olympiad-success.html</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://tutor-marat.netlify.app/images/blog/blog_olymp.png</image:loc>
+      <image:title>Олимпиадная подготовка: путь к победе</image:title>
+      <image:caption>Стратегии успешной подготовки к олимпиадам по английскому языку</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Статья: Обучение онлайн -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/blog/online-learning.html</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://tutor-marat.netlify.app/images/blog/blog_online.png</image:loc>
+      <image:title>Обучение онлайн: преимущества и эффективность</image:title>
+      <image:caption>Современные методы онлайн-обучения английскому языку</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Статья: Частые ошибки -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/blog/common-mistakes.html</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://tutor-marat.netlify.app/images/blog/blog_mistakes.png</image:loc>
+      <image:title>Частые ошибки в изучении английского</image:title>
+      <image:caption>Анализ и исправление типичных ошибок при изучении английского</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Чек-лист ЕГЭ -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/checklist.html</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://tutor-marat.netlify.app/images/hero/EGE.png</image:loc>
+      <image:title>10 главных ошибок в письменной части ЕГЭ</image:title>
+      <image:caption>Бесплатный чек-лист для подготовки к ЕГЭ по английскому</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Страница 404 -->
+  <url>
+    <loc>https://tutor-marat.netlify.app/404.html</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.1</priority>
+  </url>
+  
+</urlset> 

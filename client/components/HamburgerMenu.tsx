@@ -51,13 +51,14 @@ export const HamburgerMenu = () => {
           <a href="#courses" onClick={e => handleMenuClick(e, '#courses')} className="menu-item-right">КУРСЫ</a>
           <a href="#blog" onClick={e => handleMenuClick(e, '#blog')} className="menu-item-right">БЛОГ</a>
           <a href="#reviews" onClick={e => handleMenuClick(e, '#reviews')} className="menu-item-right">ОТЗЫВЫ</a>
+          <a href="#pricing" onClick={e => handleMenuClick(e, '#pricing')} className="menu-item-right">СТОИМОСТЬ И ГАРАНТИИ</a>
           <a href="#contacts" onClick={e => handleMenuClick(e, '#contacts')} className="menu-item-right">КОНТАКТЫ</a>
         </nav>
 
         {/* Social icons */}
         <div className="menu-social-right">
           <div className="social-icons-right">
-            <a href="https://t.me/m/VX8q96qONjYy" className="social-icon-right social-hover is-telegram" target="_blank" rel="noopener noreferrer" title="Telegram">
+            <a href="https://t.me/maratenglish" className="social-icon-right social-hover is-telegram" target="_blank" rel="noopener noreferrer" title="Telegram">
               <OptimizedImage
                 src="/telegram"
                 alt="Telegram"

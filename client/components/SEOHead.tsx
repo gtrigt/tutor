@@ -111,6 +111,10 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       {/* Canonical */}
       <link rel="canonical" href={url} />
       
+      {/* Hreflang для языковых версий */}
+      <link rel="alternate" hrefLang="ru" href={url} />
+      <link rel="alternate" hrefLang="x-default" href={url} />
+      
       {/* Robots and basic meta */}
       <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
       <meta name="theme-color" content="#9C4F4B" />
@@ -130,14 +134,92 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       {/* Performance Hints */}
       <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
       <link rel="dns-prefetch" href="//api.telegram.org" />
+      <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+      <link rel="dns-prefetch" href="//www.google-analytics.com" />
+      <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+      
       <link rel="preconnect" href="https://cdn.jsdelivr.net" />
       <link rel="preconnect" href="https://api.telegram.org" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link rel="preconnect" href="https://www.google-analytics.com" />
+      <link rel="preconnect" href="https://www.googletagmanager.com" />
+      
+      {/* Resource Hints */}
+      <link rel="preload" href="/fonts/arsenal-sc.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/fonts/anonymous-pro.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       
       {/* Preload Blog Images */}
       <link rel="preload" as="image" href="/images/blog/blog_language.png" />
       <link rel="preload" as="image" href="/images/blog/blog_mistakes.png" />
       <link rel="preload" as="image" href="/images/blog/blog_olymp.png" />
       <link rel="preload" as="image" href="/images/blog/blog_online.png" />
+      
+      {/* Structured Data - Schema.org */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          "name": "Marat English - Репетитор английского языка",
+          "description": "Подготовка к ЕГЭ, олимпиадам, разговорная практика английского языка",
+          "url": "https://marat-english.com",
+          "logo": "https://marat-english.com/logo.png",
+          "image": "https://marat-english.com/me.png",
+          "telephone": "+7-XXX-XXX-XXXX",
+          "email": "info@marat-english.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "RU",
+            "addressLocality": "Russia"
+          },
+          "founder": {
+            "@type": "Person",
+            "name": "Марат Фассахов",
+            "jobTitle": "Преподаватель английского языка",
+            "description": "3 года обучения в Америке, 80+ учеников успешно сдали ЕГЭ",
+            "image": "https://marat-english.com/me.png"
+          },
+          "serviceType": [
+            "Подготовка к ЕГЭ по английскому",
+            "Подготовка к олимпиадам ВСОШ",
+            "Разговорная практика",
+            "Подготовка к IELTS"
+          ],
+          "areaServed": "RU",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Услуги репетитора",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Подготовка к ЕГЭ по английскому",
+                  "description": "Индивидуальная подготовка к ЕГЭ с гарантией 80+ баллов"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Олимпиадная подготовка",
+                  "description": "Подготовка к олимпиадам ВСОШ и перечневым олимпиадам"
+                }
+              }
+            ]
+          },
+          "sameAs": [
+            "https://t.me/maratenglish"
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "80",
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        })}
+      </script>
     </Helmet>
   );
 }; 

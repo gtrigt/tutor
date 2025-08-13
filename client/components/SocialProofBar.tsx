@@ -41,7 +41,8 @@ export const SocialProofBar: React.FC = () => {
 
   return (
     <div className="bg-white/80 backdrop-blur-sm border border-brand-secondary/30 rounded-2xl p-4 shadow-lg">
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex flex-row items-center justify-between gap-4">
         {/* Счетчик учеников */}
         <div className="flex items-center gap-3">
           <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
@@ -69,6 +70,39 @@ export const SocialProofBar: React.FC = () => {
         <div className="text-center">
           <p className="font-arsenal text-sm text-black/70">Средний результат:</p>
           <p className="font-arsenal text-2xl font-bold text-green-600">87 баллов</p>
+          <p className="font-anonymous text-xs text-black/60">на ЕГЭ</p>
+        </div>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="lg:hidden space-y-4">
+        {/* Счетчик учеников - Mobile */}
+        <div className="flex items-center justify-center gap-3">
+          <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+          <div className="text-center">
+            <p className="font-arsenal text-sm text-black/70">Довольных учеников:</p>
+            <p className="font-arsenal text-xl font-bold text-black">{totalStudents}+</p>
+          </div>
+        </div>
+
+        {/* Живые достижения - Mobile */}
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <span className="text-lg">🏆</span>
+            <p className="font-arsenal text-sm text-black/70">Последний результат:</p>
+          </div>
+          <p className="font-arsenal text-base font-bold text-black mb-1">
+            {achievements[currentAchievement].name} — {achievements[currentAchievement].result}
+          </p>
+          <p className="font-anonymous text-xs text-black/60">
+            {achievements[currentAchievement].exam}, {achievements[currentAchievement].date}
+          </p>
+        </div>
+
+        {/* Статистика успеха - Mobile */}
+        <div className="text-center">
+          <p className="font-arsenal text-sm text-black/70">Средний результат:</p>
+          <p className="font-arsenal text-xl font-bold text-green-600">87 баллов</p>
           <p className="font-anonymous text-xs text-black/60">на ЕГЭ</p>
         </div>
       </div>

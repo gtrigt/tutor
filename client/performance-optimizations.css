@@ -1,220 +1,189 @@
 /* Performance Optimizations CSS */
 
-/* Оптимизация для мобильных устройств */
-@media (max-width: 768px) {
-  /* Уменьшаем сложность анимаций на мобильных */
-  * {
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-  
-  /* Оптимизация для Swiper на мобильных */
-  .swiper-container,
-  .swiper {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    will-change: transform;
-  }
-  
-  /* Упрощаем переходы на мобильных */
-  .swiper-slide {
-    transition: transform 0.3s ease-out;
-  }
-  
-  /* Оптимизация для изображений на мобильных */
-  img {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
+/* Critical CSS - загружается первым */
+.critical {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }
 
-/* Оптимизация для быстрой прокрутки */
-@media (prefers-reduced-motion: no-preference) {
-  /* Включаем аппаратное ускорение для всех элементов с анимацией */
-  .animate-fade-in-up,
-  .animate-slide-in-left,
-  .animate-slide-in-right,
-  .animate-fade-in-up-delayed,
-  .animate-fade-in-up-slow {
-    will-change: transform, opacity;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-}
-
-/* Оптимизация для Swiper компонентов */
-.swiper-container,
-.swiper {
-  /* Включаем аппаратное ускорение */
-  will-change: transform;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  perspective: 1000px;
-  -webkit-perspective: 1000px;
-}
-
-.swiper-wrapper {
-  /* Оптимизация для wrapper */
-  will-change: transform;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
-
-.swiper-slide {
-  /* Оптимизация для слайдов */
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  will-change: transform;
-}
-
-/* Оптимизация для отзывов */
-.reviews-swiper {
-  /* Дополнительные оптимизации для карусели отзывов */
-  contain: layout style paint;
-  isolation: isolate;
-}
-
-.reviews-swiper .swiper-slide {
-  /* Оптимизация рендеринга слайдов отзывов */
-  contain: layout style paint;
-  isolation: isolate;
-}
-
-/* Оптимизация для изображений отзывов */
-.review-image {
-  /* Оптимизация для изображений */
-  will-change: transform;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: optimize-contrast;
-}
-
-/* Оптимизация для модальных окон */
-.course-modal {
-  /* Упрощаем анимации модальных окон */
-  will-change: transform, opacity;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-/* Оптимизация для кнопок и интерактивных элементов */
-button,
-.button,
-.btn {
-  /* Оптимизация для кнопок */
-  will-change: transform, background-color, box-shadow;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
-
-/* Оптимизация для прокрутки страницы */
-html {
-  /* Плавная прокрутка */
-  scroll-behavior: smooth;
-}
-
-body {
-  /* Оптимизация для мобильных устройств */
-  -webkit-overflow-scrolling: touch;
-  overflow-x: hidden;
+/* Оптимизация для изображений */
+img, picture, video {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }
 
 /* Оптимизация для анимаций */
-@keyframes optimizedFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) translateZ(0);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) translateZ(0);
-  }
+.animate-optimized {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-@keyframes optimizedSlideIn {
-  from {
-    transform: translateX(-100%) translateZ(0);
-  }
-  to {
-    transform: translateX(0) translateZ(0);
-  }
+/* Оптимизация для скролла */
+.scroll-optimized {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Применяем оптимизированные анимации */
-.animate-fade-in-up {
-  animation: optimizedFadeIn 0.6s ease-out forwards;
+/* Оптимизация для шрифтов */
+.font-display-optimized {
+  font-display: swap;
+  font-display: optional;
 }
 
-.animate-slide-in-left {
-  animation: optimizedSlideIn 0.6s ease-out forwards;
+/* Оптимизация для фоновых изображений */
+.bg-optimized {
+  background-attachment: scroll;
+  background-size: cover;
+  background-position: center;
 }
 
-/* Оптимизация для hover эффектов */
-@media (hover: hover) {
-  /* Только для устройств с hover */
-  button:hover,
-  .button:hover,
-  .btn:hover {
-    transform: translateY(-2px) translateZ(0);
-    -webkit-transform: translateY(-2px) translateZ(0);
-  }
-}
-
-/* Оптимизация для touch устройств */
-@media (hover: none) and (pointer: coarse) {
-  /* Для touch устройств отключаем hover эффекты */
-  button:hover,
-  .button:hover,
-  .btn:hover {
-    transform: none;
-    -webkit-transform: none;
+/* Оптимизация для мобильных устройств */
+@media (max-width: 768px) {
+  .mobile-optimized {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
   
-  /* Упрощаем анимации на touch устройствах */
-  .swiper-slide {
-    transition: transform 0.2s ease-out;
+  /* Отключаем сложные анимации на мобильных */
+  .mobile-optimized * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
   }
 }
 
-/* Оптимизация для высоких DPI экранов */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* Для Retina экранов */
-  img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: optimize-contrast;
+/* Оптимизация для печати */
+@media print {
+  .print-optimized {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }
 
 /* Оптимизация для слабых устройств */
-@media (max-width: 480px) {
-  /* Дополнительные оптимизации для маленьких экранов */
-  * {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  
-  /* Упрощаем все анимации */
-  .animate-fade-in-up,
-  .animate-slide-in-left,
-  .animate-slide-in-right {
-    animation-duration: 0.3s;
+}
+
+/* Оптимизация для высокого контраста */
+@media (prefers-contrast: high) {
+  .high-contrast-optimized {
+    border: 2px solid currentColor;
+    background: transparent;
   }
-  
-  /* Отключаем сложные эффекты */
-  .swiper-slide {
-    transition: none;
+}
+
+/* Оптимизация для темной темы */
+@media (prefers-color-scheme: dark) {
+  .dark-optimized {
+    filter: invert(1) hue-rotate(180deg);
   }
+}
+
+/* Оптимизация для фокуса */
+.focus-optimized:focus {
+  outline: 2px solid #007acc;
+  outline-offset: 2px;
+}
+
+/* Оптимизация для скринридеров */
+.sr-optimized {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Оптимизация для загрузки */
+.loading-optimized {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.loading-optimized.loaded {
+  opacity: 1;
+}
+
+/* Оптимизация для сетки */
+.grid-optimized {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Оптимизация для флексбокса */
+.flex-optimized {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Оптимизация для позиционирования */
+.position-optimized {
+  position: relative;
+  z-index: 1;
+}
+
+/* Оптимизация для тени */
+.shadow-optimized {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Оптимизация для градиентов */
+.gradient-optimized {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: scroll;
+}
+
+/* Оптимизация для border-radius */
+.radius-optimized {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Оптимизация для transition */
+.transition-optimized {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Оптимизация для transform */
+.transform-optimized {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Оптимизация для opacity */
+.opacity-optimized {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.opacity-optimized:hover {
+  opacity: 0.8;
+}
+
+/* Оптимизация для visibility */
+.visibility-optimized {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.3s ease-in-out;
+}
+
+.visibility-optimized.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.3s, opacity 0.3s ease-in-out;
 } 
